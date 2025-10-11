@@ -1,0 +1,42 @@
+﻿@page "/addingeducator"
+@using System.ComponentModel.DataAnnotations
+@rendermode InteractiveServer
+
+
+<PageTitle>Adding Educator</PageTitle>
+
+<h1>Legg til fagperson</h1>
+<EditForm Model="educator" class="form-container">
+	<input type="text" class="form-control" placeholder="Fornavn" @bind="educator.firstName" />
+	<input type="text" class="form-control" placeholder="Etternavn" @bind="educator.lastName" />
+	<input type="email" class="form-control" placeholder="E-post" @bind="educator.email" />
+	<input type="date" class="form-control" placeholder="fødselsdato" @bind="educator.birthDate" />
+	<input type="text" class="form-control" placeholder="Fagenhet" @bind="educator.subjectUnit" />
+	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="educator.Education" />
+	<input type="text" class="form-control" placeholder="Spesialisering" @bind="educator.Specialization" />
+	<button class="btn-primary" >Submit</button>
+</EditForm>
+
+
+@code {
+	public class Educator {
+		public required string firstName { get; set; } = string.Empty;
+		public required string lastName { get; set; } = string.Empty;
+		public required DateTime birthDate { get; set; }
+		public required string email { get; set; } = string.Empty;
+		public required string subjectUnit { get; set; } = string.Empty;
+		public required string Education { get; set; } = string.Empty;
+		public required string Specialization { get; set; } = string.Empty;
+	}
+
+	public Educator educator = new Educator
+		{
+			firstName = string.Empty,
+			lastName = string.Empty,
+			birthDate = DateTime.Now,
+			email = string.Empty,
+			subjectUnit = string.Empty,
+			Education = string.Empty,
+			Specialization = string.Empty
+		};
+}

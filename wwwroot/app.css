@@ -7,6 +7,7 @@ a, .btn-link {
 }
 
 .btn-primary {
+    width: 100%;
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
@@ -57,4 +58,18 @@ h1:focus {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
+}
+.form-container {
+    display: flex;
+    justify-content: center;
+    -ms-align-content: inherit;
+    -webkit-align-content: inherit;
+    align-content: inherit;
+    max-width: 33%;
+    margin: 2px;
+}
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #000000;
 }

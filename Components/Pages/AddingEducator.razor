@@ -6,15 +6,15 @@
 <PageTitle>Adding Educator</PageTitle>
 
 <h1>Legg til fagperson</h1>
-<EditForm Model="educator">
-	<input type="text" placeholder="Fornavn" @bind="educator.firstName" />
-	<input type="text" placeholder="Etternavn" @bind="educator.lastName" />
-	<input type="email" placeholder="E-post" @bind="educator.email" />
-	<input type="date" placeholder="fødselsdato" @bind="educator.birthDate" />
-	<input type="text" placeholder="Fagenhet" @bind="educator.subjectUnit" />
-	<input type="text" placeholder="Utdanningsbakgrunn" @bind="educator.Education" />
-	<input type="text" placeholder="Spesialisering" @bind="educator.Specialization" />
-	<button class="btn-primary" >Submit</button>
+<EditForm Model="educator" class="form-container">
+	<input type="text" class="form-control" placeholder="Fornavn" @bind="educator.firstName" />
+	<input type="text" class="form-control" placeholder="Etternavn" @bind="educator.lastName" />
+	<input type="email" class="form-control" placeholder="E-post" @bind="educator.email" />
+	<input type="date" class="form-control" placeholder="fødselsdato" @bind="educator.birthDate" />
+	<input type="text" class="form-control" placeholder="Fagenhet" @bind="educator.subjectUnit" />
+	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="educator.Education" />
+	<input type="text" class="form-control" placeholder="Spesialisering" @bind="educator.Specialization" />
+	<button class="form-button" >Submit</button>
 </EditForm>
 
 

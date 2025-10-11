@@ -60,11 +60,6 @@ h1:focus {
     text-align: start;
 }
 .form-container {
-    display: flex;
-    justify-content: center;
-    -ms-align-content: inherit;
-    -webkit-align-content: inherit;
-    align-content: inherit;
     max-width: 33%;
     margin: 2px;
 }

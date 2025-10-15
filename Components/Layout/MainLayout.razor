@@ -9,9 +9,9 @@
         <div class="top-row px-4">
             <div>
                 Filtrer på dato:
-                <input type="date" placeholder="dato fra" />
+                <input type="date" placeholder="dato fra" value=@startDate()/>
                 til: 
-				<input type="date" placeholder="dato til" />
+				<input type="date" placeholder="dato til" value=@endDate() />
             </div>
             
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
@@ -28,3 +28,47 @@
     <a href="." class="reload">Reload</a>
     <span class="dismiss">🗙</span>
 </div>
+
+@code {
+
+
+    private string startDate()
+    {
+        // Default to start of current school year
+        int currentYear = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("yyyy"));
+        int currentMonth = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("MM"));
+
+        string startDate = $"{currentYear.ToString()}-01-01";
+
+        if (currentMonth > 6)
+        {
+            startDate = $"{currentYear.ToString()}-08-01";
+        }
+        else
+        {
+            currentYear -= 1;
+            startDate = $"{currentYear.ToString()}-08-01";
+        }
+
+        return startDate;
+    }
+
+    private string endDate()
+    {
+        int currentYear = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("yyyy"));
+        int currentMonth = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("MM"));
+
+        string endDate = $"{currentYear.ToString()}-01-01";
+        if (currentMonth > 6)
+        {
+            currentYear += 1;
+            endDate = $"{currentYear.ToString()}-06-30";
+        }
+        else
+        {
+            endDate = $"{currentYear.ToString()}-06-30";
+		}
+		return endDate;
+    }
+
+}

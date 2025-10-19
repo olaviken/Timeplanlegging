@@ -17,11 +17,19 @@
 		<option value="Spesialsykepleie">Spesialsykepleie</option>
 		<option value="Fysioterapi">Fysioterapi</option>
 		<option value="Ergoterapi">Ergoterapi</option>
-		<option value="Audiologi">Audiologi</option>
+		<option value="Audiologi">Audiologi</option> 
+		<!--To do list fremover:
+			Endre dette til en liste som hentes fra database-->
+		
 	</select>
 	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="educator.Education" />
 	<input type="text" class="form-control" placeholder="Spesialisering" @bind="educator.Specialization" />
 	<button class="form-button" >Submit</button>
+	<!-- 
+		To do fremover:
+			Lage en funksjon som lagrer dataene først i en liste, deretter sender de til en database (Database ikke implementert enda). Fokusere på UI først.
+
+	-->
 </EditForm>
 
 

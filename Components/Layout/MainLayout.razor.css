@@ -96,3 +96,22 @@ main {
         right: 0.75rem;
         top: 0.5rem;
     }
+#profile {
+    cursor: pointer;
+}
+#profileHelp {
+    visibility: hidden;
+    width: 120px;
+    top: 100%;
+    left: 50%;
+    background-color: wheat;
+    color: black;
+    text-align: left;
+    padding: 5px 0;
+    border-radius: 6px;
+    z-index: 1;
+    font-size: 0.8rem;
+}
+#profile:hover #profileHelp {
+    visibility: visible;
+}

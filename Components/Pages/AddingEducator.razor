@@ -2,7 +2,10 @@
 @using System.ComponentModel.DataAnnotations
 @rendermode InteractiveServer
 
-
+<!--Mulig døpe om denne siden til profile
+	koble denne lokale klassen og formen til en global klasse og service for å lagre data i database
+	Kanskje lagre den i en liste i en service. 
+-->
 <PageTitle>Adding Educator</PageTitle>
 
 <h1>Legg til fagperson</h1>
@@ -11,6 +14,15 @@
 	<input type="text" class="form-control" placeholder="Etternavn" @bind="educator.lastName" />
 	<input type="email" class="form-control" placeholder="E-post" @bind="educator.email" />
 	<input type="date" class="form-control" placeholder="fødselsdato" @bind="educator.birthDate" />
+	<select class="form-control" placeholder="Stilling" @bind="educator.position">
+		<option value="" disabled selected>Stilling</option>
+		<option value="Førstelektor">Førstelektor</option>
+		<option value="Høgskolelektor">Høgskolelektor</option>
+		<option value="Professor">Professor</option>
+		<option value="Dosent">Dosent</option>
+		<option value="Universitetslektor">Universitetslektor</option>
+		<option value="Førsteamanuensis">Førsteamanuensis</option>
+	</select>
 	<select class="form-control" placeholder="Fagenhet" @bind="educator.subjectUnit">
 		<option value="" disabled selected>Fagenhet</option>
 		<option value="Sykepleie">Sykepleie</option>
@@ -22,8 +34,8 @@
 			Endre dette til en liste som hentes fra database-->
 		
 	</select>
-	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="educator.Education" />
-	<input type="text" class="form-control" placeholder="Spesialisering" @bind="educator.Specialization" />
+	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="educator.education" />
+	<input type="text" class="form-control" placeholder="Spesialisering" @bind="educator.specialization" />
 	<button class="form-button" >Submit</button>
 	<!-- 
 		To do fremover:
@@ -39,9 +51,11 @@
 		public required string lastName { get; set; } = string.Empty;
 		public required DateTime birthDate { get; set; }
 		public required string email { get; set; } = string.Empty;
+		public required string position { get; set; } = string.Empty;
 		public required string subjectUnit { get; set; } = string.Empty;
-		public required string Education { get; set; } = string.Empty;
-		public required string Specialization { get; set; } = string.Empty;
+		public required string education { get; set; } = string.Empty;
+		public required string specialization { get; set; } = string.Empty;
+		
 	}
 
 	public Educator educator = new Educator
@@ -50,8 +64,9 @@
 			lastName = string.Empty,
 			birthDate = DateTime.Now,
 			email = string.Empty,
+			position = string.Empty,
 			subjectUnit = string.Empty,
-			Education = string.Empty,
-			Specialization = string.Empty
+			education = string.Empty,
+			specialization = string.Empty
 		};
 }

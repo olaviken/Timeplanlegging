@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -7,5 +7,9 @@
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
     <UserSecretsId>e06a85f6-e398-42f6-9649-98e07e31258e</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Classes\" />
+  </ItemGroup>
 
 </Project>

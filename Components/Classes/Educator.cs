@@ -24,6 +24,26 @@ namespace BlazorTest.Components.Classes
 
         public Educator(string firstName, string lastName, DateTime birthDate, string userName, string position)
         {
+            if (string.IsNullOrWhiteSpace(firstName))
+            {
+                throw new ArgumentException("First name cannot be empty.");
+            }
+            if (string.IsNullOrWhiteSpace(lastName))
+            {
+               throw new ArgumentException("Last name cannot be empty.");
+            }
+            if (birthDate == DateTime.MinValue || birthDate > DateTime.Today)
+            {
+                throw new ArgumentException("Invalid birth date.");
+            }
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                throw new ArgumentException("User name cannot be empty.");
+            }
+            if (string.IsNullOrWhiteSpace(position))
+            {
+                throw new ArgumentException("Position cannot be empty.");
+            }
             FirstName = firstName;
             LastName = lastName;
             BirthDate = birthDate;
@@ -50,8 +70,14 @@ namespace BlazorTest.Components.Classes
             }
             if (birthDate.Date > today.AddYears(-age)) age--;
             return age;
-
             
+        }
+
+        public void SetEducationDetails(string subjectUnit, string education, string specialization)
+        {
+            SubjectUnit = subjectUnit;
+            Education = education;
+            Specialization = specialization;
         }
     }
 }

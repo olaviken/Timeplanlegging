@@ -84,5 +84,20 @@ namespace BlazorTest.Components.Classes
             Education = education;
             Specialization = specialization;
         }
+
+        /* This methods depends on how old the educator is and its position. 
+         If an educator is 60 years old or older the receive 5 days more in vacation.
+         If an educator is 62 years old or older the receive an extra 5 days in vacation.
+         by position:
+            - Professor: has 45% of hours for education
+            - Associate Professor: has 45% of hours for education
+            - Lektor: has 80% of hours for education
+            - More to come...
+        Also baseline for hours of work is 1675 hours per year. One work day is 7,5 hours. Making a work week of 37,5 hours.
+         */
+        public void CalculateHoursForEducation()
+        {
+            
+        }
     }
 }

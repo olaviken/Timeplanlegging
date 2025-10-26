@@ -145,5 +145,36 @@ namespace BlazorTest.Components.Classes
             float hoursForEducation = (percentagePosition/100)*((standardHours - reducedHours) * positionFactor);
             return hoursForEducation;
         }
+
+        public float CalculateHoursForRND(DateTime birthDate, string position, int percentagePosition) {
+            /* 
+             * Similar to CalculateHoursForEducation but for RND activities.
+             */
+            float standardHours = 1687.5f;
+            float reducedHours = 0f;
+            float positionFactor = 0f;
+
+            int Age = CalculateAge(birthDate); 
+            if (Age >= 62)
+            {
+                reducedHours = 75f; 
+            }
+            else if (Age >= 60)
+            {
+                reducedHours = 37.5f;
+            }
+            if (position.Equals("Professor", StringComparison.OrdinalIgnoreCase) ||
+                position.Equals("Førsteamanuensis", StringComparison.OrdinalIgnoreCase))
+            {
+                positionFactor = 0.45f;
+            }
+            else
+            {
+                positionFactor = 0.20f;
+            }
+            float hoursForRND = (percentagePosition/100)*((standardHours - reducedHours) * positionFactor);
+
+            return hoursForRND;
+        }
     }
 }

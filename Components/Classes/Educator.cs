@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace BlazorTest.Components.Classes
 {
-    class Educator
+    public class Educator
     {
         public string FirstName { get; private set; } = string.Empty;
         public string LastName { get; private set; } = string.Empty;

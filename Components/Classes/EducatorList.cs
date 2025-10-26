@@ -7,7 +7,38 @@ namespace BlazorTest.Components.Classes
     {
         public List<Educator> Educators { get; private set; } = new List<Educator>();
 
+        public float TotalHoursForEducation
+        {
+            get
+            {
+                float totalHours = 0;
+                foreach (var educator in Educators)
+                {
+                    if (educator.HoursForEducation>=0)
+                    {
+                        totalHours += educator.HoursForEducation;
+                    }
+                }
 
+                return totalHours;
+            }
+        }
+
+        public float TotalHoursForRND
+        {
+            get
+            {
+                float totalHours = 0;
+                foreach (var educator in Educators)
+                {
+                    if (educator.HoursForRND>=0)
+                    {
+                        totalHours += educator.HoursForRND;
+                    }
+                }
+                return totalHours;
+            }
+        }
 
         public EducatorList() { }
         public void AddEducator(Educator educator)

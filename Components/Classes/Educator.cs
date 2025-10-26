@@ -37,6 +37,13 @@ namespace BlazorTest.Components.Classes
             }
         }
 
+        public float HoursForRND
+        {
+            get
+            {
+                return CalculateHoursForRND(BirthDate, Position, percentagePosition);
+            }
+        }
 
 
         public Educator() { }

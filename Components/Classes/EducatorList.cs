@@ -61,11 +61,19 @@ namespace BlazorTest.Components.Classes
 
         public Educator? FindEducatorByEmail(string email)
         {
+            if (email == null)
+            {
+                throw new ArgumentNullException(nameof(email), "Email cannot be null.");
+            }
             return Educators.FirstOrDefault(e => e.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
         public Educator? FindEducatorByName(string fullname)
         {
+            if (fullname == null)
+            {
+                throw new ArgumentNullException(nameof(fullname), "Full name cannot be null.");
+            }
             return Educators.FirstOrDefault(e => $"{e.LastName}, {e.FirstName}".Equals(fullname, StringComparison.OrdinalIgnoreCase));
         }
 

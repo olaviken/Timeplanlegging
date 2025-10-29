@@ -5,7 +5,7 @@ namespace BlazorTest.Components.Classes
 
     public class EducatorList
     {
-        public List<Educator> Educators { get; private set; } = new List<Educator>();
+        public List<Educator> Educators { get; private set; } = new();
 
         public float TotalHoursForEducation
         {
@@ -47,6 +47,10 @@ namespace BlazorTest.Components.Classes
             {
                 throw new ArgumentNullException(nameof(educator), "Educator cannot be null.");
             }
+            if (FindEducatorByEmail(educator.Email) != null)
+            {
+                throw new InvalidOperationException("An educator with the same email already exists.");
+            }
             Educators.Add(educator);
         }
         
@@ -56,12 +60,54 @@ namespace BlazorTest.Components.Classes
             {
                 throw new ArgumentNullException(nameof(educator), "Educator cannot be null.");
             }
+            if(Educators == null || Educators.Count == 0)
+            {
+                throw new InvalidOperationException("Educator list is empty.");
+            }
             Educators.Remove(educator);
         }
 
         public Educator? FindEducatorByEmail(string email)
         {
-            return Educators.FirstOrDefault(e => e.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            Educator? result = null;
+            if (email == null)
+            {
+                throw new ArgumentNullException(nameof(email), "Email cannot be null.");
+            }
+            if (Educators == null || Educators.Count == 0)
+            {
+                throw new InvalidOperationException("Educator list is empty.");
+            }
+            if (Educators.Any(e => e.Email == email))
+            {
+                result = Educators.First(e => e.Email == email);
+                return result;
+            }
+            else
+            {
+                throw new InvalidOperationException("Educator with the specified email not found.");
+
+            }
+        }
+
+        public Educator? FindEducatorByName(string fullname)
+        {
+            if (fullname == null)
+            {
+                throw new ArgumentNullException(nameof(fullname), "Full name cannot be null.");
+            }
+            if (Educators == null || Educators.Count == 0)
+            {
+                throw new InvalidOperationException("Educator list is empty.");
+            }
+            if (Educators.Any(e => $"{e.LastName}, {e.FirstName}".Equals(fullname, StringComparison.OrdinalIgnoreCase)) == false)
+            {
+                throw new InvalidOperationException("Educator with the specified name not found.");
+            }
+            else
+            {
+                return Educators.First(e => $"{e.LastName}, {e.FirstName}".Equals(fullname, StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         public void UpdateEducator(Educator updatedEducator)

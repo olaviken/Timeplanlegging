@@ -65,11 +65,25 @@ namespace BlazorTest.Components.Classes
 
         public Educator? FindEducatorByEmail(string email)
         {
+            Educator? result = null;
             if (email == null)
             {
                 throw new ArgumentNullException(nameof(email), "Email cannot be null.");
             }
-            return Educators.FirstOrDefault(e => e.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            if (Educators == null || Educators.Count == 0)
+            {
+                throw new InvalidOperationException("Educator list is empty.");
+            }
+            if (Educators.Any(e => e.Email == email))
+            {
+                result = Educators.First(e => e.Email == email);
+                return result;
+            }
+            else
+            {
+                throw new InvalidOperationException("Educator with the specified email not found.");
+
+            }
         }
 
         public Educator? FindEducatorByName(string fullname)
@@ -78,7 +92,18 @@ namespace BlazorTest.Components.Classes
             {
                 throw new ArgumentNullException(nameof(fullname), "Full name cannot be null.");
             }
-            return Educators.FirstOrDefault(e => $"{e.LastName}, {e.FirstName}".Equals(fullname, StringComparison.OrdinalIgnoreCase));
+            if (Educators == null || Educators.Count == 0)
+            {
+                throw new InvalidOperationException("Educator list is empty.");
+            }
+            if (Educators.Any(e => $"{e.LastName}, {e.FirstName}".Equals(fullname, StringComparison.OrdinalIgnoreCase)) == false)
+            {
+                throw new InvalidOperationException("Educator with the specified name not found.");
+            }
+            else
+            {
+                return Educators.First(e => $"{e.LastName}, {e.FirstName}".Equals(fullname, StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         public void UpdateEducator(Educator updatedEducator)

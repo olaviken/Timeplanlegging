@@ -2,6 +2,8 @@
 {
     public class ActivityList
     {
-        public List<EducationActivity> EducationActivities { get; private set; } = new List<EducationActivity>();
+        public List<EducationActivity> Activites { get; private set; } = new();
+
+        
     }
 }

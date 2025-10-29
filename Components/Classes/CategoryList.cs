@@ -2,6 +2,6 @@
 {
     public class CategoryList
     {
-        public List<EducatioCategory> EducationCategories { get; private set; } = new List<EducatioCategory>();
+        public List<EducatioCategory> EducationCategories { get; private set; } = new();
     }
 }

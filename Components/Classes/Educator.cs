@@ -17,7 +17,7 @@ namespace BlazorTest.Components.Classes
         public string Education { get; private set; } = string.Empty;
         public string Specialization { get; private set; } = string.Empty;
         
-        public int percentagePosition { get; private set; } = 100;
+        public int PercentagePosition { get; private set; } = 100;
 
         
 
@@ -33,7 +33,7 @@ namespace BlazorTest.Components.Classes
         {
             get
             {
-                return CalculateHoursForEducation(BirthDate, Position, percentagePosition);
+                return CalculateHoursForEducation(BirthDate, Position, PercentagePosition);
             }
         }
 
@@ -41,7 +41,7 @@ namespace BlazorTest.Components.Classes
         {
             get
             {
-                return CalculateHoursForRND(BirthDate, Position, percentagePosition);
+                return CalculateHoursForRND(BirthDate, Position, PercentagePosition);
             }
         }
 
@@ -126,8 +126,8 @@ namespace BlazorTest.Components.Classes
          */
             float standardHours = 1687.5f;
             float reducedHours = 0f;
-            float positionFactor = 0f;
-           
+            float positionFactor;
+
             int Age = CalculateAge(birthDate);
 
             if (Age >= 62)
@@ -149,7 +149,7 @@ namespace BlazorTest.Components.Classes
                 positionFactor = 0.80f;
             }
 
-            float hoursForEducation = (percentagePosition/100)*((standardHours - reducedHours) * positionFactor);
+            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * positionFactor);
             return hoursForEducation;
         }
 
@@ -159,7 +159,7 @@ namespace BlazorTest.Components.Classes
              */
             float standardHours = 1687.5f;
             float reducedHours = 0f;
-            float positionFactor = 0f;
+            float positionFactor;
 
             int Age = CalculateAge(birthDate); 
             if (Age >= 62)
@@ -179,7 +179,7 @@ namespace BlazorTest.Components.Classes
             {
                 positionFactor = 0.20f;
             }
-            float hoursForRND = (percentagePosition/100)*((standardHours - reducedHours) * positionFactor);
+            float hoursForRND = (percentagePosition / 100f) * ((standardHours - reducedHours) * positionFactor);
 
             return hoursForRND;
         }

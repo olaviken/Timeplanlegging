@@ -5,7 +5,7 @@ namespace BlazorTest.Components.Classes
 
     public class EducatorList
     {
-        public List<Educator> Educators { get; private set; } = new List<Educator>();
+        public List<Educator> Educators { get; private set; } = new();
 
         public float TotalHoursForEducation
         {

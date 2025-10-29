@@ -60,6 +60,10 @@ namespace BlazorTest.Components.Classes
             {
                 throw new ArgumentNullException(nameof(educator), "Educator cannot be null.");
             }
+            if(Educators == null || Educators.Count == 0)
+            {
+                throw new InvalidOperationException("Educator list is empty.");
+            }
             Educators.Remove(educator);
         }
 

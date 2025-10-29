@@ -1,12 +1,12 @@
 ﻿namespace BlazorTest.Components.Classes
 {
-    public class EducatioCategory
+    public class EducationCategory
     {
         public string CategoryName { get; private set; } = string.Empty;
         public string Description { get; private set; } = string.Empty;
         public float HoursMultiplier { get; private set; } = 1f;
 
-        public EducatioCategory(string categoryname, string description, int hoursmultiplier)
+        public EducationCategory(string categoryname, string description, int hoursmultiplier)
         {
             if(string.IsNullOrWhiteSpace(categoryname))
             {

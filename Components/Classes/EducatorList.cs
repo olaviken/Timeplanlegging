@@ -47,6 +47,10 @@ namespace BlazorTest.Components.Classes
             {
                 throw new ArgumentNullException(nameof(educator), "Educator cannot be null.");
             }
+            if (FindEducatorByEmail(educator.Email) != null)
+            {
+                throw new InvalidOperationException("An educator with the same email already exists.");
+            }
             Educators.Add(educator);
         }
         

@@ -64,6 +64,11 @@ namespace BlazorTest.Components.Classes
             return Educators.FirstOrDefault(e => e.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
+        public Educator? FindEducatorByName(string fullname)
+        {
+            return Educators.FirstOrDefault(e => $"{e.LastName}, {e.FirstName}".Equals(fullname, StringComparison.OrdinalIgnoreCase));
+        }
+
         public void UpdateEducator(Educator updatedEducator)
         {
             if (updatedEducator == null)

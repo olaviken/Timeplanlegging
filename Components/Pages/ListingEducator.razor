@@ -1,5 +1,7 @@
-﻿@page "/addingeducator"
+﻿@page "/educatorlist"
 @using System.ComponentModel.DataAnnotations
+@using static Classes.Educator;
+@using Classes;
 @rendermode InteractiveServer
 
 
@@ -11,7 +13,56 @@
 	Det skal være mulig å redigere og slette en fagperson fra denne siden.
 	Det skal være mulig å legge til ny fagperson. Dette kan være ny metode eller linke til AddingEducator siden. 
 -->
+@if(educators == null || educators.Count ==0)
+{
+	<p>loading educators...</p>
+}
+else
+{
+	<table class="Educators">
+		<thead>
+			<tr>
+				<th> Fornavn </th>
+				<th> Etternavn </th>
+				<th> Fødselsdato </th>
+				<th> E-post </th>
+				<th> Stilling </th>
+				<th> Alder </th>
+				<th> Andel Utdanning </th>
+				<th> Andel Forskning </th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var educator in educators)
+			{
+				<tr>
+					<td>@educator.FirstName</td>
+					<td>@educator.LastName</td>
+					<td>@educator.BirthDate.ToShortDateString()</td>
+					<td>@educator.Email</td>
+					<td>@educator.Position</td>
+					<td>@educator.Age</td>
+					<td>@educator.HoursForEducation</td>
+					<td>@educator.HoursForRND</td>
+				</tr>
+			}
+		</tbody>
+	</table>	
+}
+
+
 
 @code {
+	
+	private List<Educator> educators = new List<Educator>();
 
+	protected override void OnInitialized()
+	{
+	    educators.Add(new Educator("Ola", "Nordmann", new DateTime(1981, 3, 15), "ola@NTNU.no", "Professor"));
+		educators.Add(new Educator("Kari", "Nordmann", new DateTime(1985, 5, 15), "kari@UIO.no", "Førsteamanuensis")); 
+		educators.Add(new Educator("Per", "Hansen", new DateTime(1990, 7, 20), "Per@UIA.no", "Høgskolelektor"));
+		educators.Add(new Educator("Lise", "Olsen", new DateTime(1950, 11, 30), "lise@NTNU.no", "Professor"));
+		educators.Add(new Educator("Nina", "Larsen", new DateTime(1975, 1, 25), "nina@UIT.no", "Universitetslektor")); 
+	}
+	
 }

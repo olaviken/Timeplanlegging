@@ -12,6 +12,7 @@
 	Bruke en tabell for å vise informasjonen.
 	Det skal være mulig å redigere og slette en fagperson fra denne siden.
 	Det skal være mulig å legge til ny fagperson. Dette kan være ny metode eller linke til AddingEducator siden. 
+	style listen med css.
 -->
 @if(educators == null || educators.Count ==0)
 {
@@ -35,6 +36,7 @@ else
 		<tbody>
 			@foreach(var educator in educators)
 			{
+				string rowId = $"{educator.LastName},{educator.FirstName}";
 				<tr>
 					<td>@educator.FirstName</td>
 					<td>@educator.LastName</td>
@@ -44,6 +46,10 @@ else
 					<td>@educator.Age</td>
 					<td>@educator.HoursForEducation</td>
 					<td>@educator.HoursForRND</td>
+					<td> 
+						<button class="btn btn-primary" @onclick="() => DeleteRow(rowId)">Delete</button>
+					</td>
+
 				</tr>
 			}
 		</tbody>
@@ -63,6 +69,16 @@ else
 		educators.Add(new Educator("Per", "Hansen", new DateTime(1990, 7, 20), "Per@UIA.no", "Høgskolelektor"));
 		educators.Add(new Educator("Lise", "Olsen", new DateTime(1950, 11, 30), "lise@NTNU.no", "Professor"));
 		educators.Add(new Educator("Nina", "Larsen", new DateTime(1975, 1, 25), "nina@UIT.no", "Universitetslektor")); 
+	}
+
+	private void DeleteRow(string rowId)
+	{
+		var names = rowId.Split(',');
+		var educatorToRemove = educators.FirstOrDefault(e => e.LastName == names[0] && e.FirstName == names[1]);
+		if (educatorToRemove != null)
+		{
+			educators.Remove(educatorToRemove);
+		}
 	}
 	
 }

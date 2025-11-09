@@ -29,6 +29,7 @@ else
 				<th> E-post </th>
 				<th> Stilling </th>
 				<th> Alder </th>
+				<th> Prosentstilling </th>
 				<th> Andel Utdanning </th>
 				<th> Andel Forskning </th>
 			</tr>
@@ -43,6 +44,7 @@ else
 					<td>@educator.Email</td>
 					<td>@educator.Position</td>
 					<td>@educator.Age</td>
+					<td>@educator.PercentagePosition</td>
 					<td>@educator.HoursForEducation</td>
 					<td>@educator.HoursForRND</td>
 					<td> 
@@ -63,11 +65,11 @@ else
 
 	protected override void OnInitialized()
 	{
-		educators.Add(new Educator("Ola", "Nordmann", new DateTime(1981, 3, 15), "ola@NTNU.no", "Professor"));
-		educators.Add(new Educator("Kari", "Nordmann", new DateTime(1985, 5, 15), "kari@UIO.no", "Førsteamanuensis")); 
-		educators.Add(new Educator("Per", "Hansen", new DateTime(1990, 7, 20), "Per@UIA.no", "Høgskolelektor"));
-		educators.Add(new Educator("Lise", "Olsen", new DateTime(1950, 11, 30), "lise@NTNU.no", "Professor"));
-		educators.Add(new Educator("Nina", "Larsen", new DateTime(1975, 1, 25), "nina@UIT.no", "Universitetslektor")); 
+		educators.Add(new Educator("Ola", "Nordmann", new DateTime(1981, 3, 15), "ola@NTNU.no", "Professor",100));
+		educators.Add(new Educator("Kari", "Nordmann", new DateTime(1985, 5, 15), "kari@UIO.no", "Førsteamanuensis",100)); 
+		educators.Add(new Educator("Per", "Hansen", new DateTime(1990, 7, 20), "Per@UIA.no", "Høgskolelektor",100));
+		educators.Add(new Educator("Lise", "Olsen", new DateTime(1950, 11, 30), "lise@NTNU.no", "Professor",100));
+		educators.Add(new Educator("Nina", "Larsen", new DateTime(1975, 1, 25), "nina@UIT.no", "Universitetslektor",100)); 
 	}
 
 	private void DeleteRow(Educator RemoveEducator)

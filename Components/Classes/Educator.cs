@@ -48,60 +48,86 @@ namespace BlazorTest.Components.Classes
 
         public Educator() { }
 
-        public Educator(string firstName, string lastName, DateTime birthDate, string email, string position)
+        public Educator(string firstName, string lastName, DateTime birthDate, string email, string position, int percentage)
         {
-            if (string.IsNullOrWhiteSpace(firstName))
-            {
-                throw new ArgumentException("First name cannot be empty.");
+            try {
+                if (string.IsNullOrWhiteSpace(firstName))
+                {
+                    throw new ArgumentException("First name cannot be empty.");
+                }
+                if (string.IsNullOrWhiteSpace(lastName))
+                {
+                    throw new ArgumentException("Last name cannot be empty.");
+                }
+                if (birthDate == DateTime.MinValue || birthDate > DateTime.Today)
+                {
+                    throw new ArgumentException("Invalid birth date.");
+                }
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    throw new ArgumentException("User name cannot be empty.");
+                }
+                if (string.IsNullOrWhiteSpace(position))
+                {
+                    throw new ArgumentException("Position cannot be empty.");
+                }
+                if (percentage < 1 || percentage > 100)
+                {
+                    throw new ArgumentOutOfRangeException("Percentage position must be between 1 and 100.");
+                }
+                FirstName = firstName;
+                LastName = lastName;
+                BirthDate = birthDate;
+                this.SetEmail(email);
+                Position = position;
+                PercentagePosition = percentage;
             }
-            if (string.IsNullOrWhiteSpace(lastName))
+            catch (Exception ex)
             {
-               throw new ArgumentException("Last name cannot be empty.");
+                throw new Exception("Error creating Educator object: " + ex.Message);
             }
-            if (birthDate == DateTime.MinValue || birthDate > DateTime.Today)
-            {
-                throw new ArgumentException("Invalid birth date.");
-            }
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                throw new ArgumentException("User name cannot be empty.");
-            }
-            if (string.IsNullOrWhiteSpace(position))
-            {
-                throw new ArgumentException("Position cannot be empty.");
-            }
-            FirstName = firstName;
-            LastName = lastName;
-            BirthDate = birthDate;
-            Email = email;
-            Position = position;
+           
+
         }
 
         public void SetEmail(string email)
         {
-            if(string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
-            {
-                throw new ArgumentException("Invalid email address.");
+            try {
+                if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
+                {
+                    throw new ArgumentException("Invalid email address.");
+                }
+                Email = email.Trim();
             }
-            Email = email.Trim();
+            catch (Exception ex)
+            {
+                throw new Exception("Error setting email: " + ex.Message);
+            }
+
         }
         public static int CalculateAge(DateTime birthDate)
         {
-            if (birthDate == DateTime.MinValue)
+            try
             {
-                throw new InvalidOperationException("BirthDate is not set.");
-            }
-            if(birthDate > DateTime.Today)
-            {
-                throw new ArgumentException("Birth date cannot be in the future.");
-            }
-            var today = DateTime.Today; 
-            var age = today.Year - birthDate.Year;
+                if (birthDate == DateTime.MinValue)
+                {
+                    throw new InvalidOperationException("BirthDate is not set.");
+                }
+                if (birthDate > DateTime.Today)
+                {
+                    throw new ArgumentException("Birth date cannot be in the future.");
+                }
+                var today = DateTime.Today;
+                var age = today.Year - birthDate.Year;
 
-            
-            if (birthDate.Date > today.AddYears(-age)) age--;
-            return age;
-            
+
+                if (birthDate.Date > today.AddYears(-age)) age--;
+                return age;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error calculating age: " + ex.Message);
+            }   
         }
 
         public void SetEducationDetails(string subjectUnit, string education, string specialization)

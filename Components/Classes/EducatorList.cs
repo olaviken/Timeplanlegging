@@ -1,133 +1,53 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BlazorTest.Components.Classes
 {
-
     public class EducatorList
     {
-        public List<Educator> Educators { get; private set; } = new();
+        // keep internal list private and expose a read-only view
+        private readonly List<Educator> _educators = new();
+        public IReadOnlyList<Educator> Educators => _educators;
 
-        public float TotalHoursForEducation
-        {
-            get
-            {
-                float totalHours = 0;
-                foreach (var educator in Educators)
-                {
-                    if (educator.HoursForEducation>=0)
-                    {
-                        totalHours += educator.HoursForEducation;
-                    }
-                }
-
-                return totalHours;
-            }
-        }
-
-        public float TotalHoursForRND
-        {
-            get
-            {
-                float totalHours = 0;
-                foreach (var educator in Educators)
-                {
-                    if (educator.HoursForRND>=0)
-                    {
-                        totalHours += educator.HoursForRND;
-                    }
-                }
-                return totalHours;
-            }
-        }
-
+        
         public EducatorList() { }
+
         public void AddEducator(Educator educator)
         {
-            if (educator == null)
-            {
-                throw new ArgumentNullException(nameof(educator), "Educator cannot be null.");
-            }
-            if (FindEducatorByEmail(educator.Email) != null)
-            {
+            if (educator is null) throw new ArgumentNullException(nameof(educator));
+            if (_educators.Any(e => string.Equals(e.Email, educator.Email, StringComparison.OrdinalIgnoreCase)))
                 throw new InvalidOperationException("An educator with the same email already exists.");
-            }
-            Educators.Add(educator);
+            _educators.Add(educator);
         }
-        
-        public void RemoveEducator(Educator educator)
+
+        // return bool to indicate whether removal succeeded (caller can decide to throw)
+        public bool RemoveEducator(Educator educator)
         {
-            if (educator == null)
-            {
-                throw new ArgumentNullException(nameof(educator), "Educator cannot be null.");
-            }
-            if(Educators == null || Educators.Count == 0)
-            {
-                throw new InvalidOperationException("Educator list is empty.");
-            }
-            Educators.Remove(educator);
+            if (educator is null) throw new ArgumentNullException(nameof(educator));
+            return _educators.Remove(educator);
         }
 
         public Educator? FindEducatorByEmail(string email)
         {
-            Educator? result = null;
-            if (email == null)
-            {
-                throw new ArgumentNullException(nameof(email), "Email cannot be null.");
-            }
-            if (Educators == null || Educators.Count == 0)
-            {
-                throw new InvalidOperationException("Educator list is empty.");
-            }
-            if (Educators.Any(e => e.Email == email))
-            {
-                result = Educators.First(e => e.Email == email);
-                return result;
-            }
-            else
-            {
-                throw new InvalidOperationException("Educator with the specified email not found.");
-
-            }
+            if (email is null) throw new ArgumentNullException(nameof(email));
+            return _educators.FirstOrDefault(e => string.Equals(e.Email, email, StringComparison.OrdinalIgnoreCase));
         }
 
         public Educator? FindEducatorByName(string fullname)
         {
-            if (fullname == null)
-            {
-                throw new ArgumentNullException(nameof(fullname), "Full name cannot be null.");
-            }
-            if (Educators == null || Educators.Count == 0)
-            {
-                throw new InvalidOperationException("Educator list is empty.");
-            }
-            if (Educators.Any(e => $"{e.LastName}, {e.FirstName}".Equals(fullname, StringComparison.OrdinalIgnoreCase)) == false)
-            {
-                throw new InvalidOperationException("Educator with the specified name not found.");
-            }
-            else
-            {
-                return Educators.First(e => $"{e.LastName}, {e.FirstName}".Equals(fullname, StringComparison.OrdinalIgnoreCase));
-            }
+            if (fullname is null) throw new ArgumentNullException(nameof(fullname));
+            return _educators.FirstOrDefault(e =>
+                string.Equals($"{e.LastName}, {e.FirstName}", fullname, StringComparison.OrdinalIgnoreCase));
         }
 
         public void UpdateEducator(Educator updatedEducator)
         {
-            if (updatedEducator == null)
-            {
-                throw new ArgumentNullException(nameof(updatedEducator), "Updated educator cannot be null.");
-            }
-            var existingEducator = FindEducatorByEmail(updatedEducator.Email);
-            if (existingEducator != null)
-            {
-                int index = Educators.IndexOf(existingEducator);
-                Educators[index] = updatedEducator;
-            }
-            else
-            {
-                throw new InvalidOperationException("Educator not found.");
-            }
+            if (updatedEducator is null) throw new ArgumentNullException(nameof(updatedEducator));
+            var existing = FindEducatorByEmail(updatedEducator.Email);
+            if (existing is null) throw new InvalidOperationException("Educator not found.");
+            int index = _educators.IndexOf(existing);
+            _educators[index] = updatedEducator;
         }
-
     }
-        
 }

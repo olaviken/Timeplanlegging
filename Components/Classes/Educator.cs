@@ -10,7 +10,6 @@ namespace BlazorTest.Components.Classes
         public string FirstName { get; private set; } = string.Empty;
         public string LastName { get; private set; } = string.Empty;
         public DateTime BirthDate { get; private set; }
-        public string Position { get; private set; } = string.Empty;
         public string Email { get; private set; } = string.Empty;
         
         public string SubjectUnit { get; private set; } = string.Empty;
@@ -18,8 +17,8 @@ namespace BlazorTest.Components.Classes
         public string Specialization { get; private set; } = string.Empty;
         
         public int PercentagePosition { get; private set; } = 100;
+        public int RNDTime { get; private set; } = 20;
 
-        
 
         public int Age
         {
@@ -33,14 +32,14 @@ namespace BlazorTest.Components.Classes
         {
             get
             {
-                return CalculateHoursForEducationFall(BirthDate, Position, PercentagePosition);
+                return CalculateHoursForEducationFall(BirthDate, RNDTime, PercentagePosition);
             }
         }
         public float HoursEducationSpring
         {
             get
             {
-                return CalculateHoursForEducationSpring(BirthDate, Position, PercentagePosition);
+                return CalculateHoursForEducationSpring(BirthDate, RNDTime, PercentagePosition);
             }
         }
 
@@ -48,7 +47,7 @@ namespace BlazorTest.Components.Classes
 
         public Educator() { }
 
-        public Educator(string firstName, string lastName, DateTime birthDate, string email, string position, int percentage)
+        public Educator(string firstName, string lastName, DateTime birthDate, string email, int RND, int percentagePosition)
         {
                 if (string.IsNullOrWhiteSpace(firstName))
                 {
@@ -66,11 +65,11 @@ namespace BlazorTest.Components.Classes
                 {
                     throw new ArgumentException("User name cannot be empty.");
                 }
-                if (string.IsNullOrWhiteSpace(position))
+                if (RND <1 || RND >100)
                 {
-                    throw new ArgumentException("Position cannot be empty.");
+                throw new ArgumentOutOfRangeException("Percentage position must be between 1 and 100.");
                 }
-                if (percentage < 1 || percentage > 100)
+                if (percentagePosition < 1 || percentagePosition > 100)
                 {
                     throw new ArgumentOutOfRangeException("Percentage position must be between 1 and 100.");
                 }
@@ -78,9 +77,9 @@ namespace BlazorTest.Components.Classes
                 LastName = lastName;
                 BirthDate = birthDate;
                 this.SetEmail(email);
-                Position = position;
-                PercentagePosition = percentage;
-            
+                PercentagePosition = percentagePosition;
+                RNDTime = RND;
+
 
         }
 
@@ -116,22 +115,19 @@ namespace BlazorTest.Components.Classes
         }
 
         
-        public float CalculateHoursForEducationFall(DateTime birthDate, string position, int percentagePosition)
+        public float CalculateHoursForEducationFall(DateTime birthDate, int RND, int percentagePosition)
         {
             /* This methods depends on how old the educator is and its position. 
          If an educator is 60 years old or older the receive 5 days more in vacation.
          If an educator is 62 years old or older the receive an extra 5 days in vacation.
-         by position:
-            - Professor: has 45% of hours for education
-            - Associate Professor: has 45% of hours for education
-            - Other: has 80% of hours for education
-            
+         Remove position. add a percentage for RND instead.
+
         Also baseline for hours of work is 1675 hours per year. One work day is 7,5 hours. Making a work week of 37,5 hours.
          */
+
             float standardHours = 767;
             float reducedHours = 0f;
-            float positionFactor;
-
+            
             int Age = CalculateAge(birthDate);
 
             if (Age + 1 >= 60)
@@ -151,21 +147,13 @@ namespace BlazorTest.Components.Classes
                 reducedHours += 12.41f;
             }
 
-            if (position.Equals("Professor", StringComparison.OrdinalIgnoreCase) ||
-                position.Equals("Førsteamanuensis", StringComparison.OrdinalIgnoreCase))
-            {
-                positionFactor = 0.45f;
-            }
-            else
-            {
-                positionFactor = 0.80f;
-            }
+            
 
-            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * positionFactor);
+            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * (100-RND/100));
             return MathF.Round(hoursForEducation,2);
         }
 
-        public float CalculateHoursForEducationSpring(DateTime birthDate, string position, int percentagePosition)
+        public float CalculateHoursForEducationSpring(DateTime birthDate, int RND, int percentagePosition)
         {
             /* This methods depends on how old the educator is and its position. 
          If an educator is 60 years old or older the receive 5 days more in vacation.
@@ -179,7 +167,7 @@ namespace BlazorTest.Components.Classes
          */
             float standardHours = 920.5F;
             float reducedHours = 0f;
-            float positionFactor;
+            
 
             int Age = CalculateAge(birthDate);
 
@@ -200,17 +188,9 @@ namespace BlazorTest.Components.Classes
                 reducedHours += 12.41f;
             }
 
-            if (position.Equals("Professor", StringComparison.OrdinalIgnoreCase) ||
-                position.Equals("Førsteamanuensis", StringComparison.OrdinalIgnoreCase))
-            {
-                positionFactor = 0.45f;
-            }
-            else
-            {
-                positionFactor = 0.80f;
-            }
+            
 
-            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * positionFactor);
+            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * (100 - RND / 100));
             return MathF.Round(hoursForEducation, 2);
         }
         

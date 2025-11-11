@@ -8,20 +8,35 @@
 
         public EducationCategory(string categoryname, string description, int hoursmultiplier)
         {
-            if(string.IsNullOrWhiteSpace(categoryname))
+            setCategoryName(categoryname);
+            setDescription(description);
+            setHoursMultiplier(hoursmultiplier);
+        }
+
+        public void setCategoryName(string categoryname)
+        {
+            if (string.IsNullOrWhiteSpace(categoryname))
             {
                 throw new ArgumentException("Category name cannot be empty.");
             }
-            if(string.IsNullOrWhiteSpace(description))
+            CategoryName = categoryname;
+        }
+
+        public void setDescription(string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
             {
                 throw new ArgumentException("Description cannot be empty.");
             }
-            if(hoursmultiplier <= 0)
+            Description = description;
+        }
+
+        public void setHoursMultiplier(int hoursmultiplier)
+        {
+            if (hoursmultiplier <= 0)
             {
                 throw new ArgumentException("Hours multiplier must be greater than zero.");
             }
-            CategoryName = categoryname;
-            Description = description;
             HoursMultiplier = hoursmultiplier;
         }
     }  

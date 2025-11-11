@@ -48,40 +48,101 @@ namespace BlazorTest.Components.Classes
         public Educator() { }
 
         public Educator(string firstName, string lastName, DateTime birthDate, string email, int RND, int percentagePosition)
-        {
-                if (string.IsNullOrWhiteSpace(firstName))
-                {
-                    throw new ArgumentException("First name cannot be empty.");
-                }
-                if (string.IsNullOrWhiteSpace(lastName))
-                {
-                    throw new ArgumentException("Last name cannot be empty.");
-                }
-                if (birthDate == DateTime.MinValue || birthDate > DateTime.Today)
-                {
-                    throw new ArgumentException("Invalid birth date.");
-                }
-                if (string.IsNullOrWhiteSpace(email))
-                {
-                    throw new ArgumentException("User name cannot be empty.");
-                }
-                if (RND <1 || RND >100)
-                {
-                throw new ArgumentOutOfRangeException("Percentage position must be between 1 and 100.");
-                }
-                if (percentagePosition < 1 || percentagePosition > 100)
-                {
-                    throw new ArgumentOutOfRangeException("Percentage position must be between 1 and 100.");
-                }
-                FirstName = firstName;
-                LastName = lastName;
-                BirthDate = birthDate;
-                this.SetEmail(email);
-                PercentagePosition = percentagePosition;
-                RNDTime = RND;
-
-
+        {               
+                setFirstName(firstName);
+                setLastName(lastName);
+                SetBirthDate(birthDate);
+                SetEmail(email);
+                SetPercentagePosition(percentagePosition);
+                SetRNDTime(RND);
         }
+
+        public Educator(string firstName, string lastName, DateTime birthDate, string email, int RND, int percentagePosition,string subjectUnit, string education, string specialization)
+        {
+                setFirstName(firstName);
+                setLastName(lastName);
+                SetBirthDate(birthDate);
+                SetEmail(email);
+                SetPercentagePosition(percentagePosition);
+                SetRNDTime(RND);
+                SetSubjectUnit(subjectUnit);
+                SetEducation(education);
+                SetSpecialization(specialization);
+        }
+
+        public void setFirstName(string firstName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName))
+            {
+                throw new ArgumentException("First name cannot be empty.");
+            }
+            FirstName = firstName;
+        }
+
+        public void setLastName(string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(lastName))
+            {
+                throw new ArgumentException("Last name cannot be empty.");
+            }
+            LastName = lastName;
+        }
+
+        public void SetBirthDate(DateTime birthDate)
+        {
+            if (birthDate == DateTime.MinValue || birthDate > DateTime.Today)
+            {
+                throw new ArgumentException("Invalid birth date.");
+            }
+            BirthDate = birthDate;
+        }
+
+        public void SetPercentagePosition(int percentagePosition)
+        {
+            if (percentagePosition < 1 || percentagePosition > 100)
+            {
+                throw new ArgumentOutOfRangeException("Percentage position must be between 1 and 100.");
+            }
+            PercentagePosition = percentagePosition;
+        }
+
+        public void SetRNDTime(int RND)
+        {
+            if (RND < 0 || RND > 100)
+            {
+                throw new ArgumentOutOfRangeException("RND time must be between 0 and 100.");
+            }
+            RNDTime = RND;
+        }
+
+        public void SetSubjectUnit(string subjectUnit)
+        {
+            if (string.IsNullOrWhiteSpace(subjectUnit))
+            {
+                throw new ArgumentException("Subject unit cannot be empty.");
+            }
+            SubjectUnit = subjectUnit;
+        }
+
+        public void SetEducation(string education)
+        {
+            if (string.IsNullOrWhiteSpace(education))
+            {
+                throw new ArgumentException("Education cannot be empty.");
+            }
+            Education = education;
+        }
+
+        public void SetSpecialization(string specialization)
+        {
+            if (string.IsNullOrWhiteSpace(specialization))
+            {
+                throw new ArgumentException("Specialization cannot be empty.");
+            }
+            Specialization = specialization;
+        }
+
+
 
         public void SetEmail(string email)
         {
@@ -107,12 +168,7 @@ namespace BlazorTest.Components.Classes
             return age;
         }
 
-        public void SetEducationDetails(string subjectUnit, string education, string specialization)
-        {
-            SubjectUnit = subjectUnit;
-            Education = education;
-            Specialization = specialization;
-        }
+        
 
         
         public float CalculateHoursForEducationFall(DateTime birthDate, int RND, int percentagePosition)

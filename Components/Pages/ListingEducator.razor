@@ -43,8 +43,8 @@ else
 					<td>@educator.Email</td>
 					<td>@educator.Age</td>
 					<td>@educator.PercentagePosition</td>
-					<td>@educator.HoursEducationFall</td>
-					<td>@educator.HoursEducationSpring</td>
+					<td>@((educator.HoursEducationFall/100f).ToString("F2"))</td>
+					<td>@((educator.HoursEducationSpring/100f).ToString("F2"))</td>
 					<td> 
 						<button class="btn btn-primary" @onclick="() => DeleteRow(educator)">Delete</button>
 					</td>

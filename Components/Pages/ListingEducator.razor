@@ -1,0 +1,85 @@
+﻿@page "/educatorlist"
+@using System.ComponentModel.DataAnnotations
+@using static Classes.Educator;
+@using Classes;
+@rendermode InteractiveServer
+
+
+<h3>ListingEducator</h3>
+
+<!-- Dette er siden for å liste opp alle faglige ansatte. 
+	vurderes å sortere de etter fagenhet.
+	Bruke en tabell for å vise informasjonen.
+	Det skal være mulig å redigere og slette en fagperson fra denne siden.
+	Det skal være mulig å legge til ny fagperson. Dette kan være ny metode eller linke til AddingEducator siden. 
+	style listen med css.
+-->
+@if(educators == null || educators.Count ==0)
+{
+	<p>loading educators...</p>
+}
+else
+{
+	<table class="Educators">
+		<thead>
+			<tr>
+				<th> Fornavn </th>
+				<th> Etternavn </th>
+				<th> Fødselsdato </th>
+				<th> E-post </th>
+				<th> Alder </th>
+				<th> Prosentstilling </th>
+				<th> utdanning høst </th>
+				<th> utdanning vår </th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var educator in educators)
+			{
+				<tr>
+					<td>@educator.FirstName</td>
+					<td>@educator.LastName</td>
+					<td>@educator.BirthDate.ToShortDateString()</td>
+					<td>@educator.Email</td>
+					<td>@educator.Age</td>
+					<td>@educator.PercentagePosition</td>
+					<td>@((educator.HoursEducationFall/100f).ToString("F2"))</td>
+					<td>@((educator.HoursEducationSpring/100f).ToString("F2"))</td>
+					<td> 
+						<button class="btn btn-primary" @onclick="() => DeleteRow(educator)">Delete</button>
+					</td>
+
+				</tr>
+			}
+		</tbody>
+	</table>	
+}
+
+
+
+@code {
+
+	private List<Educator> educators = new List<Educator>();
+
+	protected override void OnInitialized()
+	{
+		educators.Add(new Educator("Ola", "Nordmann", new DateTime(1981, 3, 15), "ola@NTNU.no", 20,100));
+		educators.Add(new Educator("Kari", "Nordmann", new DateTime(1985, 5, 15), "kari@UIO.no", 20,100)); 
+		educators.Add(new Educator("Per", "Hansen", new DateTime(1990, 7, 20), "Per@UIA.no", 20,100));
+		educators.Add(new Educator("Lise", "Olsen", new DateTime(1950, 11, 30), "lise@NTNU.no", 20,100));
+		educators.Add(new Educator("Nina", "Larsen", new DateTime(1975, 1, 25), "nina@UIT.no", 20,100)); 
+	}
+
+	private void DeleteRow(Educator RemoveEducator)
+	{
+		if (RemoveEducator != null)
+		{
+			educators.Remove(RemoveEducator);
+		}
+		else
+		{
+			throw new ArgumentNullException(nameof(RemoveEducator), "Educator to remove cannot be null.");
+		}
+	}
+	
+}

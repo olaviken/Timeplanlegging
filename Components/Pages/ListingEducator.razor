@@ -20,7 +20,7 @@
 }
 else
 {
-	<table class="Educators">
+	<table class="table">
 		<thead>
 			<tr>
 				<th> Fornavn </th>
@@ -29,8 +29,11 @@ else
 				<th> E-post </th>
 				<th> Alder </th>
 				<th> Prosentstilling </th>
+				<th> Prosent forskning</th>
 				<th> utdanning høst </th>
 				<th> utdanning vår </th>
+				<th> </th>
+				<th> </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -43,10 +46,14 @@ else
 					<td>@educator.Email</td>
 					<td>@educator.Age</td>
 					<td>@educator.PercentagePosition</td>
+					<td>@educator.PercentageRND</td>
 					<td>@((educator.HoursEducationFall/100f).ToString("F2"))</td>
 					<td>@((educator.HoursEducationSpring/100f).ToString("F2"))</td>
 					<td> 
 						<button class="btn btn-primary" @onclick="() => DeleteRow(educator)"><i class="bi bi-trash"></i></button>
+					</td>
+					<td> 
+						<button class="btn btn-primary" @onclick="() => EditRow(educator)"><i class="bi bi-pencil"></i></button>
 					</td>
 
 				</tr>

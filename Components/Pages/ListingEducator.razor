@@ -46,7 +46,7 @@ else
 					<td>@((educator.HoursEducationFall/100f).ToString("F2"))</td>
 					<td>@((educator.HoursEducationSpring/100f).ToString("F2"))</td>
 					<td> 
-						<button class="btn btn-primary" @onclick="() => DeleteRow(educator)">Delete</button>
+						<button class="btn btn-primary" @onclick="() => DeleteRow(educator)"><i class="bi bi-trash"></i></button>
 					</td>
 
 				</tr>

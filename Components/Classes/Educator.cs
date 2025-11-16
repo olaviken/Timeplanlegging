@@ -17,7 +17,7 @@ namespace BlazorTest.Components.Classes
         public string Specialization { get; private set; } = string.Empty;
         
         public int PercentagePosition { get; private set; } = 100;
-        public int RNDTime { get; private set; } = 20;
+        public int PercentageRND { get; private set; } = 20;
 
 
         public int Age
@@ -32,14 +32,14 @@ namespace BlazorTest.Components.Classes
         {
             get
             {
-                return CalculateHoursForEducationFall(BirthDate, RNDTime, PercentagePosition);
+                return CalculateHoursForEducationFall(BirthDate, PercentageRND, PercentagePosition);
             }
         }
         public float HoursEducationSpring
         {
             get
             {
-                return CalculateHoursForEducationSpring(BirthDate, RNDTime, PercentagePosition);
+                return CalculateHoursForEducationSpring(BirthDate, PercentageRND, PercentagePosition);
             }
         }
 
@@ -112,7 +112,7 @@ namespace BlazorTest.Components.Classes
             {
                 throw new ArgumentOutOfRangeException("RND time must be between 0 and 100.");
             }
-            RNDTime = RND;
+            PercentageRND = RND;
         }
 
         public void SetSubjectUnit(string subjectUnit)

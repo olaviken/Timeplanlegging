@@ -3,7 +3,7 @@
 @using static Classes.Educator;
 @using Classes;
 @rendermode InteractiveServer
-
+@inject IJSRuntime JS
 
 <h3>ListingEducator</h3>
 
@@ -13,13 +13,17 @@
 	Det skal være mulig å redigere og slette en fagperson fra denne siden.
 	Det skal være mulig å legge til ny fagperson. Dette kan være ny metode eller linke til AddingEducator siden. 
 	style listen med css.
+
 -->
+
+
 @if(educators == null || educators.Count ==0)
 {
 	<p>loading educators...</p>
 }
 else
 {
+	
 	<table class="table">
 		<thead>
 			<tr>
@@ -38,11 +42,17 @@ else
 		</thead>
 		<tbody>
 			<tr id="Editrow">
-				<td><input id="InputFirstName" type="text" /> </td>
+				<td>
+					
+					<input id="InputFirstName" type="text" />
+				</td>
 				<td><input id="InputLastName" type="text" /> </td>
-				<td><input id="InputBirthDate" type="date" /> </td>
+				<td>
+
+					<input id="InputBirthDate" type="date" @bind="inputBirthDate" />
+				</td>
 				<td><input id="InputEmail" type="email" /> </td>
-				<td></td>
+				<td> @DisplayNewAge(inputBirthDate) </td>
 				<td><input id="InputPercentagePosition" type="number" /> </td>
 				<td><input id="InputPercentageRND" type="number" /> </td>
 				<td></td>
@@ -81,8 +91,10 @@ else
 
 
 @code {
-
+	
 	private List<Educator> educators = new List<Educator>();
+	private DateTime inputBirthDate = DateTime.Today;
+	
 
 	protected override void OnInitialized()
 	{
@@ -113,5 +125,13 @@ else
 	private void AddRow()
 	{
 		
+	}
+	
+	private int DisplayNewAge(DateTime birthDate)
+	{
+		var today = DateTime.Today;
+		var age = today.Year - birthDate.Year;
+		if (birthDate.Date > today.AddYears(-age)) age--;
+		return age;
 	}
 }

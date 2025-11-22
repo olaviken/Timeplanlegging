@@ -147,4 +147,21 @@ else
 	{
 		//more to come here
 	}
+
+	//create new methods to have updated values when input fields change for Education hours fall and spring
+
+	private float DisplayEducationHoursFall(DateTime birthdate, int rnd, int positionpercentage)
+	{
+		Educator educator = new Educator();
+		float hoursFall = educator.CalculateHoursForEducationFall(birthdate, rnd, positionpercentage);
+		return hoursFall;
+	}
+	
+	private float DisplayEducationHoursSpring(DateTime birthdate, int rnd, int positionpercentage)
+	{
+		Educator educator = new Educator();
+		float hoursSpring = educator.CalculateHoursForEducationSpring(birthdate, rnd, positionpercentage);
+		return hoursSpring;
+	}
+	
 }

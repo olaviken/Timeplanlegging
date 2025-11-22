@@ -204,10 +204,10 @@ namespace BlazorTest.Components.Classes
             }
 
             float hours = (standardHours - reducedHours);
-            float adjustedHours = hours * (100 - RND / 100f);
+            float educationpercentage = (100 - RND) / 100f;
+            float forEducation = hours * educationpercentage;
 
-
-            float hoursForEducation = (percentagePosition / 100f) * adjustedHours;
+            float hoursForEducation = (percentagePosition / 100f)*forEducation;
             return MathF.Round(hoursForEducation,2);
         }
 
@@ -245,10 +245,11 @@ namespace BlazorTest.Components.Classes
             {
                 reducedHours += 12.41f;
             }
+            float hours = (standardHours - reducedHours);
+            float educationpercentage = (100 - RND) / 100f;
+            float forEducation = hours * educationpercentage;
 
-            
-
-            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * (100 - RND / 100f));
+            float hoursForEducation = (percentagePosition / 100f) * forEducation;
             return MathF.Round(hoursForEducation, 2);
         }
         

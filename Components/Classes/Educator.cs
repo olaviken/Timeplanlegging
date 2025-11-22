@@ -183,7 +183,7 @@ namespace BlazorTest.Components.Classes
 
             float standardHours = 767;
             float reducedHours = 0f;
-            
+                        
             int Age = CalculateAge(birthDate);
 
             if (Age + 1 >= 60)
@@ -203,9 +203,11 @@ namespace BlazorTest.Components.Classes
                 reducedHours += 12.41f;
             }
 
-            
+            float hours = (standardHours - reducedHours);
+            float adjustedHours = hours * (100 - RND / 100f);
 
-            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * (100-RND/100));
+
+            float hoursForEducation = (percentagePosition / 100f) * adjustedHours;
             return MathF.Round(hoursForEducation,2);
         }
 
@@ -246,7 +248,7 @@ namespace BlazorTest.Components.Classes
 
             
 
-            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * (100 - RND / 100));
+            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * (100 - RND / 100f));
             return MathF.Round(hoursForEducation, 2);
         }
         

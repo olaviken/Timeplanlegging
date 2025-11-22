@@ -55,8 +55,8 @@ else
 				<td> @DisplayNewAge(inputBirthDate) </td>
 				<td><input id="InputPercentagePosition" type="number" @bind="inputPositionPercentage"  /> </td>
 				<td><input id="InputPercentageRND" type="number" @bind="inputRNDPercentage" /> </td>
-				<td></td>
-				<td></td>
+				<td>@((DisplayEducationHoursFall(inputBirthDate,inputRNDPercentage,inputPositionPercentage)/100f).ToString("F2"))</td>
+				<td>@((DisplayEducationHoursSpring(inputBirthDate, inputRNDPercentage, inputPositionPercentage) / 100f).ToString("F2"))</td>
 				<td> 
 					<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
 				</td>

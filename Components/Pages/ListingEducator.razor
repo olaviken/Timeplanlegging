@@ -44,19 +44,19 @@ else
 			<tr id="Editrow">
 				<td>
 					
-					<input id="InputFirstName" type="text" />
+					<input id="InputFirstName" type="text" @bind="newEducator.FirstName" />
 				</td>
-				<td><input id="InputLastName" type="text" /> </td>
+				<td><input id="InputLastName" type="text" @bind="newEducator.LastName" /> </td>
 				<td>
 
-					<input id="InputBirthDate" type="date" @bind="inputBirthDate" />
+					<input id="InputBirthDate" type="date" @bind="newEducator.BirthDate" />
 				</td>
-				<td><input id="InputEmail" type="email" /> </td>
-				<td> @DisplayNewAge(inputBirthDate) </td>
-				<td><input id="InputPercentagePosition" type="number" @bind="inputPositionPercentage"  /> </td>
-				<td><input id="InputPercentageRND" type="number" @bind="inputRNDPercentage" /> </td>
-				<td>@((DisplayEducationHoursFall(inputBirthDate,inputRNDPercentage,inputPositionPercentage)).ToString("F2"))</td>
-				<td>@((DisplayEducationHoursSpring(inputBirthDate, inputRNDPercentage, inputPositionPercentage)).ToString("F2"))</td>
+				<td><input id="InputEmail" type="email" @bind="newEducator.Email" /> </td>
+				<td> @DisplayNewAge(newEducator.BirthDate) </td>
+				<td><input id="InputPercentagePosition" type="number" @bind="newEducator.PercentagePosition"  /> </td>
+				<td><input id="InputPercentageRND" type="number" @bind="newEducator.PercentageRND" /> </td>
+				<td>@((DisplayEducationHoursFall(newEducator.BirthDate,newEducator.PercentageRND,newEducator.PercentagePosition)).ToString("F2"))</td>
+				<td>@((DisplayEducationHoursSpring(newEducator.BirthDate, newEducator.PercentageRND, newEducator.PercentagePosition)).ToString("F2"))</td>
 				<td> 
 					<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
 				</td>
@@ -73,8 +73,8 @@ else
 					<td>@educator.Age</td>
 					<td>@educator.PercentagePosition</td>
 					<td>@educator.PercentageRND</td>
-					<td>@((educator.HoursEducationFall/100f).ToString("F2"))</td>
-					<td>@((educator.HoursEducationSpring/100f).ToString("F2"))</td>
+					<td>@((educator.HoursEducationFall).ToString("F2"))</td>
+					<td>@((educator.HoursEducationSpring).ToString("F2"))</td>
 					<td> 
 						<button class="btn btn-primary" @onclick="() => DeleteRow(educator)"><i class="bi bi-trash"></i></button>
 					</td>
@@ -93,11 +93,25 @@ else
 @code {
 	
 	private List<Educator> educators = new List<Educator>();
-	private DateTime inputBirthDate = DateTime.Today;
-	private int inputRNDPercentage = 20;
-	private int inputPositionPercentage = 100;
-	
-	
+		
+	private class InputModel
+	{
+		[Required]
+		public string FirstName { get; set; }
+		[Required]
+		public string LastName { get; set; }
+		[Required]
+		public DateTime BirthDate { get; set; } = DateTime.Today;
+		[Required]
+		[EmailAddress]
+		public string Email { get; set; }
+		[Range(0, 100)]
+		public int PercentagePosition { get; set; }
+		[Range(0, 100)]
+		public int PercentageRND { get; set; }
+	}
+
+	private InputModel newEducator = new InputModel();
 
 	protected override void OnInitialized()
 	{

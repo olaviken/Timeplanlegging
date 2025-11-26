@@ -26,4 +26,12 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    // Initialize the database
+    var context = services.GetRequiredService<AppDbContext>();
+    DbInitializer.Initialize(context);
+}//Seed the database.Use it for config in memory db
+
 app.Run();

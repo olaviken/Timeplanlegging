@@ -8,7 +8,6 @@ namespace BlazorTest
         public static void AddInMemoryDatabase(this IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase("RessursPlan"));
+                options.UseInMemoryDatabase("RessursPlan")); //RessursPlan is the name of the in-memory database
         }
-    }
 }

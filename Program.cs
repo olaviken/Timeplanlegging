@@ -1,10 +1,16 @@
 using BlazorTest.Components;
+using BlazorTest.Components.Classes;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+//Added Singleton Services
+builder.Services.AddSingleton<ActivityList>();
+builder.Services.AddSingleton<EducatorList>();
+builder.Services.AddSingleton<CategoryList>();
 
 var app = builder.Build();
 

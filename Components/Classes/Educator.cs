@@ -157,10 +157,10 @@ namespace BlazorTest.Components.Classes
         }
         public static int CalculateAge(DateTime birthDate)
         {
-            if (birthDate == DateTime.MinValue)
+            /*if (birthDate == DateTime.MinValue)
                 throw new ArgumentException("BirthDate is not set.", nameof(birthDate));
             if (birthDate > DateTime.Today)
-                throw new ArgumentException("Birth date cannot be in the future.", nameof(birthDate));
+                throw new ArgumentException("Birth date cannot be in the future.", nameof(birthDate));*/
 
             var today = DateTime.Today;
             var age = today.Year - birthDate.Year;

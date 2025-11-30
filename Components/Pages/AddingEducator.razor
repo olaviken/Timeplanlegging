@@ -1,4 +1,4 @@
-﻿@page "/addingeducator"
+﻿@page "/profile"
 @using System.ComponentModel.DataAnnotations
 @using Classes
 @inject EducatorList educators
@@ -8,9 +8,9 @@
 	koble denne lokale klassen og formen til en global klasse og service for å lagre data i database
 	Kanskje lagre den i en liste i en service. 
 -->
-<PageTitle>Adding Educator</PageTitle>
+<PageTitle>Profile</PageTitle>
 
-<h1>Legg til fagperson</h1>
+<h1>Profil</h1>
 <EditForm Model="educator" class="form-container">
 	<input type="text" class="form-control" placeholder="Fornavn" @bind="" />
 	<input type="text" class="form-control" placeholder="Etternavn" @bind="" />

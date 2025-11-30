@@ -10,6 +10,8 @@
         public string EducatorFirstName { get; private set; } = string.Empty;
         public string EducatorLastName { get; private set; } = string.Empty;
 
+        public string TopicTitle { get; set; } = string.Empty;
+
 
         public void SetActivityDate(DateTime activitydate)
         {

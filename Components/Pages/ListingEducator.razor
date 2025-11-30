@@ -24,6 +24,8 @@
 				<th> Fødselsdato </th>
 				<th> E-post </th>
 				<th> Alder </th>
+				<th> Utdanningsbakgrunn </th>
+				<th> Spesialisering </th>
 				<th> Prosentstilling </th>
 				<th> Prosent forskning</th>
 				<th> Utdanning høst </th>
@@ -45,6 +47,8 @@
 				</td>
 				<td><input id="InputEmail" type="email" @bind="newEducator.Email" /> </td>
 				<td> @DisplayNewAge(newEducator.BirthDate) </td>
+				<td><input id="InputEdducationBackground" type="text" @bind="newEducator.EducationBackground" /></td>
+			<td><input id="InputSpecialization" type="text" @bind="newEducator.Specialization" /></td>
 				<td><input id="InputPercentagePosition" type="number" @bind="newEducator.PercentagePosition"  /> </td>
 				<td><input id="InputPercentageRND" type="number" @bind="newEducator.PercentageRND" /> </td>
 				<td>@((DisplayEducationHoursFall(newEducator.BirthDate,newEducator.PercentageRND,newEducator.PercentagePosition)).ToString("F2"))</td>
@@ -93,6 +97,10 @@
 		public string LastName { get; set; }
 		[Required]
 		public DateTime BirthDate { get; set; } = DateTime.Today;
+		[Required]
+		public string EducationBackground { get; set; }
+		[Required]
+		public string Specialization { get; set; }
 		[Required]
 		[EmailAddress]
 		public string Email { get; set; }

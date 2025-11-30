@@ -11,56 +11,34 @@
 <PageTitle>Profile</PageTitle>
 
 <h1>Profil</h1>
-<EditForm Model="educator" class="form-container">
-	<input type="text" class="form-control" placeholder="Fornavn" @bind="" />
-	<input type="text" class="form-control" placeholder="Etternavn" @bind="" />
-	<input type="email" class="form-control" placeholder="E-post" @bind="" />
-	<input type="date" class="form-control" placeholder="fødselsdato" @bind="" />
-	
-	<select class="form-control" placeholder="Fagenhet" @bind="">
-		<option value="" disabled selected>Fagenhet</option>
-		<option value="Sykepleie">Sykepleie</option>
-		<option value="Spesialsykepleie">Spesialsykepleie</option>
-		<option value="Fysioterapi">Fysioterapi</option>
-		<option value="Ergoterapi">Ergoterapi</option>
-		<option value="Audiologi">Audiologi</option> 
-		<!--To do list fremover:
-			Endre dette til en liste som hentes fra database-->
-		
-	</select>
-	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="" />
-	<input type="text" class="form-control" placeholder="Spesialisering" @bind="" />
-	<button class="form-button" >Submit</button>
-	<!-- 
-		To do fremover:
-			Lage en funksjon som lagrer dataene først i en liste, deretter sender de til en database (Database ikke implementert enda). Fokusere på UI først.
+<EditForm Model="inputModel" class="form-container">
+	<input type="text" class="form-control" placeholder="Fornavn" @bind="inputModel.FirstName" />
+	<input type="text" class="form-control" placeholder="Etternavn" @bind="inputModel.LastName" />
+	<input type="email" class="form-control" placeholder="E-post" @bind="inputModel.Email" />
+	<input type="date" class="form-control" placeholder="fødselsdato" @bind="inputModel.BirthDate" />
 
-	-->
+	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="inputModel.EducationBackground" />
+	<input type="text" class="form-control" placeholder="Spesialisering" @bind="inputModel.Specialization" />
+	<button class="form-button" >Submit</button>
 </EditForm>
 
-
 @code {
-	public class Educator {
-		public required string firstName { get; set; } = string.Empty;
-		public required string lastName { get; set; } = string.Empty;
-		public required DateTime birthDate { get; set; }
-		public required string email { get; set; } = string.Empty;
-		public required string position { get; set; } = string.Empty;
-		public required string subjectUnit { get; set; } = string.Empty;
-		public required string education { get; set; } = string.Empty;
-		public required string specialization { get; set; } = string.Empty;
-		
+	private class InputModel
+	{
+		[Required]
+		public string FirstName { get; set; } = string.Empty;
+		[Required]
+		public string LastName { get; set; } = string.Empty;
+		[Required]
+		[EmailAddress]
+		public string Email { get; set; } = string.Empty;
+		[Required]
+		public DateOnly BirthDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+		[Required]
+		public string EducationBackground { get; set; } = string.Empty;
+		[Required]
+		public string Specialization { get; set; } = string.Empty;		
 	}
 
-	public Educator educator = new Educator
-		{
-			firstName = string.Empty,
-			lastName = string.Empty,
-			birthDate = DateTime.Now,
-			email = string.Empty,
-			position = string.Empty,
-			subjectUnit = string.Empty,
-			education = string.Empty,
-			specialization = string.Empty
-		};
+	private InputModel inputModel = new InputModel();
 }

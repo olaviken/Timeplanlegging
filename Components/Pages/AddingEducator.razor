@@ -1,5 +1,7 @@
 ﻿@page "/addingeducator"
 @using System.ComponentModel.DataAnnotations
+@using Classes
+@inject EducatorList educators
 @rendermode InteractiveServer
 
 <!--Mulig døpe om denne siden til profile
@@ -10,20 +12,12 @@
 
 <h1>Legg til fagperson</h1>
 <EditForm Model="educator" class="form-container">
-	<input type="text" class="form-control" placeholder="Fornavn" @bind="educator.firstName" />
-	<input type="text" class="form-control" placeholder="Etternavn" @bind="educator.lastName" />
-	<input type="email" class="form-control" placeholder="E-post" @bind="educator.email" />
-	<input type="date" class="form-control" placeholder="fødselsdato" @bind="educator.birthDate" />
-	<select class="form-control" placeholder="Stilling" @bind="educator.position">
-		<option value="" disabled selected>Stilling</option>
-		<option value="Førstelektor">Førstelektor</option>
-		<option value="Høgskolelektor">Høgskolelektor</option>
-		<option value="Professor">Professor</option>
-		<option value="Dosent">Dosent</option>
-		<option value="Universitetslektor">Universitetslektor</option>
-		<option value="Førsteamanuensis">Førsteamanuensis</option>
-	</select>
-	<select class="form-control" placeholder="Fagenhet" @bind="educator.subjectUnit">
+	<input type="text" class="form-control" placeholder="Fornavn" @bind="" />
+	<input type="text" class="form-control" placeholder="Etternavn" @bind="" />
+	<input type="email" class="form-control" placeholder="E-post" @bind="" />
+	<input type="date" class="form-control" placeholder="fødselsdato" @bind="" />
+	
+	<select class="form-control" placeholder="Fagenhet" @bind="">
 		<option value="" disabled selected>Fagenhet</option>
 		<option value="Sykepleie">Sykepleie</option>
 		<option value="Spesialsykepleie">Spesialsykepleie</option>
@@ -34,8 +28,8 @@
 			Endre dette til en liste som hentes fra database-->
 		
 	</select>
-	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="educator.education" />
-	<input type="text" class="form-control" placeholder="Spesialisering" @bind="educator.specialization" />
+	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="" />
+	<input type="text" class="form-control" placeholder="Spesialisering" @bind="" />
 	<button class="form-button" >Submit</button>
 	<!-- 
 		To do fremover:

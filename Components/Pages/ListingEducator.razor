@@ -48,7 +48,7 @@
 				<td><input id="InputEmail" type="email" @bind="newEducator.Email" /> </td>
 				<td> @DisplayNewAge(newEducator.BirthDate) </td>
 				<td><input id="InputEdducationBackground" type="text" @bind="newEducator.EducationBackground" /></td>
-			<td><input id="InputSpecialization" type="text" @bind="newEducator.Specialization" /></td>
+				<td><input id="InputSpecialization" type="text" @bind="newEducator.Specialization" /></td>
 				<td><input id="InputPercentagePosition" type="number" @bind="newEducator.PercentagePosition"  /> </td>
 				<td><input id="InputPercentageRND" type="number" @bind="newEducator.PercentageRND" /> </td>
 				<td>@((DisplayEducationHoursFall(newEducator.BirthDate,newEducator.PercentageRND,newEducator.PercentagePosition)).ToString("F2"))</td>
@@ -71,6 +71,8 @@
 						<td>@educator.BirthDate.ToShortDateString()</td>
 						<td>@educator.Email</td>
 						<td>@educator.Age</td>
+						<td>@educator.Education</td>
+						<td>@educator.Specialization</td>
 						<td>@educator.PercentagePosition</td>
 						<td>@educator.PercentageRND</td>
 						<td>@((educator.HoursEducationFall).ToString("F2"))</td>
@@ -130,6 +132,7 @@
 	newEducator.LastName = EditEducator.LastName;
 	newEducator.BirthDate = EditEducator.BirthDate;
 	newEducator.Email = EditEducator.Email;
+
 	newEducator.PercentagePosition = EditEducator.PercentagePosition;
 	newEducator.PercentageRND = EditEducator.PercentageRND;
 	}

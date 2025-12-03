@@ -9,8 +9,48 @@
 
 <h3>Liste forelesere</h3>
 
+<table>
+	<thead>
+		<tr>
+			<th>Kategori</th>
+			<th> Beskrivelse</th>
+			<th> timemultiplikator</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="Editrow">
+			<td>
+				<input id="InputCategoryName" type="text" @bind="newCategory.CategoryName" />
+			</td>
+			<td>
+				<input id="InputDescription" type="text" @bind="newCategory.Description" />
+			</td>
+			<td>
+				<input id="InputTimeMultiplier" type="number" step="0.01" @bind="newCategory.TimeMultiplier" />
+			</td>
+			<td>
+				<button class="btn btn-primary" @onclick="() => AddCategory()"><i class="bi bi-plus-lg"></i></button>
+			</td>
+		</tr>
+	</tbody>
+</table>
 
 
 @code {
 
+	private class CategoryModel
+	{
+		public string CategoryName { get; set; } = string.Empty;
+		public string Description { get; set; } = string.Empty;
+		public double TimeMultiplier { get; set; } = 1f;
+	}
+
+	private CategoryModel newCategory = new CategoryModel();
+
+	private void AddCategory()
+	{
+		
+	}
 }

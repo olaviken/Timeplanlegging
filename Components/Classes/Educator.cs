@@ -12,7 +12,6 @@ namespace BlazorTest.Components.Classes
         public DateTime BirthDate { get; private set; }
         public string Email { get; private set; } = string.Empty;
         
-        public string SubjectUnit { get; private set; } = string.Empty;
         public string Education { get; private set; } = string.Empty;
         public string Specialization { get; private set; } = string.Empty;
         
@@ -57,7 +56,7 @@ namespace BlazorTest.Components.Classes
                 SetRNDTime(RND);
         }
 
-        public Educator(string firstName, string lastName, DateTime birthDate, string email, int RND, int percentagePosition,string subjectUnit, string education, string specialization)
+        public Educator(string firstName, string lastName, DateTime birthDate, string email, int RND, int percentagePosition, string education, string specialization)
         {
                 setFirstName(firstName);
                 setLastName(lastName);
@@ -65,7 +64,6 @@ namespace BlazorTest.Components.Classes
                 SetEmail(email);
                 SetPercentagePosition(percentagePosition);
                 SetRNDTime(RND);
-                SetSubjectUnit(subjectUnit);
                 SetEducation(education);
                 SetSpecialization(specialization);
         }
@@ -115,14 +113,6 @@ namespace BlazorTest.Components.Classes
             PercentageRND = RND;
         }
 
-        public void SetSubjectUnit(string subjectUnit)
-        {
-            if (string.IsNullOrWhiteSpace(subjectUnit))
-            {
-                throw new ArgumentException("Subject unit cannot be empty.");
-            }
-            SubjectUnit = subjectUnit;
-        }
 
         public void SetEducation(string education)
         {

@@ -8,19 +8,34 @@
 	koble denne lokale klassen og formen til en global klasse og service for å lagre data i database
 	Kanskje lagre den i en liste i en service. 
 -->
+<head>
+	<style>
+		input {
+			margin-bottom: 10px;
+			width: 20%;
+			height: 30px;
+			font-size: 16px;
+			padding: 5px;
+		}
+	</style>
+</head>
+
 <PageTitle>Profile</PageTitle>
 
 <h1>Profil</h1>
-<EditForm Model="inputModel" class="form-container">
-	<input type="text" class="form-control" placeholder="Fornavn" @bind="inputModel.FirstName" />
-	<input type="text" class="form-control" placeholder="Etternavn" @bind="inputModel.LastName" />
-	<input type="email" class="form-control" placeholder="E-post" @bind="inputModel.Email" />
-	<input type="date" class="form-control" placeholder="fødselsdato" @bind="inputModel.BirthDate" />
+	<input type="text" placeholder="Fornavn" @bind="inputModel.FirstName" /><br />
+<input type="text" placeholder="Etternavn" @bind="inputModel.LastName" />
+<br />
+<input type="email" placeholder="E-post" @bind="inputModel.Email" />
+<br />
+<input type="date" placeholder="fødselsdato" @bind="inputModel.BirthDate" />
+<br />
+<input type="text" placeholder="Utdanningsbakgrunn" @bind="inputModel.EducationBackground" />
+<br />
+<input type="text" placeholder="Spesialisering" @bind="inputModel.Specialization" />
+<br />
+<button class="btn btn-primary" @onclick="() => AddProfile()" style="width:20%">Submit</button>
 
-	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="inputModel.EducationBackground" />
-	<input type="text" class="form-control" placeholder="Spesialisering" @bind="inputModel.Specialization" />
-	<button class="form-button" >Submit</button>
-</EditForm>
 
 @code {
 	private class InputModel
@@ -41,4 +56,22 @@
 	}
 
 	private InputModel inputModel = new InputModel();
+
+	private void AddProfile()
+	{
+		Educator educator = new Educator
+		(
+			inputModel.FirstName,
+			inputModel.LastName,
+			inputModel.BirthDate.ToDateTime(TimeOnly.MinValue),
+			inputModel.Email,
+			20,
+			100,
+			inputModel.EducationBackground,
+			inputModel.Specialization
+		);
+		educators.AddEducator(educator);
+		// Clear the form
+		inputModel = new InputModel();
+	}
 }

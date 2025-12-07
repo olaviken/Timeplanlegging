@@ -17,7 +17,6 @@ namespace BlazorTest.Components.Classes
             educatorsList.Add(educator);
         }
 
-        // return bool to indicate whether removal succeeded (caller can decide to throw)
         public void RemoveEducator(Educator educator)
         {
             educatorsList.Remove(educator);

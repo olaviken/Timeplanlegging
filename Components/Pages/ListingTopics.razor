@@ -1,11 +1,109 @@
 ﻿@page "/ListingTopics"
-
-
+@using System.ComponentModel.DataAnnotations
+@inject TopicList topics
+@using Classes
+@rendermode InteractiveServer
+@inject IJSRuntime JS
 
 
 <h3>Emne oversikt</h3>
 
+<table>
+		<thead>
+		<tr>
+			<th> Emne kode</th>
+			<th>Emne navn</th>
+			<th>Emne beskrivelse</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="Editrow">
+			<td>
+				<input id="InputTopicID" type="text" @bind="newTopic.TopicID" />
+			</td>
+			<td>
+				<input id="InputTopicTitle" type="text" @bind="newTopic.TopicTitle" />
+			</td>
+			<td>
+				<input id="InputTopicDescription" type="text" @bind="newTopic.TopicDescription" />
+			</td>
+			<td>
+				<button class="btn btn-primary" @onclick="() => AddTopic()"><i class="bi bi-plus-lg"></i></button>
+			</td>
+		</tr>
+		@if(topics == null || topics.Count ==0)
+		{
+			<tr>
+				<td colspan="4"> Ingen emner lagt til. </td>
+			</tr>
+		}
+		else
+		{
+			@foreach(var topic in topics.topicsList)
+			{
+				<tr>
+					<td> @topic.TopicID </td>
+					<td> @topic.TopicTitle </td>
+					<td> @topic.TopicDescription </td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => DeleteRow(topic)"><i class="bi bi-trash"></i></button>
+					</td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => UpdateRow(topic)"><i class="bi bi-pencil"></i></button>
+					</td>
+				</tr>
+			}
+		}		
+	</tbody>
+</table>
+
 
 @code {
+
+	private class TopicModel
+	{
+		[Required]
+		public string TopicID { get; set; } = string.Empty;
+		[Required]
+		public string TopicTitle { get; set; } = string.Empty;
+		public string TopicDescription { get; set; } = string.Empty;
+	}
+
+	private TopicModel newTopic = new TopicModel();
+
+
+	private void AddTopic()
+	{
+		if (topics.FindTopicByID(newTopic.TopicID) != null)
+		{
+			Topic existingTopic = new Topic(newTopic.TopicID, newTopic.TopicTitle, newTopic.TopicDescription);
+			topics.UpdateTopic(existingTopic);
+		}
+		else
+		{
+			Topic topic = new Topic(newTopic.TopicID, newTopic.TopicTitle, newTopic.TopicDescription);
+			topics.AddTopic(topic);
+		}
+	}
+
+	private void DeleteRow(Topic RemoveTopic)
+	{
+		if(RemoveTopic != null)
+		{
+			topics.RemoveTopic(RemoveTopic); 
+			
+		}
+	}
+		
+	
+
+	private void UpdateRow(Topic topic)
+	{
+		newTopic.TopicID = topic.TopicID;
+		newTopic.TopicTitle = topic.TopicTitle;
+		newTopic.TopicDescription = topic.TopicDescription;
+	}
 
 }

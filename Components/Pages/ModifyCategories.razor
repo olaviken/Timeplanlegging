@@ -28,12 +28,36 @@
 				<input id="InputDescription" type="text" @bind="newCategory.Description" />
 			</td>
 			<td>
-				<input id="InputTimeMultiplier" type="number" step="0.01" @bind="newCategory.TimeMultiplier" />
+				<input id="InputTimeMultiplier" type="number" step="0.01" @bind="newCategory.HoursMultiplier" />
 			</td>
 			<td>
 				<button class="btn btn-primary" @onclick="() => AddCategory()"><i class="bi bi-plus-lg"></i></button>
 			</td>
 		</tr>
+		@if(categories == null || categories.Count ==0)
+		{
+			<tr>
+				<td colspan="5"> Ingen kategorier lagt til. </td>
+			</tr>
+		}
+		else
+		{
+			@foreach(var category in categories.EducationCategories)
+			{
+				<tr>
+					<td> @category.CategoryName </td>
+					<td> @category.Description </td>
+					<td> @category.HoursMultiplier </td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => DeleteRow(category)"><i class="bi bi-trash"></i></button>
+					</td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => UpdateRow(category)"><i class="bi bi-pencil"></i></button>
+					</td>
+
+				</tr>
+			}
+		}
 	</tbody>
 </table>
 
@@ -44,13 +68,41 @@
 	{
 		public string CategoryName { get; set; } = string.Empty;
 		public string Description { get; set; } = string.Empty;
-		public double TimeMultiplier { get; set; } = 1f;
+		public int HoursMultiplier { get; set; } = 1;
 	}
 
 	private CategoryModel newCategory = new CategoryModel();
 
 	private void AddCategory()
 	{
+
+		if(categories.FindCategory(newCategory.CategoryName)!= null)
+		{
+			EducationCategory existingCategory = new EducationCategory(newCategory.CategoryName,newCategory.Description, newCategory.HoursMultiplier);
+			categories.UpdateCategory(existingCategory);
+		}
+		else
+		{
+			EducationCategory category = new EducationCategory(newCategory.CategoryName, newCategory.Description, newCategory.HoursMultiplier);
+			categories.AddCategory(category);
+
+		}
 		
+	}
+
+	private void DeleteRow(EducationCategory RemoveCategory)
+	{
+		if(RemoveCategory != null)
+		{
+			categories.RemoveCategory(RemoveCategory);
+		}
+
+	}
+
+	private void UpdateRow(EducationCategory UpdateCategory)
+	{
+		newCategory.CategoryName = UpdateCategory.CategoryName;
+		newCategory.Description = UpdateCategory.Description;
+		newCategory.HoursMultiplier = UpdateCategory.HoursMultiplier;
 	}
 }

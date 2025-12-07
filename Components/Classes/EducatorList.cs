@@ -18,30 +18,25 @@ namespace BlazorTest.Components.Classes
         }
 
         // return bool to indicate whether removal succeeded (caller can decide to throw)
-        public bool RemoveEducator(Educator educator)
+        public void RemoveEducator(Educator educator)
         {
-            if (educator is null) throw new ArgumentNullException(nameof(educator));
-            return educatorsList.Remove(educator);
+            educatorsList.Remove(educator);
         }
 
         public Educator? FindEducatorByEmail(string email)
         {
-            if (email is null) throw new ArgumentNullException(nameof(email));
             return educatorsList.FirstOrDefault(e => string.Equals(e.Email, email, StringComparison.OrdinalIgnoreCase));
         }
 
         public Educator? FindEducatorByName(string fullname)
         {
-            if (fullname is null) throw new ArgumentNullException(nameof(fullname));
             return educatorsList.FirstOrDefault(e =>
                 string.Equals($"{e.LastName}, {e.FirstName}", fullname, StringComparison.OrdinalIgnoreCase));
         }
 
         public void UpdateEducator(Educator updatedEducator)
         {
-            if (updatedEducator is null) throw new ArgumentNullException(nameof(updatedEducator));
             var existing = FindEducatorByEmail(updatedEducator.Email);
-            if (existing is null) throw new InvalidOperationException("Educator not found.");
             int index = educatorsList.IndexOf(existing);
             educatorsList[index] = updatedEducator;
         }

@@ -11,6 +11,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddSingleton<ActivityList>();
 builder.Services.AddSingleton<EducatorList>();
 builder.Services.AddSingleton<CategoryList>();
+builder.Services.AddSingleton<TopicList>();
 
 var app = builder.Build();
 

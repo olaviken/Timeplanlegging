@@ -4,7 +4,7 @@
     {
         public string CategoryName { get; private set; } = string.Empty;
         public string Description { get; private set; } = string.Empty;
-        public float HoursMultiplier { get; private set; } = 1f;
+        public int HoursMultiplier { get; private set; } = 1;
 
         public EducationCategory(string categoryname, string description, int hoursmultiplier)
         {

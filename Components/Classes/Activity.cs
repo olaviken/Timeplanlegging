@@ -6,12 +6,12 @@
         public DateTime ActivityDate { get; private set; }
         public string ActivityName { get; private set; } = string.Empty;
         public float ActivityHours { get; private set; } = 0f;
-        public EducationCategory? ActivityCategory { get; private set; } = null;
+        public string Field { get; set; } = string.Empty;
         public string ActivityDescription { get; private set; } = string.Empty;
         public string EducatorFirstName { get; private set; } = string.Empty;
         public string EducatorLastName { get; private set; } = string.Empty;
 
-        public string Field { get; set; } = string.Empty;
+        
 
 
         public Activity() { }
@@ -21,7 +21,6 @@
             SetActivityDate(activitydate);
             SetActivityName(activityname);
             SetActivityHours(activityhours);
-            SetActivityCategory(activitycategory);
             SetActivityDescription(activitydescription);
             SetEducatorName(educatorfirstname, educatorlastname);
             SetTopic(field);
@@ -52,17 +51,11 @@
             {
                 throw new ArgumentException("Activity hours must be greater than zero.");
             }
+            //add multipliers from field
             ActivityHours = activityhours;
         }
 
-        public void SetActivityCategory(EducationCategory activitycategory)
-        {
-            if (activitycategory == null)
-            {
-                throw new ArgumentNullException(nameof(activitycategory), "Activity category cannot be null.");
-            }
-            ActivityCategory = activitycategory;
-        }
+        
 
         public void SetActivityDescription(string activitydescription)
         {

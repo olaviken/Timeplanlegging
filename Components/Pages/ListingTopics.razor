@@ -1,6 +1,6 @@
 ﻿@page "/ListingTopics"
 @using System.ComponentModel.DataAnnotations
-@inject TopicList topics
+@inject ListField topics
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -41,12 +41,12 @@
 		}
 		else
 		{
-			@foreach(var topic in topics.topicsList)
+			@foreach(var topic in topics.listFields)
 			{
 				<tr>
-					<td> @topic.TopicID </td>
-					<td> @topic.TopicTitle </td>
-					<td> @topic.TopicDescription </td>
+					<td> @topic.FieldID </td>
+					<td> @topic.FieldTitle </td>
+					<td> @topic.FieldDescription </td>
 					<td>
 						<button class="btn btn-primary" @onclick="() => DeleteRow(topic)"><i class="bi bi-trash"></i></button>
 					</td>
@@ -76,34 +76,34 @@
 
 	private void AddTopic()
 	{
-		if (topics.FindTopicByID(newTopic.TopicID) != null)
+		if (topics.FindFieldByID(newTopic.TopicID) != null)
 		{
-			Topic existingTopic = new Topic(newTopic.TopicID, newTopic.TopicTitle, newTopic.TopicDescription);
-			topics.UpdateTopic(existingTopic);
+			Field existingTopic = new Field(newTopic.TopicID, newTopic.TopicTitle, newTopic.TopicDescription);
+			topics.UpdateField(existingTopic);
 		}
 		else
 		{
-			Topic topic = new Topic(newTopic.TopicID, newTopic.TopicTitle, newTopic.TopicDescription);
-			topics.AddTopic(topic);
+			Field topic = new Field(newTopic.TopicID, newTopic.TopicTitle, newTopic.TopicDescription);
+			topics.AddField(topic);
 		}
 	}
 
-	private void DeleteRow(Topic RemoveTopic)
+	private void DeleteRow(Field RemoveTopic)
 	{
 		if(RemoveTopic != null)
 		{
-			topics.RemoveTopic(RemoveTopic); 
+			topics.RemoveField(RemoveTopic); 
 			
 		}
 	}
 		
 	
 
-	private void UpdateRow(Topic topic)
+	private void UpdateRow(Field topic)
 	{
-		newTopic.TopicID = topic.TopicID;
-		newTopic.TopicTitle = topic.TopicTitle;
-		newTopic.TopicDescription = topic.TopicDescription;
+		newTopic.TopicID = topic.FieldID;
+		newTopic.TopicTitle = topic.FieldTitle;
+		newTopic.TopicDescription = topic.FieldDescription;
 	}
 
 }

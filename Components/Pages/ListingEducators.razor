@@ -1,6 +1,6 @@
 ﻿@page "/ListingEducators"
 @using System.ComponentModel.DataAnnotations
-@inject EducatorList educators
+@inject ListEducator educators
 
 @using Classes
 @rendermode InteractiveServer
@@ -63,7 +63,7 @@
 			}
 			else
 			{
-				@foreach (var educator in educators.educatorsList)
+				@foreach (var educator in educators.listEducators)
 				{
 					<tr>
 						<td>@educator.FirstName</td>

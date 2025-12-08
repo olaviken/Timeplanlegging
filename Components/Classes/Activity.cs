@@ -1,16 +1,30 @@
 ﻿namespace BlazorTest.Components.Classes
 {
-    public class EducationActivity
+    public class Activity
     {
+        public string ActivityID { get; private set; } = Guid.NewGuid().ToString();
         public DateTime ActivityDate { get; private set; }
         public string ActivityName { get; private set; } = string.Empty;
         public float ActivityHours { get; private set; } = 0f;
-        public EducationCategory? ActivityCategory { get; private set; } = null;
+        public string Field { get; set; } = string.Empty;
         public string ActivityDescription { get; private set; } = string.Empty;
         public string EducatorFirstName { get; private set; } = string.Empty;
         public string EducatorLastName { get; private set; } = string.Empty;
 
-        public string TopicTitle { get; set; } = string.Empty;
+        
+
+
+        public Activity() { }
+
+        public Activity(DateTime activitydate, string activityname, float activityhours, EducationCategory activitycategory, string activitydescription, string educatorfirstname, string educatorlastname, string field)
+        {
+            SetActivityDate(activitydate);
+            SetActivityName(activityname);
+            SetActivityHours(activityhours);
+            SetActivityDescription(activitydescription);
+            SetEducatorName(educatorfirstname, educatorlastname);
+            SetTopic(field);
+        }
 
 
         public void SetActivityDate(DateTime activitydate)
@@ -37,17 +51,11 @@
             {
                 throw new ArgumentException("Activity hours must be greater than zero.");
             }
+            //add multipliers from field
             ActivityHours = activityhours;
         }
 
-        public void SetActivityCategory(EducationCategory activitycategory)
-        {
-            if (activitycategory == null)
-            {
-                throw new ArgumentNullException(nameof(activitycategory), "Activity category cannot be null.");
-            }
-            ActivityCategory = activitycategory;
-        }
+        
 
         public void SetActivityDescription(string activitydescription)
         {
@@ -70,6 +78,15 @@
             }
             EducatorFirstName = firstname;
             EducatorLastName = lastname;
+        }
+
+        public void SetTopic(string topic)
+        {
+            if (string.IsNullOrWhiteSpace(topic))
+            {
+                throw new ArgumentException("Field cannot be empty.");
+            }
+            Field = topic;
         }
 
     }

@@ -1,45 +1,45 @@
 ﻿
 namespace BlazorTest.Components.Classes
 {
-    public class EducatorList
+    public class ListEducator
     {
         // keep internal list private and expose a read-only view
-        public List<Educator> educatorsList = new();    
+        public List<Educator> listEducators = new();    
 
         
-        public EducatorList() { }
+        public ListEducator() { }
 
         public void AddEducator(Educator educator)
         {
             if (educator is null) throw new ArgumentNullException(nameof(educator));
-            if (educatorsList.Any(e => string.Equals(e.Email, educator.Email, StringComparison.OrdinalIgnoreCase)))
+            if (listEducators.Any(e => string.Equals(e.Email, educator.Email, StringComparison.OrdinalIgnoreCase)))
                 throw new InvalidOperationException("An educator with the same email already exists.");
-            educatorsList.Add(educator);
+            listEducators.Add(educator);
         }
 
         public void RemoveEducator(Educator educator)
         {
-            educatorsList.Remove(educator);
+            listEducators.Remove(educator);
         }
 
         public Educator? FindEducatorByEmail(string email)
         {
-            return educatorsList.FirstOrDefault(e => string.Equals(e.Email, email, StringComparison.OrdinalIgnoreCase));
+            return listEducators.FirstOrDefault(e => string.Equals(e.Email, email, StringComparison.OrdinalIgnoreCase));
         }
 
         public Educator? FindEducatorByName(string fullname)
         {
-            return educatorsList.FirstOrDefault(e =>
+            return listEducators.FirstOrDefault(e =>
                 string.Equals($"{e.LastName}, {e.FirstName}", fullname, StringComparison.OrdinalIgnoreCase));
         }
 
         public void UpdateEducator(Educator updatedEducator)
         {
             var existing = FindEducatorByEmail(updatedEducator.Email);
-            int index = educatorsList.IndexOf(existing);
-            educatorsList[index] = updatedEducator;
+            int index = listEducators.IndexOf(existing);
+            listEducators[index] = updatedEducator;
         }
 
-        public int Count => educatorsList.Count;
+        public int Count => listEducators.Count;
     }
 }

@@ -1,13 +1,13 @@
 ﻿
 namespace BlazorTest.Components.Classes
 {
-    public class EducatorList
+    public class ListEducator
     {
         // keep internal list private and expose a read-only view
         public List<Educator> educatorsList = new();    
 
         
-        public EducatorList() { }
+        public ListEducator() { }
 
         public void AddEducator(Educator educator)
         {

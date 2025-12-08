@@ -1,6 +1,6 @@
 ﻿namespace BlazorTest.Components.Classes
 {
-    public class EducationActivity
+    public class Activity
     {
         public DateTime ActivityDate { get; private set; }
         public string ActivityName { get; private set; } = string.Empty;

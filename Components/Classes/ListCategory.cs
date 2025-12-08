@@ -1,23 +1,23 @@
 ﻿namespace BlazorTest.Components.Classes
 {
-    public class CategoryList
+    public class ListCategory
     {
         public List<EducationCategory> EducationCategories { get; private set; } = new();
 
-        public CategoryList() { }
+        public ListCategory() { }
 
         public void AddCategory(EducationCategory category)
         {
             EducationCategories.Add(category);
         }
 
-        public CategoryList FindCategory(string categoryname)
+        public ListCategory FindCategory(string categoryname)
         {
             
             if (EducationCategories.Any(c => c.CategoryName == categoryname))
             {
                 var foundCategory = EducationCategories.First(c => c.CategoryName == categoryname);
-                var result = new CategoryList();
+                var result = new ListCategory();
                 result.AddCategory(foundCategory);
                 return result;
             }

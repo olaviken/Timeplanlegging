@@ -8,10 +8,10 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 //Added Singleton Services
-builder.Services.AddSingleton<ActivityList>();
-builder.Services.AddSingleton<EducatorList>();
-builder.Services.AddSingleton<CategoryList>();
-builder.Services.AddSingleton<TopicList>();
+builder.Services.AddSingleton<ListActivity>();
+builder.Services.AddSingleton<ListEducator>();
+builder.Services.AddSingleton<ListCategory>();
+builder.Services.AddSingleton<ListTopic>();
 
 var app = builder.Build();
 

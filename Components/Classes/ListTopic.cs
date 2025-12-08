@@ -1,10 +1,10 @@
 ﻿namespace BlazorTest.Components.Classes
 {
-    public class TopicList
+    public class ListTopic
     {
         public List<Topic> topicsList = new();
 
-        public TopicList() { }
+        public ListTopic() { }
 
         public void AddTopic(Topic topic)
         {

@@ -2,21 +2,21 @@
 {
     public class ListCategory
     {
-        public List<EducationCategory> EducationCategories { get; private set; } = new();
+        public List<EducationCategory> listCategoires { get; private set; } = new();
 
         public ListCategory() { }
 
         public void AddCategory(EducationCategory category)
         {
-            EducationCategories.Add(category);
+            listCategoires.Add(category);
         }
 
         public ListCategory FindCategory(string categoryname)
         {
             
-            if (EducationCategories.Any(c => c.CategoryName == categoryname))
+            if (listCategoires.Any(c => c.CategoryName == categoryname))
             {
-                var foundCategory = EducationCategories.First(c => c.CategoryName == categoryname);
+                var foundCategory = listCategoires.First(c => c.CategoryName == categoryname);
                 var result = new ListCategory();
                 result.AddCategory(foundCategory);
                 return result;
@@ -26,22 +26,22 @@
 
         public void RemoveCategory(EducationCategory category)
         {
-            EducationCategories.Remove(category);
+            listCategoires.Remove(category);
         }
 
         public void UpdateCategory(EducationCategory updatedCategory)
         {
-            var existingCategory = EducationCategories.FirstOrDefault(c => c.CategoryName == updatedCategory.CategoryName);
+            var existingCategory = listCategoires.FirstOrDefault(c => c.CategoryName == updatedCategory.CategoryName);
             if (existingCategory != null)
             {
-                int index = EducationCategories.IndexOf(existingCategory);
-                EducationCategories[index] = updatedCategory;
+                int index = listCategoires.IndexOf(existingCategory);
+                listCategoires[index] = updatedCategory;
             }
         }
 
         
 
-        public int Count => EducationCategories.Count;
+        public int Count => listCategoires.Count;
 
     }
 }

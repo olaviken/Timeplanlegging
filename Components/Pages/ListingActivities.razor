@@ -1,0 +1,85 @@
+﻿@page "/ListingActivities"
+@using System.ComponentModel.DataAnnotations
+@inject ListActivity activities
+@using Classes
+@rendermode InteractiveServer
+@inject IJSRuntime JS
+
+
+<h3>Undervisnings aktivitet</h3>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Dato</th>
+			<th>Aktivitets navn</th>
+			<th> Antall timer</th>
+			<th>Studieretning</th>
+			<th>Beskrivelse</th>
+			<th>Forelesers fornavn</th>
+			<th>Forelesers etternavn</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="Editrow">
+			<td>
+				
+				<input id="InputDate" type="date" @bind="newActivity.Date" />
+			</td>
+			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
+			<td>
+
+				<input id="InputNumberOfHours" type="number" @bind="newActivity.NumberOfHours" />
+			</td>
+			<td><input id="InputStudyProgram" type="text" @bind="newActivity.StudyProgram" /> </td>
+			<td><input id="InputDescription" type="text" @bind="newActivity.Description" /></td>
+			<td><input id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFirstName"  /> </td>
+			<td><input id="InputEducatorLastName" type="text" @bind="newActivity.EducatorLastName" /> </td>
+			<td> 
+				<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
+			</td>
+
+
+
+		</tr>
+	</tbody>
+</table>
+
+@code {
+
+	private class InputModel
+	{
+		[Required]
+		public DateTime Date { get; set; }
+		[Required]
+		public string ActivityName { get; set; } = string.Empty;
+		[Required]
+		public double NumberOfHours { get; set; }
+		[Required]
+		public string StudyProgram { get; set; } = string.Empty;
+		public string Description { get; set; } = string.Empty;
+		[Required]
+		public string EducatorFirstName { get; set; } = string.Empty;
+		[Required]
+		public string EducatorLastName { get; set; } = string.Empty;
+	}
+	private InputModel newActivity = new InputModel();
+
+	private void AddRow()
+	{
+		
+	}
+
+	private void DeleteRow(Activity activity)
+	{
+		
+	}
+
+	private void EditRow(Activity activity)
+	{
+		
+	}
+
+}

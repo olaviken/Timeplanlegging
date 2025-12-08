@@ -11,10 +11,21 @@
         public string EducatorFirstName { get; private set; } = string.Empty;
         public string EducatorLastName { get; private set; } = string.Empty;
 
-        public string TopicTitle { get; set; } = string.Empty;
+        public string Field { get; set; } = string.Empty;
 
 
+        public Activity() { }
 
+        public Activity(DateTime activitydate, string activityname, float activityhours, EducationCategory activitycategory, string activitydescription, string educatorfirstname, string educatorlastname, string field)
+        {
+            SetActivityDate(activitydate);
+            SetActivityName(activityname);
+            SetActivityHours(activityhours);
+            SetActivityCategory(activitycategory);
+            SetActivityDescription(activitydescription);
+            SetEducatorName(educatorfirstname, educatorlastname);
+            SetTopic(field);
+        }
 
 
         public void SetActivityDate(DateTime activitydate)
@@ -74,6 +85,15 @@
             }
             EducatorFirstName = firstname;
             EducatorLastName = lastname;
+        }
+
+        public void SetTopic(string topic)
+        {
+            if (string.IsNullOrWhiteSpace(topic))
+            {
+                throw new ArgumentException("Field cannot be empty.");
+            }
+            Field = topic;
         }
 
     }

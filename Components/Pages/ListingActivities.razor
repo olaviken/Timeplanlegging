@@ -40,9 +40,33 @@
 			<td> 
 				<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
 			</td>
-
-
-
+			@if (activities == null || activities.Count == 0)
+			{
+				<tr>
+				<td colspan="5"> Ingen aktiviteter lagt til. </td>
+				</tr>
+			}
+			else
+			{
+				@foreach (var activity in activities.listActivities)
+				{
+					<tr>
+						<td> @activity.ActivityDate </td>
+						<td> @activity.ActivityName </td>
+						<td> @activity.ActivityHours </td>
+						<td> @activity.Field </td>
+						<td> @activity.ActivityDescription </td>
+						<td> @activity.EducatorFirstName </td>
+						<td> @activity.EducatorLastName </td>
+						<td>
+							<button class="btn btn-primary" @onclick="() => DeleteRow(activity)"><i class="bi bi-trash"></i></button>
+						</td>
+						<td>
+							<button class="btn btn-primary" @onclick="() => EditRow(activity)"><i class="bi bi-pencil"></i></button>
+						</td>
+					</tr>
+			}
+			}
 		</tr>
 	</tbody>
 </table>

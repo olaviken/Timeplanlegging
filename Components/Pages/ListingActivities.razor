@@ -11,6 +11,7 @@
 <table class="table">
 	<thead>
 		<tr>
+			<th>ID</th>
 			<th>Dato</th>
 			<th>Aktivitets navn</th>
 			<th> Antall timer</th>
@@ -24,25 +25,51 @@
 	</thead>
 	<tbody>
 		<tr id="Editrow">
+			<td>@newActivity.ActivityID</td>
 			<td>
-				
+			
 				<input id="InputDate" type="date" @bind="newActivity.Date" />
 			</td>
 			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
 			<td>
 
-				<input id="InputNumberOfHours" type="number" @bind="newActivity.NumberOfHours" />
+				<input id="InputNumberOfHours" type="number" @bind="newActivity.Hours" />
 			</td>
-			<td><input id="InputStudyProgram" type="text" @bind="newActivity.StudyProgram" /> </td>
+			<td><input id="InputStudyProgram" type="text" @bind="newActivity.Field" /> </td>
 			<td><input id="InputDescription" type="text" @bind="newActivity.Description" /></td>
 			<td><input id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFirstName"  /> </td>
 			<td><input id="InputEducatorLastName" type="text" @bind="newActivity.EducatorLastName" /> </td>
 			<td> 
 				<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
 			</td>
-
-
-
+			@if (activities == null || activities.Count == 0)
+			{
+				<tr>
+				<td colspan="5"> Ingen aktiviteter lagt til. </td>
+				</tr>
+			}
+			else
+			{
+				@foreach (var activity in activities.listActivities)
+				{
+					<tr>
+						<td> @activity.ActivityID </td>
+						<td> @activity.ActivityDate </td>
+						<td> @activity.ActivityName </td>
+						<td> @activity.ActivityHours </td>
+						<td> @activity.Field </td>
+						<td> @activity.ActivityDescription </td>
+						<td> @activity.EducatorFirstName </td>
+						<td> @activity.EducatorLastName </td>
+						<td>
+							<button class="btn btn-primary" @onclick="() => DeleteRow(activity)"><i class="bi bi-trash"></i></button>
+						</td>
+						<td>
+							<button class="btn btn-primary" @onclick="() => EditRow(activity)"><i class="bi bi-pencil"></i></button>
+						</td>
+					</tr>
+			}
+			}
 		</tr>
 	</tbody>
 </table>
@@ -52,13 +79,15 @@
 	private class InputModel
 	{
 		[Required]
+		public string ActivityID { get; set; } = Guid.NewGuid().ToString();
+		[Required]
 		public DateTime Date { get; set; }
 		[Required]
 		public string ActivityName { get; set; } = string.Empty;
 		[Required]
-		public double NumberOfHours { get; set; }
+		public double Hours { get; set; }
 		[Required]
-		public string StudyProgram { get; set; } = string.Empty;
+		public string Field { get; set; } = string.Empty;
 		public string Description { get; set; } = string.Empty;
 		[Required]
 		public string EducatorFirstName { get; set; } = string.Empty;
@@ -70,16 +99,28 @@
 	private void AddRow()
 	{
 		
+		
 	}
 
 	private void DeleteRow(Activity activity)
 	{
+		if(activity != null)
+		{
+			activities.RemoveActivity(activity);
+		}
 		
 	}
 
 	private void EditRow(Activity activity)
 	{
-		
+		newActivity.ActivityID = activity.ActivityID;
+		newActivity.Date = activity.ActivityDate;
+		newActivity.ActivityName = activity.ActivityName;
+		newActivity.Hours = activity.ActivityHours;
+		newActivity.Field = activity.Field;
+		newActivity.Description = activity.ActivityDescription;
+		newActivity.EducatorFirstName = activity.EducatorFirstName;
+		newActivity.EducatorLastName = activity.EducatorLastName;		
 	}
 
 }

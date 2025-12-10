@@ -28,6 +28,12 @@
             }
         }
 
+        public Activity? FindActivityByID(string activityID)
+        {
+            return listActivities.FirstOrDefault(a => a.ActivityID == activityID);
+        }
+        
+
         public int Count => listActivities.Count;
     }
 }

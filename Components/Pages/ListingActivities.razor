@@ -31,9 +31,9 @@
 			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
 			<td>
 
-				<input id="InputNumberOfHours" type="number" @bind="newActivity.NumberOfHours" />
+				<input id="InputNumberOfHours" type="number" @bind="newActivity.Hours" />
 			</td>
-			<td><input id="InputStudyProgram" type="text" @bind="newActivity.StudyProgram" /> </td>
+			<td><input id="InputStudyProgram" type="text" @bind="newActivity.Field" /> </td>
 			<td><input id="InputDescription" type="text" @bind="newActivity.Description" /></td>
 			<td><input id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFirstName"  /> </td>
 			<td><input id="InputEducatorLastName" type="text" @bind="newActivity.EducatorLastName" /> </td>
@@ -80,9 +80,9 @@
 		[Required]
 		public string ActivityName { get; set; } = string.Empty;
 		[Required]
-		public double NumberOfHours { get; set; }
+		public double Hours { get; set; }
 		[Required]
-		public string StudyProgram { get; set; } = string.Empty;
+		public string Field { get; set; } = string.Empty;
 		public string Description { get; set; } = string.Empty;
 		[Required]
 		public string EducatorFirstName { get; set; } = string.Empty;
@@ -98,12 +98,22 @@
 
 	private void DeleteRow(Activity activity)
 	{
+		if(activity != null)
+		{
+			activities.RemoveActivity(activity);
+		}
 		
 	}
 
 	private void EditRow(Activity activity)
 	{
-		
+		newActivity.Date = activity.ActivityDate;
+		newActivity.ActivityName = activity.ActivityName;
+		newActivity.Hours = activity.ActivityHours;
+		newActivity.Field = activity.Field;
+		newActivity.Description = activity.ActivityDescription;
+		newActivity.EducatorFirstName = activity.EducatorFirstName;
+		newActivity.EducatorLastName = activity.EducatorLastName;		
 	}
 
 }

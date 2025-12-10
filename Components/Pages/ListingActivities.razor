@@ -11,6 +11,7 @@
 <table class="table">
 	<thead>
 		<tr>
+			<th>ID</th>
 			<th>Dato</th>
 			<th>Aktivitets navn</th>
 			<th> Antall timer</th>
@@ -24,8 +25,9 @@
 	</thead>
 	<tbody>
 		<tr id="Editrow">
+			<td>@newActivity.ActivityID</td>
 			<td>
-				
+			
 				<input id="InputDate" type="date" @bind="newActivity.Date" />
 			</td>
 			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
@@ -51,6 +53,7 @@
 				@foreach (var activity in activities.listActivities)
 				{
 					<tr>
+						<td> @activity.ActivityID </td>
 						<td> @activity.ActivityDate </td>
 						<td> @activity.ActivityName </td>
 						<td> @activity.ActivityHours </td>
@@ -75,6 +78,8 @@
 
 	private class InputModel
 	{
+		[Required]
+		public string ActivityID { get; set; } = Guid.NewGuid().ToString();
 		[Required]
 		public DateTime Date { get; set; }
 		[Required]
@@ -108,6 +113,7 @@
 
 	private void EditRow(Activity activity)
 	{
+		newActivity.ActivityID = activity.ActivityID;
 		newActivity.Date = activity.ActivityDate;
 		newActivity.ActivityName = activity.ActivityName;
 		newActivity.Hours = activity.ActivityHours;

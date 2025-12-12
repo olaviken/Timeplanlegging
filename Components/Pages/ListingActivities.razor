@@ -15,7 +15,10 @@
 			<th>Dato</th>
 			<th>Aktivitets navn</th>
 			<th> Antall timer</th>
+			<th> Beregnet tid</th>
+			<th> Kategori</th>
 			<th>Studieretning</th>
+
 			<th>Beskrivelse</th>
 			<th>Forelesers fornavn</th>
 			<th>Forelesers etternavn</th>
@@ -26,15 +29,11 @@
 	<tbody>
 		<tr id="Editrow">
 			<td>@newActivity.ActivityID</td>
-			<td>
-			
-				<input id="InputDate" type="date" @bind="newActivity.Date" />
-			</td>
+			<td><input id="InputDate" type="date" @bind="newActivity.Date" /></td>
 			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
-			<td>
-
-				<input id="InputNumberOfHours" type="number" @bind="newActivity.Hours" />
-			</td>
+			<td><input id="InputNumberOfHours" type="number" @bind="newActivity.Hours" /></td>
+			<td> @newActivity.CalculatedHours </td>
+			<td><input id="InputCategory" type="text" @bind="newActivity.Category" />  </td> 
 			<td><input id="InputStudyProgram" type="text" @bind="newActivity.Field" /> </td>
 			<td><input id="InputDescription" type="text" @bind="newActivity.Description" /></td>
 			<td><input id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFirstName"  /> </td>
@@ -57,6 +56,8 @@
 						<td> @activity.ActivityDate </td>
 						<td> @activity.ActivityName </td>
 						<td> @activity.ActivityHours </td>
+						<td> @activity.CalculatedHours </td>
+						<td> @activity.ActivityCategory </td>
 						<td> @activity.Field </td>
 						<td> @activity.ActivityDescription </td>
 						<td> @activity.EducatorFirstName </td>

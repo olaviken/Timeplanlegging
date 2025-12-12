@@ -6,24 +6,33 @@
         public DateTime ActivityDate { get; private set; }
         public string ActivityName { get; private set; } = string.Empty;
         public float ActivityHours { get; private set; } = 0f;
+
+        public float CalculatedHours { get; private set; } = 0f;
+
+        public string ActivityCategory { get; set; } = string.Empty;
+
         public string Field { get; set; } = string.Empty;
         public string ActivityDescription { get; private set; } = string.Empty;
         public string EducatorFirstName { get; private set; } = string.Empty;
         public string EducatorLastName { get; private set; } = string.Empty;
 
-        
+
 
 
         public Activity() { }
 
-        public Activity(DateTime activitydate, string activityname, float activityhours, EducationCategory activitycategory, string activitydescription, string educatorfirstname, string educatorlastname, string field)
+        public Activity(string ActivityID, DateTime activitydate, string activityname, float activityhours, 
+                        float calculatedhours, string activitycategory, string activitydescription, string educatorfirstname, 
+                        string educatorlastname, string field)
         {
             SetActivityDate(activitydate);
             SetActivityName(activityname);
             SetActivityHours(activityhours);
+            SetCalculatedHours(calculatedhours);
+            SetActivityCategory(activitycategory);
             SetActivityDescription(activitydescription);
             SetEducatorName(educatorfirstname, educatorlastname);
-            SetTopic(field);
+            SetField(field);
         }
 
 
@@ -55,7 +64,7 @@
             ActivityHours = activityhours;
         }
 
-        
+
 
         public void SetActivityDescription(string activitydescription)
         {
@@ -80,14 +89,27 @@
             EducatorLastName = lastname;
         }
 
-        public void SetTopic(string topic)
+        public void SetField(string field)
         {
-            if (string.IsNullOrWhiteSpace(topic))
+            if (string.IsNullOrWhiteSpace(field))
             {
                 throw new ArgumentException("Field cannot be empty.");
             }
-            Field = topic;
+            Field = field;
         }
 
+        public void SetCalculatedHours(float calculatedhours)
+        {
+            if (calculatedhours < 0)
+            {
+                throw new ArgumentException("Calculated hours cannot be negative.");
+            }
+            CalculatedHours = calculatedhours;
+        }
+
+        public void SetActivityCategory(String category)
+        {
+            ActivityCategory = category;
+        }
     }
 }

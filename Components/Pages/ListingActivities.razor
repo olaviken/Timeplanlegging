@@ -29,13 +29,13 @@
 	<tbody>
 		<tr id="Editrow">
 			<td>@newActivity.ActivityID</td>
-			<td><input id="InputDate" type="date" @bind="newActivity.Date" /></td>
+			<td><input id="InputDate" type="date" @bind="newActivity.ActivityDate" /></td>
 			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
-			<td><input id="InputNumberOfHours" type="number" @bind="newActivity.Hours" /></td>
+			<td><input id="InputNumberOfHours" type="number" @bind="newActivity.ActivityHours" /></td>
 			<td> @newActivity.CalculatedHours </td>
-			<td><input id="InputCategory" type="text" @bind="newActivity.Category" />  </td> 
+			<td><input id="InputCategory" type="text" @bind="newActivity.ActivityCategory" />  </td> 
 			<td><input id="InputStudyProgram" type="text" @bind="newActivity.Field" /> </td>
-			<td><input id="InputDescription" type="text" @bind="newActivity.Description" /></td>
+			<td><input id="InputDescription" type="text" @bind="newActivity.ActivityDescription" /></td>
 			<td><input id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFirstName"  /> </td>
 			<td><input id="InputEducatorLastName" type="text" @bind="newActivity.EducatorLastName" /> </td>
 			<td> 
@@ -78,47 +78,32 @@
 
 @code {
 
-	private class InputModel
-	{
-		[Required]
-		public string ActivityID { get; set; } = Guid.NewGuid().ToString();
-		[Required]
-		public DateTime Date { get; set; }
-		[Required]
-		public string ActivityName { get; set; } = string.Empty;
-		[Required]
-		public float Hours { get; set; }
 
-		public float CalculatedHours { get; set; }
-
-		[Required]
-		public string Category { get; set; } = string.Empty;
-
-		[Required]
-		public string Field { get; set; } = string.Empty;
-		public string Description { get; set; } = string.Empty;
-		[Required]
-		public string EducatorFirstName { get; set; } = string.Empty;
-		[Required]
-		public string EducatorLastName { get; set; } = string.Empty;
-	}
-	private InputModel newActivity = new InputModel();
+	private Activity newActivity = new Activity();
 
 	private void AddRow()
 	{
 		if (activities.FindActivityByID(newActivity.ActivityID) != null)
 		{
-			Activity existingActivity = new Activity(newActivity.ActivityID,newActivity.Date,newActivity.ActivityName,newActivity.Hours,
-													 newActivity.CalculatedHours,newActivity.Category,newActivity.Description,newActivity.EducatorFirstName,
-													 newActivity.EducatorLastName,newActivity.Field);
+			Activity existingActivity = new Activity()
+			{
+				ActivityID = newActivity.ActivityID,
+				ActivityDate = newActivity.ActivityDate,
+				ActivityName = newActivity.ActivityName,
+				ActivityHours = newActivity.ActivityHours,
+				CalculatedHours = newActivity.CalculatedHours,
+				ActivityCategory = newActivity.ActivityCategory,
+				ActivityDescription = newActivity.ActivityDescription,
+				EducatorFirstName = newActivity.EducatorFirstName,
+				EducatorLastName = newActivity.EducatorLastName,
+				Field = newActivity.Field
+
+			};
 			activities.UpdateActivity(existingActivity);
 		}
 		else
 		{
-			Activity activity = new Activity(newActivity.ActivityID, newActivity.Date, newActivity.ActivityName, newActivity.Hours,
-											 newActivity.CalculatedHours, newActivity.Category, newActivity.Description, newActivity.EducatorFirstName,
-											 newActivity.EducatorLastName, newActivity.Field);
-			activities.AddActivity(activity);
+			activities.AddActivity(newActivity);
 		}
 
 	}
@@ -135,11 +120,11 @@
 	private void EditRow(Activity activity)
 	{
 		newActivity.ActivityID = activity.ActivityID;
-		newActivity.Date = activity.ActivityDate;
+		newActivity.ActivityDate = activity.ActivityDate;
 		newActivity.ActivityName = activity.ActivityName;
-		newActivity.Hours = activity.ActivityHours;
+		newActivity.ActivityHours = activity.ActivityHours;
 		newActivity.Field = activity.Field;
-		newActivity.Description = activity.ActivityDescription;
+		newActivity.ActivityDescription = activity.ActivityDescription;
 		newActivity.EducatorFirstName = activity.EducatorFirstName;
 		newActivity.EducatorLastName = activity.EducatorLastName;		
 	}

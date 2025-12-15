@@ -47,7 +47,7 @@
 				</td>
 				<td><input id="InputEmail" type="email" @bind="newEducator.Email" /> </td>
 				<td> @DisplayNewAge(newEducator.BirthDate) </td>
-				<td><input id="InputEdducationBackground" type="text" @bind="newEducator.EducationBackground" /></td>
+				<td><input id="InputEdducationBackground" type="text" @bind="newEducator.Education" /></td>
 				<td><input id="InputSpecialization" type="text" @bind="newEducator.Specialization" /></td>
 				<td><input id="InputPercentagePosition" type="number" @bind="newEducator.PercentagePosition"  /> </td>
 				<td><input id="InputPercentageRND" type="number" @bind="newEducator.PercentageRND" /> </td>
@@ -91,58 +91,43 @@
 @code {
 
 
-	private class InputModel
-	{
-		[Required]
-		public string FirstName { get; set; }
-		[Required]
-		public string LastName { get; set; }
-		[Required]
-		public DateTime BirthDate { get; set; } = DateTime.Today;
-		[Required]
-		public string EducationBackground { get; set; }
-		[Required]
-		public string Specialization { get; set; }
-		[Required]
-		[EmailAddress]
-		public string Email { get; set; }
-		[Range(0, 100)]
-		public int PercentagePosition { get; set; }
-		[Range(0, 100)]
-		public int PercentageRND { get; set; }
-	}
 
-	private InputModel newEducator = new InputModel();
+	private Educator newEducator = new Educator();
 
 	private void DeleteRow(Educator RemoveEducator)
 	{
-	if (RemoveEducator != null)
-	{
-		educators.RemoveEducator(RemoveEducator);
-	}	
+		if (RemoveEducator != null)
+		{
+			educators.RemoveEducator(RemoveEducator);
+		}	
 	}
 
 	private void EditRow(Educator EditEducator)
 	{
-	newEducator.FirstName = EditEducator.FirstName;
-	newEducator.LastName = EditEducator.LastName;
-	newEducator.BirthDate = EditEducator.BirthDate;
-	newEducator.Email = EditEducator.Email;
+		newEducator.FirstName = EditEducator.FirstName;
+		newEducator.LastName = EditEducator.LastName;
+		newEducator.BirthDate = EditEducator.BirthDate;
+		newEducator.Email = EditEducator.Email;
 
-	newEducator.PercentagePosition = EditEducator.PercentagePosition;
-	newEducator.PercentageRND = EditEducator.PercentageRND;
+		newEducator.PercentagePosition = EditEducator.PercentagePosition;
+		newEducator.PercentageRND = EditEducator.PercentageRND;
 	}
 
 	private void AddRow()
 	{
-		Educator educatorToAdd = new Educator(
-			newEducator.FirstName,
-			newEducator.LastName,
-			newEducator.BirthDate,
-			newEducator.Email,
-			newEducator.PercentageRND,
-			newEducator.PercentagePosition
-		);
+		Educator educatorToAdd = new Educator()
+			{
+				FirstName = newEducator.FirstName,
+				LastName = newEducator.LastName,
+				BirthDate = newEducator.BirthDate,
+				Email = newEducator.Email,
+				Education = newEducator.Education,
+				Specialization = newEducator.Specialization,
+				PercentagePosition = newEducator.PercentagePosition,
+				PercentageRND = newEducator.PercentageRND,
+
+			};
+
 		if ((educators.FindEducatorByName($"{newEducator.LastName}, {newEducator.FirstName}") != null))
 		{
 			educators.UpdateEducator(educatorToAdd);
@@ -181,3 +166,4 @@
 	}
 	
 }
+

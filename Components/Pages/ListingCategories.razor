@@ -63,27 +63,25 @@
 
 @code {
 
-	private class CategoryModel
-	{
-		public string CategoryName { get; set; } = string.Empty;
-		public string Description { get; set; } = string.Empty;
-		public int HoursMultiplier { get; set; } = 1;
-	}
 
-	private CategoryModel newCategory = new CategoryModel();
+	private EducationCategory newCategory = new EducationCategory();
 
 	private void AddCategory()
 	{
 
 		if(categories.FindCategory(newCategory.CategoryName)!= null)
 		{
-			EducationCategory existingCategory = new EducationCategory(newCategory.CategoryName,newCategory.Description, newCategory.HoursMultiplier);
+			EducationCategory existingCategory = new EducationCategory()
+			{
+				CategoryName = newCategory.CategoryName,
+				Description = newCategory.Description,
+				HoursMultiplier = newCategory.HoursMultiplier
+			};
 			categories.UpdateCategory(existingCategory);
 		}
 		else
 		{
-			EducationCategory category = new EducationCategory(newCategory.CategoryName, newCategory.Description, newCategory.HoursMultiplier);
-			categories.AddCategory(category);
+			categories.AddCategory(newCategory);
 
 		}
 		

@@ -1,6 +1,6 @@
 ﻿@page "/ListingTopics"
 @using System.ComponentModel.DataAnnotations
-@inject ListField topics
+@inject ListField fields
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -21,19 +21,19 @@
 	<tbody>
 		<tr id="Editrow">
 			<td>
-				<input id="InputTopicID" type="text" @bind="newTopic.TopicID" />
+				<input id="InputTopicID" type="text" @bind="newField.FieldID" />
 			</td>
 			<td>
-				<input id="InputTopicTitle" type="text" @bind="newTopic.TopicTitle" />
+				<input id="InputTopicTitle" type="text" @bind="newField.FieldTitle" />
 			</td>
 			<td>
-				<input id="InputTopicDescription" type="text" @bind="newTopic.TopicDescription" />
+				<input id="InputTopicDescription" type="text" @bind="newField.FieldDescription" />
 			</td>
 			<td>
 				<button class="btn btn-primary" @onclick="() => AddTopic()"><i class="bi bi-plus-lg"></i></button>
 			</td>
 		</tr>
-		@if(topics == null || topics.Count ==0)
+		@if(fields == null || fields.Count ==0)
 		{
 			<tr>
 				<td colspan="4"> Ingen emner lagt til. </td>
@@ -41,17 +41,17 @@
 		}
 		else
 		{
-			@foreach(var topic in topics.listFields)
+			@foreach(var field in fields.listFields)
 			{
 				<tr>
-					<td> @topic.FieldID </td>
-					<td> @topic.FieldTitle </td>
-					<td> @topic.FieldDescription </td>
+					<td> @field.FieldID </td>
+					<td> @field.FieldTitle </td>
+					<td> @field.FieldDescription </td>
 					<td>
-						<button class="btn btn-primary" @onclick="() => DeleteRow(topic)"><i class="bi bi-trash"></i></button>
+						<button class="btn btn-primary" @onclick="() => DeleteRow(field)"><i class="bi bi-trash"></i></button>
 					</td>
 					<td>
-						<button class="btn btn-primary" @onclick="() => UpdateRow(topic)"><i class="bi bi-pencil"></i></button>
+						<button class="btn btn-primary" @onclick="() => UpdateRow(field)"><i class="bi bi-pencil"></i></button>
 					</td>
 				</tr>
 			}
@@ -62,48 +62,45 @@
 
 @code {
 
-	private class TopicModel
-	{
-		[Required]
-		public string TopicID { get; set; } = string.Empty;
-		[Required]
-		public string TopicTitle { get; set; } = string.Empty;
-		public string TopicDescription { get; set; } = string.Empty;
-	}
 
-	private TopicModel newTopic = new TopicModel();
+
+	private Field newField = new Field();
 
 
 	private void AddTopic()
 	{
-		if (topics.FindFieldByID(newTopic.TopicID) != null)
+		if (fields.FindFieldByID(newField.FieldID) != null)
 		{
-			Field existingTopic = new Field(newTopic.TopicID, newTopic.TopicTitle, newTopic.TopicDescription);
-			topics.UpdateField(existingTopic);
+			Field existingTopic = new Field
+			{
+				FieldID = newField.FieldID,
+				FieldTitle = newField.FieldTitle,
+				FieldDescription = newField.FieldDescription
+			};
+			fields.UpdateField(existingTopic);
 		}
 		else
 		{
-			Field topic = new Field(newTopic.TopicID, newTopic.TopicTitle, newTopic.TopicDescription);
-			topics.AddField(topic);
+			fields.AddField(newField);
 		}
 	}
 
-	private void DeleteRow(Field RemoveTopic)
+	private void DeleteRow(Field removefield)
 	{
-		if(RemoveTopic != null)
+		if(removefield != null)
 		{
-			topics.RemoveField(RemoveTopic); 
+			fields.RemoveField(removefield); 
 			
 		}
 	}
 		
 	
 
-	private void UpdateRow(Field topic)
+	private void UpdateRow(Field field)
 	{
-		newTopic.TopicID = topic.FieldID;
-		newTopic.TopicTitle = topic.FieldTitle;
-		newTopic.TopicDescription = topic.FieldDescription;
+		newField.FieldID = field.FieldID;
+		newField.FieldTitle = field.FieldTitle;
+		newField.FieldDescription = field.FieldDescription;
 	}
 
 }

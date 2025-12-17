@@ -1,35 +1,41 @@
 ﻿namespace BlazorTest.Components.Classes
 {
-    public class ListField
+    public class ListField : IFields
     {
-        public List<Field> listFields = new();
+        private List<Field> listFields = new();
+
+        public int Count => listFields.Count;
+        public List<Field> GetFields() 
+        {
+            return listFields; 
+        }
 
         public ListField() { }
 
-        public void AddField(Field topic)
+        public void AddField(Field field)
         {
-            if (topic is null) throw new ArgumentNullException(nameof(topic));
-            if (listFields.Any(t => string.Equals(t.FieldID, topic.FieldID, StringComparison.OrdinalIgnoreCase)))
+            if (field is null) throw new ArgumentNullException(nameof(field));
+            if (listFields.Any(t => string.Equals(t.FieldID, field.FieldID, StringComparison.OrdinalIgnoreCase)))
                 throw new InvalidOperationException("A field with the same ID already exists.");
-            listFields.Add(topic);
+            listFields.Add(field);
         }
 
-        public void RemoveField(Field topic)
+        public void RemoveField(Field field)
         {
-                       listFields.Remove(topic);
+                       listFields.Remove(field);
         }
 
-        public Field? FindFieldByID(string topicID)
+        public Field? FindFieldByID(string fieldID)
         {
-            return listFields.FirstOrDefault(t => string.Equals(t.FieldID, topicID, StringComparison.OrdinalIgnoreCase));
+            return listFields.FirstOrDefault(t => string.Equals(t.FieldID, fieldID, StringComparison.OrdinalIgnoreCase));
         }
 
-        public void UpdateField(Field updatedTopic)
+        public void UpdateField(Field updatedField)
         {
-            var existing = FindFieldByID(updatedTopic.FieldID);
-            int index = listFields.IndexOf(existing);
-            listFields[index] = updatedTopic;
+            var existingField = FindFieldByID(updatedField.FieldID);
+            int index = listFields.IndexOf(existingField);
+            listFields[index] = updatedField;
         }
-        public int Count => listFields.Count;
+        
     }
 }

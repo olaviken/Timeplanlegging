@@ -11,7 +11,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddSingleton<ListActivity>();
 builder.Services.AddSingleton<ListEducator>();
 builder.Services.AddSingleton<ListCategory>();
-builder.Services.AddSingleton<ListField>();
+builder.Services.AddSingleton<IFields, ListField>();
 
 var app = builder.Build();
 

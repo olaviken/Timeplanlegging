@@ -1,6 +1,6 @@
 ﻿namespace BlazorTest.Components.Classes
 {
-    public class ListField
+    public class ListField : IFields
     {
         private List<Field> listFields = new();
 

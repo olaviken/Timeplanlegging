@@ -8,8 +8,6 @@
         void RemoveField(Field field);
         Field? FindFieldByID(string fieldID);
         void UpdateField(Field updatedField);
-        void DeleteField(Field field);
-
 
     }
 }

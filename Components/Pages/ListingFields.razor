@@ -33,7 +33,7 @@
 				<button class="btn btn-primary" @onclick="() => AddTopic()"><i class="bi bi-plus-lg"></i></button>
 			</td>
 		</tr>
-		@if(fields == null || fields.Count ==0)
+		@if (fields == null || fields.Count == 0)//change to find length of list	
 		{
 			<tr>
 				<td colspan="4"> Ingen emner lagt til. </td>
@@ -41,7 +41,7 @@
 		}
 		else
 		{
-			@foreach(var field in fields.listFields)
+			@foreach(var field in fields.GetFields())
 			{
 				<tr>
 					<td> @field.FieldID </td>

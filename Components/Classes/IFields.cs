@@ -11,6 +11,8 @@
         Field? FindFieldByID(string fieldID);
         void UpdateField(Field updatedField);
 
-        
+        int CountFields();
+
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace BlazorTest.Components.Classes
 {
-    public class ListActivity : IActivites
+    public class ListActivity : IActivities
     {
         private List<Activity> listActivities = new();
 

@@ -4,7 +4,7 @@
     {
         private List<Field> listFields = new();
 
-        public int Count => listFields.Count;
+        
         public List<Field> GetFields() 
         {
             return listFields; 
@@ -37,5 +37,9 @@
             listFields[index] = updatedField;
         }
         
+        public int CountFields()
+        {
+            return listFields.Count;
+        }
     }
 }

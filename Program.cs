@@ -8,7 +8,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 //Added Singleton Services
-builder.Services.AddSingleton<ListActivity>();
+builder.Services.AddSingleton<IActivities, ListActivity>();
 builder.Services.AddSingleton<ListEducator>();
 builder.Services.AddSingleton<ListCategory>();
 builder.Services.AddSingleton<IFields, ListField>();

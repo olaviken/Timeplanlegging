@@ -1,8 +1,13 @@
 ﻿namespace BlazorTest.Components.Classes
 {
-    public class ListActivity
+    public class ListActivity : IActivites
     {
-        public List<Activity> listActivities  { get; private set; } = new();
+        private List<Activity> listActivities = new();
+
+        public List<Activity> GetActivities()
+        {
+            return listActivities;
+        }
 
         public ListActivity() { }
 
@@ -34,6 +39,9 @@
         }
         
 
-        public int Count => listActivities.Count;
+        public int CountActivities()
+        {
+            return listActivities.Count;
+        }
     }
 }

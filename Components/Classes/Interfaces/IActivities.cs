@@ -1,4 +1,4 @@
-﻿namespace BlazorTest.Components.Classes
+﻿namespace BlazorTest.Components.Classes.Interfaces
 {
     public interface IActivities
     {

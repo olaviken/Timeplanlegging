@@ -1,8 +1,15 @@
-﻿namespace BlazorTest.Components.Classes
+﻿using BlazorTest.Components.Classes.Interfaces;
+
+namespace BlazorTest.Components.Classes.Lists
 {
-    public class ListCategory
+    public class ListCategory : ICategories
     {
-        public List<EducationCategory> listCategoires { get; private set; } = new();
+        private List<EducationCategory> listCategoires = new();
+
+        public List<EducationCategory> GetEducationCategories()
+        {
+            return listCategoires;
+        }
 
         public ListCategory() { }
 
@@ -41,7 +48,14 @@
 
         
 
-        public int Count => listCategoires.Count;
+        public int CountCategories()
+        {
+            return listCategoires.Count;
+        }
 
+        EducationCategory? ICategories.FindCategory(string categoryname)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

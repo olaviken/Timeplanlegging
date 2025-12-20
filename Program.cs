@@ -1,5 +1,6 @@
 using BlazorTest.Components;
-using BlazorTest.Components.Classes;
+using BlazorTest.Components.Classes.Interfaces;
+using BlazorTest.Components.Classes.Lists;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ builder.Services.AddRazorComponents()
 //Added Singleton Services
 builder.Services.AddSingleton<IActivities, ListActivity>();
 builder.Services.AddSingleton<ListEducator>();
-builder.Services.AddSingleton<ListCategory>();
+builder.Services.AddSingleton<ICategories, ListCategory>();
 builder.Services.AddSingleton<IFields, ListField>();
 
 var app = builder.Build();

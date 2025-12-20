@@ -46,7 +46,10 @@
 
         
 
-        public int Count => listCategoires.Count;
+        public int CountCategories()
+        {
+            return listCategoires.Count;
+        }
 
     }
 }

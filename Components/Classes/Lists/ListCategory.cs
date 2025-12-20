@@ -1,8 +1,13 @@
-﻿namespace BlazorTest.Components.Classes
+﻿namespace BlazorTest.Components.Classes.Lists
 {
-    public class ListCategory
+    public class ListCategory 
     {
-        public List<EducationCategory> listCategoires { get; private set; } = new();
+        private List<EducationCategory> listCategoires { get; private set; } = new();
+
+        public List<EducationCategory> GetEducationCategories()
+        {
+            return listCategoires;
+        }
 
         public ListCategory() { }
 

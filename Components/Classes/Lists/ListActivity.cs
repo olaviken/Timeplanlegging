@@ -1,6 +1,6 @@
 ﻿using BlazorTest.Components.Classes.Interfaces;
 
-namespace BlazorTest.Components.Classes
+namespace BlazorTest.Components.Classes.Lists
 {
     public class ListActivity : IActivities
     {

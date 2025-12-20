@@ -1,6 +1,6 @@
 using BlazorTest.Components;
-using BlazorTest.Components.Classes;
 using BlazorTest.Components.Classes.Interfaces;
+using BlazorTest.Components.Classes.Lists;
 
 var builder = WebApplication.CreateBuilder(args);
 

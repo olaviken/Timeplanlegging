@@ -2,7 +2,7 @@
 {
     public class ListCategory 
     {
-        private List<EducationCategory> listCategoires { get; private set; } = new();
+        private List<EducationCategory> listCategoires = new();
 
         public List<EducationCategory> GetEducationCategories()
         {

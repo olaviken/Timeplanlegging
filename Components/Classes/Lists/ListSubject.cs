@@ -1,6 +1,8 @@
-﻿namespace BlazorTest.Components.Classes.Lists
+﻿using BlazorTest.Components.Classes.Interfaces;
+
+namespace BlazorTest.Components.Classes.Lists
 {
-    public class ListSubject :ISubjects
+    public class ListSubject : ISubjects
     {
         private List<Subject> listSubjects = new();
         public List<Subject> GetSubjects()

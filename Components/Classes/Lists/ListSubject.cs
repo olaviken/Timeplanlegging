@@ -1,8 +1,12 @@
 ﻿namespace BlazorTest.Components.Classes.Lists
 {
-    public class ListSubject
+    public class ListSubject :ISubjects
     {
-        public List<Subject> listSubjects = new();
+        private List<Subject> listSubjects = new();
+        public List<Subject> GetSubjects()
+        {
+            return listSubjects;
+        }
         public ListSubject() { }
         public void AddSubject(Subject subject)
         {
@@ -25,6 +29,9 @@
             int index = listSubjects.IndexOf(existing);
             listSubjects[index] = updatedSubject;
         }
-        public int Count => listSubjects.Count;
+        public int CountSubjects()
+        {
+            return listSubjects.Count;
+        }
     }
 }

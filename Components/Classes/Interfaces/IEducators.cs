@@ -7,7 +7,7 @@
         void RemoveEducator(Educator educator);
         Educator? FindEducatorByEmail(string email);
 
-        EducationCategory? FindEducatorByName(string fullname);
+        Educator? FindEducatorByName(string fullname);
         void UpdateEducator(Educator updatedEducator);
 
         int CountEducators();

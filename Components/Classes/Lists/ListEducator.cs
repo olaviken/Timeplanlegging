@@ -1,4 +1,6 @@
-﻿namespace BlazorTest.Components.Classes.Lists
+﻿using BlazorTest.Components.Classes.Interfaces;
+
+namespace BlazorTest.Components.Classes.Lists
 {
     public class ListEducator : IEducators
     {

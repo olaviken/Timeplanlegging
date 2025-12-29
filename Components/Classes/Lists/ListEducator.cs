@@ -1,11 +1,17 @@
-﻿namespace BlazorTest.Components.Classes.Lists
+﻿using BlazorTest.Components.Classes.Interfaces;
+
+namespace BlazorTest.Components.Classes.Lists
 {
-    public class ListEducator
+    public class ListEducator : IEducators
     {
         // keep internal list private and expose a read-only view
-        public List<Educator> listEducators = new();    
+        private List<Educator> listEducators = new();    
 
-        
+        public List<Educator> GetEducators()
+        {
+            return listEducators;
+        }
+
         public ListEducator() { }
 
         public void AddEducator(Educator educator)
@@ -39,6 +45,9 @@
             listEducators[index] = updatedEducator;
         }
 
-        public int Count => listEducators.Count;
+        public int CountEducators()
+        {
+            return listEducators.Count;
+        }
     }
 }

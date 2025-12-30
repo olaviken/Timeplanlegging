@@ -1,6 +1,6 @@
 ﻿@page "/ListingCategories"
 @using System.ComponentModel.DataAnnotations
-@inject ListCategory categories
+@inject Classes.Interfaces.ICategories categories
 
 @using Classes
 @rendermode InteractiveServer
@@ -33,7 +33,7 @@
 				<button class="btn btn-primary" @onclick="() => AddCategory()"><i class="bi bi-plus-lg"></i></button>
 			</td>
 		</tr>
-		@if(categories == null || categories.Count ==0)
+		@if(categories == null || categories.CountCategories() ==0)
 		{
 			<tr>
 				<td colspan="5"> Ingen kategorier lagt til. </td>
@@ -41,7 +41,7 @@
 		}
 		else
 		{
-			@foreach(var category in categories.listCategoires)
+			@foreach(var category in categories.GetCategories())
 			{
 				<tr>
 					<td> @category.CategoryName </td>

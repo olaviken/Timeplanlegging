@@ -2,7 +2,7 @@
 {
     public interface ICategories
     {
-        List<EducationCategory> GetEducationCategories();
+        List<EducationCategory> GetCategories();
         void AddCategory(EducationCategory category);
         void RemoveCategory(EducationCategory category);
         EducationCategory? FindCategory(string categoryname);

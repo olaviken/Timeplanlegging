@@ -1,6 +1,6 @@
 ﻿@page "/ListingActivities"
 @using System.ComponentModel.DataAnnotations
-@inject ListActivity activities
+@inject Classes.Interfaces.IActivities activities
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -42,7 +42,7 @@
 				<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
 			</td>
 		</tr>
-		@if (activities == null || activities.Count == 0)
+		@if (activities == null || activities.CountActivities() == 0)
 		{
 			<tr>
 				<td colspan="5"> Ingen aktiviteter lagt til. </td>
@@ -50,7 +50,7 @@
 		}
 		else
 		{
-			@foreach (var activity in activities.listActivities)
+			@foreach (var activity in activities.GetActivities())
 			{
 				<tr>
 					<td> @activity.ActivityID </td>

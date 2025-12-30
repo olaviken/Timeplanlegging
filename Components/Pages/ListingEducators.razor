@@ -57,13 +57,13 @@
 					<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
 				</td>
 			</tr>
-			@if(educators == null || educators.Count ==0)
+			@if(educators == null || educators.CountEducators() ==0)
 			{
 			<p>loading educators...</p>
 			}
 			else
 			{
-				@foreach (var educator in educators.listEducators)
+				@foreach (var educator in educators.GetEducators())
 				{
 					<tr>
 						<td>@educator.FirstName</td>

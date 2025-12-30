@@ -71,12 +71,7 @@
 
 		if(categories.FindCategory(newCategory.CategoryName)!= null)
 		{
-			EducationCategory existingCategory = new EducationCategory()
-			{
-				CategoryName = newCategory.CategoryName,
-				Description = newCategory.Description,
-				HoursMultiplier = newCategory.HoursMultiplier
-			};
+			EducationCategory existingCategory = newCategory;
 			categories.UpdateCategory(existingCategory);
 		}
 		else

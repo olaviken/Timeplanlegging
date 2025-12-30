@@ -1,0 +1,59 @@
+﻿@page "/ListingSubjects"
+@using System.ComponentModel.DataAnnotations
+@inject Classes.Interfaces.ISubjects subjects
+@using Classes
+@rendermode InteractiveServer
+@inject IJSRuntime JS
+
+
+
+<h3>Emner</h3>
+
+<table>
+		<thead>
+		<tr>
+			<th>Emne kode</th>
+			<th>Emne</th>
+			<th>Beskrivelse</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="Editrow">
+			<td>
+				<input id="InputTopicID" type="text" @bind="newSubject.SubjectCode" />
+			</td>
+			<td>
+				<input id="InputTopicTitle" type="text" @bind="newSubject.SubjectName" />
+			</td>
+			<td>
+				<input id="InputTopicDescription" type="text" @bind="newSubject.SubjectDescription" />
+			</td>
+			<td>
+				<button class="btn btn-primary" @onclick="() => AddSubject()"><i class="bi bi-plus-lg"></i></button>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+
+
+
+@code {
+
+	private Subject newSubject = new Subject();
+
+	private void AddSubject()
+	{
+		if(subjects.FindSubjectByCode(newSubject.SubjectCode) != null)
+		{
+			Subject existingSubject = newSubject;
+			subjects.UpdateSubject(existingSubject);
+		}
+		else
+		{
+			subjects.AddSubject(newSubject);
+		}
+	}
+
+}

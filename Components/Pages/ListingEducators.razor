@@ -115,18 +115,7 @@
 
 	private void AddRow()
 	{
-		Educator educatorToAdd = new Educator()
-			{
-				FirstName = newEducator.FirstName,
-				LastName = newEducator.LastName,
-				BirthDate = newEducator.BirthDate,
-				Email = newEducator.Email,
-				Education = newEducator.Education,
-				Specialization = newEducator.Specialization,
-				PercentagePosition = newEducator.PercentagePosition,
-				PercentageRND = newEducator.PercentageRND,
-
-			};
+		Educator educatorToAdd = newEducator;
 
 		if ((educators.FindEducatorByName($"{newEducator.LastName}, {newEducator.FirstName}") != null))
 		{

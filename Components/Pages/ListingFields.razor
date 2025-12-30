@@ -71,12 +71,8 @@
 	{
 		if (fields.FindFieldByID(newField.FieldID) != null)
 		{
-			Field existingTopic = new Field
-			{
-				FieldID = newField.FieldID,
-				FieldTitle = newField.FieldTitle,
-				FieldDescription = newField.FieldDescription
-			};
+			Field existingTopic = newField;
+
 			fields.UpdateField(existingTopic);
 		}
 		else

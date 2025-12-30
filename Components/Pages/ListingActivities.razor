@@ -85,20 +85,7 @@
 	{
 		if (activities.FindActivityByID(newActivity.ActivityID) != null)
 		{
-			Activity existingActivity = new Activity()
-			{
-				ActivityID = newActivity.ActivityID,
-				ActivityDate = newActivity.ActivityDate,
-				ActivityName = newActivity.ActivityName,
-				ActivityHours = newActivity.ActivityHours,
-				CalculatedHours = newActivity.CalculatedHours,
-				ActivityCategory = newActivity.ActivityCategory,
-				ActivityDescription = newActivity.ActivityDescription,
-				EducatorFirstName = newActivity.EducatorFirstName,
-				EducatorLastName = newActivity.EducatorLastName,
-				Field = newActivity.Field
-
-			};
+			Activity existingActivity = newActivity;
 			activities.UpdateActivity(existingActivity);
 		}
 		else

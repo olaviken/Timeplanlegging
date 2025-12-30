@@ -6,7 +6,7 @@ namespace BlazorTest.Components.Classes.Lists
     {
         private List<EducationCategory> listCategoires = new();
 
-        public List<EducationCategory> GetEducationCategories()
+        public List<EducationCategory> GetCategories()
         {
             return listCategoires;
         }

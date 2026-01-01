@@ -1,6 +1,6 @@
 ﻿@page "/ListingEducators"
 @using System.ComponentModel.DataAnnotations
-@inject Classes.Lists.ListEducator educators
+@inject Classes.Interfaces.IEducators educators
 
 @using Classes
 @rendermode InteractiveServer
@@ -54,7 +54,7 @@
 				<td>@((DisplayEducationHoursFall(newEducator.BirthDate,newEducator.PercentageRND,newEducator.PercentagePosition)).ToString("F2"))</td>
 				<td>@((DisplayEducationHoursSpring(newEducator.BirthDate, newEducator.PercentageRND, newEducator.PercentagePosition)).ToString("F2"))</td>
 				<td> 
-					<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
+					<button class="btn btn-primary" @onclick="() => AddEducator()"><i class="bi bi-plus-lg"></i></button>
 				</td>
 			</tr>
 			@if(educators == null || educators.CountEducators() ==0)
@@ -104,16 +104,10 @@
 
 	private void EditRow(Educator EditEducator)
 	{
-		newEducator.FirstName = EditEducator.FirstName;
-		newEducator.LastName = EditEducator.LastName;
-		newEducator.BirthDate = EditEducator.BirthDate;
-		newEducator.Email = EditEducator.Email;
-
-		newEducator.PercentagePosition = EditEducator.PercentagePosition;
-		newEducator.PercentageRND = EditEducator.PercentageRND;
+		newEducator = EditEducator;
 	}
 
-	private void AddRow()
+	private void AddEducator()
 	{
 		Educator educatorToAdd = newEducator;
 

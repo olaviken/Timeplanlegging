@@ -51,7 +51,7 @@
 						<button class="btn btn-primary" @onclick="() => DeleteRow(category)"><i class="bi bi-trash"></i></button>
 					</td>
 					<td>
-						<button class="btn btn-primary" @onclick="() => UpdateRow(category)"><i class="bi bi-pencil"></i></button>
+						<button class="btn btn-primary" @onclick="() => EditRow(category)"><i class="bi bi-pencil"></i></button>
 					</td>
 
 				</tr>
@@ -91,10 +91,8 @@
 
 	}
 
-	private void UpdateRow(EducationCategory UpdateCategory)
+	private void EditRow(EducationCategory UpdateCategory)
 	{
-		newCategory.CategoryName = UpdateCategory.CategoryName;
-		newCategory.Description = UpdateCategory.Description;
-		newCategory.HoursMultiplier = UpdateCategory.HoursMultiplier;
+		newCategory = UpdateCategory;
 	}
 }

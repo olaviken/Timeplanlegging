@@ -1,7 +1,8 @@
 ﻿@page "/profile"
 @using System.ComponentModel.DataAnnotations
 @using Classes
-@inject ListEducator educators
+@inject Classes.Interfaces.IEducators educators
+
 @rendermode InteractiveServer
 
 <!--Mulig døpe om denne siden til profile
@@ -30,7 +31,7 @@
 <br />
 <input type="date" placeholder="fødselsdato" @bind="inputModel.BirthDate" />
 <br />
-<input type="text" placeholder="Utdanningsbakgrunn" @bind="inputModel.EducationBackground" />
+<input type="text" placeholder="Utdanningsbakgrunn" @bind="inputModel.Education" />
 <br />
 <input type="text" placeholder="Spesialisering" @bind="inputModel.Specialization" />
 <br />
@@ -38,40 +39,13 @@
 
 
 @code {
-	private class InputModel
-	{
-		[Required]
-		public string FirstName { get; set; } = string.Empty;
-		[Required]
-		public string LastName { get; set; } = string.Empty;
-		[Required]
-		[EmailAddress]
-		public string Email { get; set; } = string.Empty;
-		[Required]
-		public DateOnly BirthDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-		[Required]
-		public string EducationBackground { get; set; } = string.Empty;
-		[Required]
-		public string Specialization { get; set; } = string.Empty;		
-	}
-
-	private InputModel inputModel = new InputModel();
-
+	
+	private Educator inputModel = new Educator();
 	private void AddProfile()
 	{
-		Educator educator = new Educator
-		(
-			inputModel.FirstName,
-			inputModel.LastName,
-			inputModel.BirthDate.ToDateTime(TimeOnly.MinValue),
-			inputModel.Email,
-			20,
-			100,
-			inputModel.EducationBackground,
-			inputModel.Specialization
-		);
+		Educator educator = new Educator();
+
 		educators.AddEducator(educator);
 		// Clear the form
-		inputModel = new InputModel();
 	}
 }

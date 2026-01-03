@@ -5,7 +5,7 @@
         List<EducationCategory> GetCategories();
         void AddCategory(EducationCategory category);
         void RemoveCategory(EducationCategory category);
-        EducationCategory? FindCategory(string categoryname);
+        EducationCategory FindCategory(string categoryname);
         void UpdateCategory(EducationCategory updatedCategory);
         int CountCategories();
 

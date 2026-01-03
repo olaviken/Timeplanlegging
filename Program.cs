@@ -12,7 +12,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddSingleton<IActivities, ListActivity>();
 builder.Services.AddSingleton<IEducators, ListEducator>();
 builder.Services.AddSingleton<ICategories, ListCategoryTest>();
-builder.Services.AddSingleton<IFields, ListField>();
+builder.Services.AddSingleton<IFields, ListFieldsTest>();
 builder.Services.AddSingleton<ISubjects, ListSubject>();
 
 var app = builder.Build();

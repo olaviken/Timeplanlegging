@@ -9,7 +9,7 @@
 
 <h3>Emner</h3>
 
-<table>
+<table class="table">
 		<thead>
 		<tr>
 			<th>Emne kode</th>
@@ -49,10 +49,10 @@
 					<td> @subject.SubjectName </td>
 					<td> @subject.SubjectDescription </td>
 					<td>
-						<button class="btn btn-warning" @onclick="() => DeletRow(subject)"><i class="bi bi-trash3"></i></button>
+						<button class="btn btn-primary" @onclick="() => DeletRow(subject)"><i class="bi bi-trash"></i></button>
 					</td>
 					<td>
-						<button class="btn btn-info" @onclick="() => EditRow(subject)"><i class="bi bi-pencil-square"></i></button>
+						<button class="btn btn-primary" @onclick="() => EditRow(subject)"><i class="bi bi-pencil"></i></button>
 					</td>
 				</tr>
 			}

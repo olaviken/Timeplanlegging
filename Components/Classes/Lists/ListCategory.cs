@@ -18,14 +18,13 @@ namespace BlazorTest.Components.Classes.Lists
             listCategoires.Add(category);
         }
 
-        public ListCategory FindCategory(string categoryname)
+        public EducationCategory FindCategory(string categoryname)
         {
             
             if (listCategoires.Any(c => c.CategoryName == categoryname))
             {
                 var foundCategory = listCategoires.First(c => c.CategoryName == categoryname);
-                var result = new ListCategory();
-                result.AddCategory(foundCategory);
+                var result = new EducationCategory();
                 return result;
             }
             return null;
@@ -53,9 +52,6 @@ namespace BlazorTest.Components.Classes.Lists
             return listCategoires.Count;
         }
 
-        EducationCategory? ICategories.FindCategory(string categoryname)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -2,14 +2,14 @@
 
 namespace BlazorTest.Components.Classes.Lists
 {
-    public class ListSubject : ISubjects
+    public class ListSubjects : ISubjects
     {
         private List<Subject> listSubjects = new();
         public List<Subject> GetSubjects()
         {
             return listSubjects;
         }
-        public ListSubject() { }
+        public ListSubjects() { }
         public void AddSubject(Subject subject)
         {
             if (subject is null) throw new ArgumentNullException(nameof(subject));

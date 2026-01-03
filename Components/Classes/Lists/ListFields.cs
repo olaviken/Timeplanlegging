@@ -2,7 +2,7 @@
 
 namespace BlazorTest.Components.Classes.Lists
 {
-    public class ListField : IFields
+    public class ListFields : IFields
     {
         private List<Field> listFields = new();
 
@@ -12,7 +12,7 @@ namespace BlazorTest.Components.Classes.Lists
             return listFields; 
         }
 
-        public ListField() { }
+        public ListFields() { }
 
         public void AddField(Field field)
         {
@@ -24,7 +24,7 @@ namespace BlazorTest.Components.Classes.Lists
 
         public void RemoveField(Field field)
         {
-                       listFields.Remove(field);
+           listFields.Remove(field);
         }
 
         public Field? FindFieldByID(string fieldID)

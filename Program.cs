@@ -13,7 +13,7 @@ builder.Services.AddSingleton<IActivities, ListActivity>();
 builder.Services.AddSingleton<IEducators, ListEducator>();
 builder.Services.AddSingleton<ICategories, ListCategoryTest>();
 builder.Services.AddSingleton<IFields, ListFieldsTest>();
-builder.Services.AddSingleton<ISubjects, ListSubjects>();
+builder.Services.AddSingleton<ISubjects, ListSubjectsTest>();
 
 var app = builder.Build();
 

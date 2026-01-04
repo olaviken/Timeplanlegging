@@ -1,6 +1,9 @@
 ﻿@page "/ListingActivities"
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IActivities activities
+@inject Classes.Interfaces.ICategories categories
+@inject Classes.Interfaces.ISubjects subjects
+@inject Classes.Interfaces.IEducators educators
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -20,8 +23,7 @@
 			<th>Studieretning</th>
 
 			<th>Beskrivelse</th>
-			<th>Forelesers fornavn</th>
-			<th>Forelesers etternavn</th>
+			<th>Foreleser</th>
 			<th></th>
 			<th></th>
 		</tr>
@@ -33,11 +35,26 @@
 			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
 			<td><input id="InputNumberOfHours" type="number" @bind="newActivity.ActivityHours" /></td>
 			<td> @newActivity.CalculatedHours </td>
-			<td><input id="InputCategory" type="text" @bind="newActivity.ActivityCategory" />  </td> 
-			<td><input id="InputStudyProgram" type="text" @bind="newActivity.Field" /> </td>
+			<td><select id="InputCategory" type="text" @bind="newActivity.ActivityCategory">
+				@foreach (var category in categories.GetCategories())
+				{
+					<option value="@category.CategoryName">@category.CategoryName</option>
+				}
+			</select></td> 
+			<td><select id="InputStudyProgram" type="text" @bind="newActivity.SubjectCode">
+				@foreach (var subject in subjects.GetSubjects())
+				{
+					<option value="@subject.SubjectCode">@subject.SubjectCode</option>
+				}
+			</select> </td> <!-- Bytte ut med emner -->
 			<td><input id="InputDescription" type="text" @bind="newActivity.ActivityDescription" /></td>
-			<td><input id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFirstName"  /> </td>
-			<td><input id="InputEducatorLastName" type="text" @bind="newActivity.EducatorLastName" /> </td>
+			<td><select id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFullName">
+				@foreach (var educator in educators.GetEducators())
+				{
+					<option value="@educator.FullName">@educator.FullName</option>
+				}
+			</select>   </td> <!-- Slå sammen fornavn og etter navn til fullt navn-->
+			
 			<td> 
 				<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
 			</td>
@@ -59,10 +76,10 @@
 					<td> @activity.ActivityHours </td>
 					<td> @activity.CalculatedHours </td>
 					<td> @activity.ActivityCategory </td>
-					<td> @activity.Field </td>
+					<td> @activity.SubjectCode </td>
 					<td> @activity.ActivityDescription </td>
-					<td> @activity.EducatorFirstName </td>
-					<td> @activity.EducatorLastName </td>
+					<td> @activity.EducatorFullName </td>
+					
 					<td>
 						<button class="btn btn-primary" @onclick="() => DeleteRow(activity)"><i class="bi bi-trash"></i></button>
 					</td>

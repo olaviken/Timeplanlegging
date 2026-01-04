@@ -122,7 +122,10 @@
 		{
 			educators.AddEducator(educatorToAdd);
 		}			
-		newEducator = new Educator();
+		newEducator = new Educator
+		{
+			BirthDate = DateTime.Today,
+		};
 	}
 
 	private int DisplayNewAge(DateTime birthDate)

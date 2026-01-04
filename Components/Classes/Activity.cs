@@ -11,7 +11,7 @@
 
         public string ActivityCategory { get; set; } = string.Empty;
 
-        public string Field { get; set; } = string.Empty;
+        public string SubjectCode { get; set; } = string.Empty;
         public string ActivityDescription { get; set; } = string.Empty;
         public string EducatorFirstName { get; set; } = string.Empty;
         public string EducatorLastName { get; set; } = string.Empty;

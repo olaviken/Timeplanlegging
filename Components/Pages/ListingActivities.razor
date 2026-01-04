@@ -1,6 +1,8 @@
 ﻿@page "/ListingActivities"
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IActivities activities
+@inject Classes.Interfaces.ICategories categories
+@inject Classes.Interfaces.ISubjects subjects
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -33,10 +35,20 @@
 			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
 			<td><input id="InputNumberOfHours" type="number" @bind="newActivity.ActivityHours" /></td>
 			<td> @newActivity.CalculatedHours </td>
-			<td><input id="InputCategory" type="text" @bind="newActivity.ActivityCategory" />  </td> 
-			<td><input id="InputStudyProgram" type="text" @bind="newActivity.Field" /> </td>
+			<td><select id="InputCategory" type="text" @bind="newActivity.ActivityCategory">
+				@foreach (var category in categories.GetCategories())
+				{
+					<option value="@category.CategoryName">@category.CategoryName</option>
+				}
+			</select></td> 
+			<td><select id="InputStudyProgram" type="text" @bind="newActivity.SubjectCode">
+				@foreach (var subject in subjects.GetSubjects())
+				{
+					<option value="@subject.SubjectCode">@subject.SubjectCode</option>
+				}
+			</select> </td> <!-- Bytte ut med emner -->
 			<td><input id="InputDescription" type="text" @bind="newActivity.ActivityDescription" /></td>
-			<td><input id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFirstName"  /> </td>
+			<td><input id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFirstName"  /> </td> <!-- Slå sammen fornavn og etter navn til fullt navn-->
 			<td><input id="InputEducatorLastName" type="text" @bind="newActivity.EducatorLastName" /> </td>
 			<td> 
 				<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
@@ -59,7 +71,7 @@
 					<td> @activity.ActivityHours </td>
 					<td> @activity.CalculatedHours </td>
 					<td> @activity.ActivityCategory </td>
-					<td> @activity.Field </td>
+					<td> @activity.SubjectCode </td>
 					<td> @activity.ActivityDescription </td>
 					<td> @activity.EducatorFirstName </td>
 					<td> @activity.EducatorLastName </td>

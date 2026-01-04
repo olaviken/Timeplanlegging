@@ -96,7 +96,10 @@
 @code {
 
 
-	private Activity newActivity = new Activity();
+	private Activity newActivity = new Activity
+	{
+		ActivityDate = DateTime.Today
+	};
 
 	private void AddRow()
 	{

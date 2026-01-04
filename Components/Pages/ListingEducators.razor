@@ -92,7 +92,10 @@
 
 
 
-	private Educator newEducator = new Educator();
+	private Educator newEducator = new Educator
+	{
+		BirthDate = DateTime.Today,
+	};
 
 	private void DeleteRow(Educator RemoveEducator)
 	{

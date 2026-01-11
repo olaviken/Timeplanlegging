@@ -18,8 +18,8 @@
 			<th>Dato</th>
 			<th>Aktivitets navn</th>
 			<th> Antall timer</th>
-			<th> Beregnet tid</th>
 			<th> Kategori</th>
+			<th> Beregnet tid</th>
 			<th>Studieretning</th>
 
 			<th>Beskrivelse</th>
@@ -34,13 +34,15 @@
 			<td><input id="InputDate" type="date" @bind="newActivity.ActivityDate" /></td>
 			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
 			<td><input id="InputNumberOfHours" type="number" @bind="newActivity.ActivityHours" /></td>
-			<td> @newActivity.CalculatedHours </td>
-			<td><select id="InputCategory" type="text" @bind="newActivity.ActivityCategory">
-				@foreach (var category in categories.GetCategories())
-				{
-					<option value="@category.CategoryName">@category.CategoryName</option>
-				}
-			</select></td> 
+			<td>
+				<select id="InputCategory" type="text" @bind="newActivity.ActivityCategory">
+					@foreach (var category in categories.GetCategories())
+					{
+						<option value="@category.CategoryName">@category.CategoryName</option>
+					}
+				</select>
+			</td>
+			<td> @newActivity.CalculateHours(newActivity.ActivityHours,newActivity.ActivityCategory,categories) </td>
 			<td><select id="InputStudyProgram" type="text" @bind="newActivity.SubjectCode">
 				@foreach (var subject in subjects.GetSubjects())
 				{

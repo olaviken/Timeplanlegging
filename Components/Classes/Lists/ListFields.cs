@@ -32,6 +32,7 @@ namespace BlazorTest.Components.Classes.Lists
             return listFields.FirstOrDefault(t => string.Equals(t.FieldID, fieldID, StringComparison.OrdinalIgnoreCase));
         }
 
+
         public void UpdateField(Field updatedField)
         {
             var existingField = FindFieldByID(updatedField.FieldID);

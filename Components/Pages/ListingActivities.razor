@@ -42,7 +42,7 @@
 					}
 				</select>
 			</td>
-			<td> @newActivity.CalculateHours(newActivity.ActivityHours,newActivity.ActivityCategory,categories) </td>
+			<td> <input id="InputCalculatedHours" type="number" @bind="newActivity.CalculatedHours" /> </td>
 			<td><select id="InputStudyProgram" type="text" @bind="newActivity.SubjectCode">
 				@foreach (var subject in subjects.GetSubjects())
 				{
@@ -76,8 +76,8 @@
 					<td> @activity.ActivityDate </td>
 					<td> @activity.ActivityName </td>
 					<td> @activity.ActivityHours </td>
-					<td> @activity.CalculatedHours </td>
 					<td> @activity.ActivityCategory </td>
+					<td> @activity.CalculatedHours </td>
 					<td> @activity.SubjectCode </td>
 					<td> @activity.ActivityDescription </td>
 					<td> @activity.EducatorFullName </td>
@@ -134,5 +134,7 @@
 	{
 		newActivity = activity;
 	}
+
+	
 
 }

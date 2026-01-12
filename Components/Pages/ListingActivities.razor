@@ -33,16 +33,16 @@
 			<td>@newActivity.ActivityID</td>
 			<td><input id="InputDate" type="date" @bind="newActivity.ActivityDate" /></td>
 			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
-			<td><input id="InputNumberOfHours" type="number" @bind="newActivity.ActivityHours" /></td>
+			<td><input id="InputNumberOfHours" type="number" @bind="newActivity.ActivityHours" @bind:after="UpdateCalculatedHours" @bind:event="oninput"/></td>
 			<td>
-				<select id="InputCategory" type="text" @bind="newActivity.ActivityCategory">
+				<select id="InputCategory" type="text" @bind="newActivity.ActivityCategory" @bind:after="UpdateCalculatedHours" @bind:event="oninput">
 					@foreach (var category in categories.GetCategories())
 					{
 						<option value="@category.CategoryName">@category.CategoryName</option>
 					}
 				</select>
 			</td>
-			<td> <input id="InputCalculatedHours" type="number" @bind="newActivity.CalculatedHours" /> </td>
+			<td> <input id="InputCalculatedHours" type="number" @bind="newActivity.CalculatedHours" readonly/> </td>
 			<td><select id="InputStudyProgram" type="text" @bind="newActivity.SubjectCode">
 				@foreach (var subject in subjects.GetSubjects())
 				{
@@ -127,7 +127,7 @@
 		{
 			activities.RemoveActivity(activity);
 		}
-		
+
 	}
 
 	private void EditRow(Activity activity)
@@ -135,6 +135,20 @@
 		newActivity = activity;
 	}
 
+	private void UpdateCalculatedHours()
+	{
+		var category = categories.FindCategory(newActivity.ActivityCategory);
+
+		if (category != null)
+		{
+			
+			newActivity.CalculatedHours = newActivity.ActivityHours * category.HoursMultiplier;
+		}
+		else
+		{
+			newActivity.CalculatedHours = newActivity.ActivityHours*1;
+		}
+	}
 	
 
 }

@@ -16,6 +16,7 @@
 			<th> timemultiplikator</th>
 			<th></th>
 			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -52,6 +53,9 @@
 					</td>
 					<td>
 						<button class="btn btn-primary" @onclick="() => EditRow(category)"><i class="bi bi-pencil"></i></button>
+					</td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => Navigate()"><i class="bi bi-caret-right-fill"></i></button>
 					</td>
 
 				</tr>
@@ -93,5 +97,10 @@
 	private void EditRow(EducationCategory UpdateCategory)
 	{
 		newCategory = UpdateCategory;
+	}
+
+	private void Navigate()
+	{
+		// Navigation logic here
 	}
 }

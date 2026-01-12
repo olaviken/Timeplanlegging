@@ -20,14 +20,9 @@ namespace BlazorTest.Components.Classes.Lists
 
         public EducationCategory FindCategory(string categoryname)
         {
-            
-            if (listCategoires.Any(c => c.CategoryName == categoryname))
-            {
-                var foundCategory = listCategoires.First(c => c.CategoryName == categoryname);
-                var result = new EducationCategory();
-                return result;
-            }
-            return null;
+            var foundCategory = listCategoires.FirstOrDefault(c => c.CategoryName == categoryname);
+
+            return foundCategory;
         }
 
         public void RemoveCategory(EducationCategory category)

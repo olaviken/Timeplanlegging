@@ -11,9 +11,7 @@ namespace BlazorTest.Components.Classes.Lists
         {
             return listEducators;
         }
-
-        public ListEducator() { }
-
+               
         public void AddEducator(Educator educator)
         {
             if (educator is null) throw new ArgumentNullException(nameof(educator));

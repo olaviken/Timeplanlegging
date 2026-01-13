@@ -10,7 +10,7 @@ builder.Services.AddRazorComponents()
 
 //Added Singleton Services
 builder.Services.AddSingleton<IActivities, ListActivity>();
-builder.Services.AddSingleton<IEducators, ListEducator>();
+builder.Services.AddSingleton<IEducators, ListEducatorsTest>();
 builder.Services.AddSingleton<ICategories, ListCategoryTest>();
 builder.Services.AddSingleton<IFields, ListFieldsTest>();
 builder.Services.AddSingleton<ISubjects, ListSubjectsTest>();

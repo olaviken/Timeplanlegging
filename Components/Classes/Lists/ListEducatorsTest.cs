@@ -1,17 +1,20 @@
-﻿using BlazorTest.Components.Classes.Interfaces;
-
-namespace BlazorTest.Components.Classes.Lists
+﻿namespace BlazorTest.Components.Classes.Lists
 {
-    public class ListEducator : IEducators
+    using BlazorTest.Components.Classes.Interfaces;
+
+    public class ListEducatorsTest : IEducators
     {
-        // keep internal list private and expose a read-only view
-        private List<Educator> listEducators = new();    
+        private List<Educator> listEducators = new List<Educator>
+        {
+        };
 
         public List<Educator> GetEducators()
         {
             return listEducators;
         }
-               
+
+       
+
         public void AddEducator(Educator educator)
         {
             if (educator is null) throw new ArgumentNullException(nameof(educator));

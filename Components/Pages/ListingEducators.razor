@@ -1,0 +1,166 @@
+﻿@page "/ListingEducators"
+@using System.ComponentModel.DataAnnotations
+@inject Classes.Interfaces.IEducators educators
+
+@using Classes
+@rendermode InteractiveServer
+@inject IJSRuntime JS
+
+<h3>Liste forelesere</h3>
+
+<!-- Dette er siden for å liste opp alle faglige ansatte. 
+	vurderes å sortere de etter fagenhet.
+	Bruke en tabell for å vise informasjonen.
+	Det skal være mulig å redigere og slette en fagperson fra denne siden.
+	Det skal være mulig å legge til ny fagperson. Dette kan være ny metode eller linke til AddingEducator siden. 
+	style listen med css.
+
+-->
+	<table class="table">
+		<thead>
+			<tr>
+				<th> Fornavn </th>
+				<th> Etternavn </th>
+				<th> Fødselsdato </th>
+				<th> E-post </th>
+				<th> Alder </th>
+				<th> Utdanningsbakgrunn </th>
+				<th> Spesialisering </th>
+				<th> Prosentstilling </th>
+				<th> Prosent forskning</th>
+				<th> Utdanning høst </th>
+				<th> Utdanning vår </th>
+				<th> </th>
+				<th> </th>
+				<th> </th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="Editrow">
+				<td>
+					
+					<input id="InputFirstName" type="text" @bind="newEducator.FirstName" />
+				</td>
+				<td><input id="InputLastName" type="text" @bind="newEducator.LastName" /> </td>
+				<td>
+
+					<input id="InputBirthDate" type="date" @bind="newEducator.BirthDate" />
+				</td>
+				<td><input id="InputEmail" type="email" @bind="newEducator.Email" /> </td>
+				<td> @DisplayNewAge(newEducator.BirthDate) </td>
+				<td><input id="InputEdducationBackground" type="text" @bind="newEducator.Education" /></td>
+				<td><input id="InputSpecialization" type="text" @bind="newEducator.Specialization" /></td>
+				<td><input id="InputPercentagePosition" type="number" @bind="newEducator.PercentagePosition"  /> </td>
+				<td><input id="InputPercentageRND" type="number" @bind="newEducator.PercentageRND" /> </td>
+				<td>@((DisplayEducationHoursFall(newEducator.BirthDate,newEducator.PercentageRND,newEducator.PercentagePosition)).ToString("F2"))</td>
+				<td>@((DisplayEducationHoursSpring(newEducator.BirthDate, newEducator.PercentageRND, newEducator.PercentagePosition)).ToString("F2"))</td>
+				<td> 
+					<button class="btn btn-primary" @onclick="() => AddEducator()"><i class="bi bi-plus-lg"></i></button>
+				</td>
+			</tr>
+			@if(educators == null || educators.CountEducators() ==0)
+			{
+			<p>loading educators...</p>
+			}
+			else
+			{
+				@foreach (var educator in educators.GetEducators())
+				{
+					<tr>
+						<td>@educator.FirstName</td>
+						<td>@educator.LastName</td>
+						<td>@educator.BirthDate.ToShortDateString()</td>
+						<td>@educator.Email</td>
+						<td>@educator.Age</td>
+						<td>@educator.Education</td>
+						<td>@educator.Specialization</td>
+						<td>@educator.PercentagePosition</td>
+						<td>@educator.PercentageRND</td>
+						<td>@((educator.HoursEducationFall).ToString("F2"))</td>
+						<td>@((educator.HoursEducationSpring).ToString("F2"))</td>
+						<td> 
+							<button class="btn btn-primary" @onclick="() => DeleteRow(educator)"><i class="bi bi-trash"></i></button>
+						</td>
+						<td> 
+							<button class="btn btn-primary" @onclick="() => EditRow(educator)"><i class="bi bi-pencil"></i></button>
+						</td>
+						<td> 
+							<button class="btn btn-primary" @onclick="() => Navigate()"><i class="bi bi-caret-right-fill"></i></button>
+						</td> 
+					</tr>
+				}
+			}
+		</tbody>
+	</table>	
+@code {
+
+
+
+	private Educator newEducator = new Educator
+	{
+		BirthDate = DateTime.Today,
+	};
+
+	private void DeleteRow(Educator RemoveEducator)
+	{
+		if (RemoveEducator != null)
+		{
+			educators.RemoveEducator(RemoveEducator);
+		}	
+	}
+
+	private void EditRow(Educator EditEducator)
+	{
+		newEducator = EditEducator;
+	}
+
+	private void AddEducator()
+	{
+		Educator educatorToAdd = newEducator;
+
+		if ((educators.FindEducatorByName($"{newEducator.LastName}, {newEducator.FirstName}") != null))
+		{
+			educators.UpdateEducator(educatorToAdd);
+		}
+		else
+		{
+			educators.AddEducator(educatorToAdd);
+		}			
+		newEducator = new Educator
+		{
+			BirthDate = DateTime.Today,
+		};
+	}
+
+	private int DisplayNewAge(DateTime birthDate)
+	{
+		
+		int age = Educator.CalculateAge(birthDate);
+		return age;	
+	}
+
+
+	//create new methods to have updated values when input fields change for Education hours fall and spring
+
+	private float DisplayEducationHoursFall(DateTime birthdate, int rnd, int positionpercentage)
+	{
+		Educator educator = new Educator();
+		float hoursFall = educator.CalculateHoursForEducationFall(birthdate, rnd, positionpercentage);
+		return hoursFall;
+	}
+	
+	private float DisplayEducationHoursSpring(DateTime birthdate, int rnd, int positionpercentage)
+	{
+		Educator educator = new Educator();
+		float hoursSpring = educator.CalculateHoursForEducationSpring(birthdate, rnd, positionpercentage);
+		return hoursSpring;
+	}
+	
+	private void Navigate()
+	{
+		//rewrite this code to proper site
+		
+	}
+
+}
+

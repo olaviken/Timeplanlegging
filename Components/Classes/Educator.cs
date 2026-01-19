@@ -1,23 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
+﻿
+
 
 namespace BlazorTest.Components.Classes
 {
     public class Educator
     {
-        public string FirstName { get; private set; } = string.Empty;
-        public string LastName { get; private set; } = string.Empty;
-        public DateTime BirthDate { get; private set; }
-        public string Email { get; private set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public DateTime BirthDate { get; set; }
+        public string Email { get; set; } = string.Empty;
         
-        public string SubjectUnit { get; private set; } = string.Empty;
-        public string Education { get; private set; } = string.Empty;
-        public string Specialization { get; private set; } = string.Empty;
+        public string Education { get; set; } = string.Empty;
+        public string Specialization { get; set; } = string.Empty;
         
-        public int PercentagePosition { get; private set; } = 100;
-        public int PercentageRND { get; private set; } = 20;
+        public int PercentagePosition { get; set; } = 100;
+        public int PercentageRND { get; set; } = 20;
 
 
         public int Age
@@ -43,124 +40,20 @@ namespace BlazorTest.Components.Classes
             }
         }
 
-        
-
-        public Educator() { }
-
-        public Educator(string firstName, string lastName, DateTime birthDate, string email, int RND, int percentagePosition)
-        {               
-                setFirstName(firstName);
-                setLastName(lastName);
-                SetBirthDate(birthDate);
-                SetEmail(email);
-                SetPercentagePosition(percentagePosition);
-                SetRNDTime(RND);
-        }
-
-        public Educator(string firstName, string lastName, DateTime birthDate, string email, int RND, int percentagePosition,string subjectUnit, string education, string specialization)
+        public string FullName
         {
-                setFirstName(firstName);
-                setLastName(lastName);
-                SetBirthDate(birthDate);
-                SetEmail(email);
-                SetPercentagePosition(percentagePosition);
-                SetRNDTime(RND);
-                SetSubjectUnit(subjectUnit);
-                SetEducation(education);
-                SetSpecialization(specialization);
-        }
-
-        public void setFirstName(string firstName)
-        {
-            if (string.IsNullOrWhiteSpace(firstName))
+            get
             {
-                throw new ArgumentException("First name cannot be empty.");
+                return $"{LastName}, {FirstName}";
             }
-            FirstName = firstName;
         }
 
-        public void setLastName(string lastName)
-        {
-            if (string.IsNullOrWhiteSpace(lastName))
-            {
-                throw new ArgumentException("Last name cannot be empty.");
-            }
-            LastName = lastName;
-        }
-
-        public void SetBirthDate(DateTime birthDate)
-        {
-            if (birthDate == DateTime.MinValue || birthDate > DateTime.Today)
-            {
-                throw new ArgumentException("Invalid birth date.");
-            }
-            BirthDate = birthDate;
-        }
-
-        public void SetPercentagePosition(int percentagePosition)
-        {
-            if (percentagePosition < 1 || percentagePosition > 100)
-            {
-                throw new ArgumentOutOfRangeException("Percentage position must be between 1 and 100.");
-            }
-            PercentagePosition = percentagePosition;
-        }
-
-        public void SetRNDTime(int RND)
-        {
-            if (RND < 0 || RND > 100)
-            {
-                throw new ArgumentOutOfRangeException("RND time must be between 0 and 100.");
-            }
-            PercentageRND = RND;
-        }
-
-        public void SetSubjectUnit(string subjectUnit)
-        {
-            if (string.IsNullOrWhiteSpace(subjectUnit))
-            {
-                throw new ArgumentException("Subject unit cannot be empty.");
-            }
-            SubjectUnit = subjectUnit;
-        }
-
-        public void SetEducation(string education)
-        {
-            if (string.IsNullOrWhiteSpace(education))
-            {
-                throw new ArgumentException("Education cannot be empty.");
-            }
-            Education = education;
-        }
-
-        public void SetSpecialization(string specialization)
-        {
-            if (string.IsNullOrWhiteSpace(specialization))
-            {
-                throw new ArgumentException("Specialization cannot be empty.");
-            }
-            Specialization = specialization;
-        }
-
-
-
-        public void SetEmail(string email)
-        {
-
-                if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
-                {
-                    throw new ArgumentException("Invalid email address.");
-                }
-                Email = email.Trim();
-            
-
-        }
         public static int CalculateAge(DateTime birthDate)
         {
-            if (birthDate == DateTime.MinValue)
+            /*if (birthDate == DateTime.MinValue)
                 throw new ArgumentException("BirthDate is not set.", nameof(birthDate));
             if (birthDate > DateTime.Today)
-                throw new ArgumentException("Birth date cannot be in the future.", nameof(birthDate));
+                throw new ArgumentException("Birth date cannot be in the future.", nameof(birthDate));*/
 
             var today = DateTime.Today;
             var age = today.Year - birthDate.Year;
@@ -183,7 +76,7 @@ namespace BlazorTest.Components.Classes
 
             float standardHours = 767;
             float reducedHours = 0f;
-            
+                        
             int Age = CalculateAge(birthDate);
 
             if (Age + 1 >= 60)
@@ -203,9 +96,11 @@ namespace BlazorTest.Components.Classes
                 reducedHours += 12.41f;
             }
 
-            
+            float hours = (standardHours - reducedHours);
+            float educationpercentage = (100 - RND) / 100f;
+            float forEducation = hours * educationpercentage;
 
-            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * (100-RND/100));
+            float hoursForEducation = (percentagePosition / 100f)*forEducation;
             return MathF.Round(hoursForEducation,2);
         }
 
@@ -243,10 +138,11 @@ namespace BlazorTest.Components.Classes
             {
                 reducedHours += 12.41f;
             }
+            float hours = (standardHours - reducedHours);
+            float educationpercentage = (100 - RND) / 100f;
+            float forEducation = hours * educationpercentage;
 
-            
-
-            float hoursForEducation = (percentagePosition / 100f) * ((standardHours - reducedHours) * (100 - RND / 100));
+            float hoursForEducation = (percentagePosition / 100f) * forEducation;
             return MathF.Round(hoursForEducation, 2);
         }
         

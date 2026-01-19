@@ -1,72 +1,51 @@
-﻿@page "/addingeducator"
+﻿@page "/profile"
 @using System.ComponentModel.DataAnnotations
+@using Classes
+@inject Classes.Interfaces.IEducators educators
+
 @rendermode InteractiveServer
 
 <!--Mulig døpe om denne siden til profile
 	koble denne lokale klassen og formen til en global klasse og service for å lagre data i database
 	Kanskje lagre den i en liste i en service. 
 -->
-<PageTitle>Adding Educator</PageTitle>
+<head>
+	<style>
+		input {
+			margin-bottom: 10px;
+			width: 20%;
+			height: 30px;
+			font-size: 16px;
+			padding: 5px;
+		}
+	</style>
+</head>
 
-<h1>Legg til fagperson</h1>
-<EditForm Model="educator" class="form-container">
-	<input type="text" class="form-control" placeholder="Fornavn" @bind="educator.firstName" />
-	<input type="text" class="form-control" placeholder="Etternavn" @bind="educator.lastName" />
-	<input type="email" class="form-control" placeholder="E-post" @bind="educator.email" />
-	<input type="date" class="form-control" placeholder="fødselsdato" @bind="educator.birthDate" />
-	<select class="form-control" placeholder="Stilling" @bind="educator.position">
-		<option value="" disabled selected>Stilling</option>
-		<option value="Førstelektor">Førstelektor</option>
-		<option value="Høgskolelektor">Høgskolelektor</option>
-		<option value="Professor">Professor</option>
-		<option value="Dosent">Dosent</option>
-		<option value="Universitetslektor">Universitetslektor</option>
-		<option value="Førsteamanuensis">Førsteamanuensis</option>
-	</select>
-	<select class="form-control" placeholder="Fagenhet" @bind="educator.subjectUnit">
-		<option value="" disabled selected>Fagenhet</option>
-		<option value="Sykepleie">Sykepleie</option>
-		<option value="Spesialsykepleie">Spesialsykepleie</option>
-		<option value="Fysioterapi">Fysioterapi</option>
-		<option value="Ergoterapi">Ergoterapi</option>
-		<option value="Audiologi">Audiologi</option> 
-		<!--To do list fremover:
-			Endre dette til en liste som hentes fra database-->
-		
-	</select>
-	<input type="text" class="form-control" placeholder="Utdanningsbakgrunn" @bind="educator.education" />
-	<input type="text" class="form-control" placeholder="Spesialisering" @bind="educator.specialization" />
-	<button class="form-button" >Submit</button>
-	<!-- 
-		To do fremover:
-			Lage en funksjon som lagrer dataene først i en liste, deretter sender de til en database (Database ikke implementert enda). Fokusere på UI først.
+<PageTitle>Profile</PageTitle>
 
-	-->
-</EditForm>
+<h1>Profil</h1>
+	<input type="text" placeholder="Fornavn" @bind="inputModel.FirstName" /><br />
+<input type="text" placeholder="Etternavn" @bind="inputModel.LastName" />
+<br />
+<input type="email" placeholder="E-post" @bind="inputModel.Email" />
+<br />
+<input type="date" placeholder="fødselsdato" @bind="inputModel.BirthDate" />
+<br />
+<input type="text" placeholder="Utdanningsbakgrunn" @bind="inputModel.Education" />
+<br />
+<input type="text" placeholder="Spesialisering" @bind="inputModel.Specialization" />
+<br />
+<button class="btn btn-primary" @onclick="() => AddProfile()" style="width:20%">Submit</button>
 
 
 @code {
-	public class Educator {
-		public required string firstName { get; set; } = string.Empty;
-		public required string lastName { get; set; } = string.Empty;
-		public required DateTime birthDate { get; set; }
-		public required string email { get; set; } = string.Empty;
-		public required string position { get; set; } = string.Empty;
-		public required string subjectUnit { get; set; } = string.Empty;
-		public required string education { get; set; } = string.Empty;
-		public required string specialization { get; set; } = string.Empty;
-		
-	}
+	
+	private Educator inputModel = new Educator();
+	private void AddProfile()
+	{
+		Educator educator = new Educator();
 
-	public Educator educator = new Educator
-		{
-			firstName = string.Empty,
-			lastName = string.Empty,
-			birthDate = DateTime.Now,
-			email = string.Empty,
-			position = string.Empty,
-			subjectUnit = string.Empty,
-			education = string.Empty,
-			specialization = string.Empty
-		};
+		educators.AddEducator(educator);
+		// Clear the form
+	}
 }

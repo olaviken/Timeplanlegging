@@ -1,0 +1,109 @@
+﻿@page "/ListingFields"
+@using System.ComponentModel.DataAnnotations
+@inject Classes.Interfaces.IFields fields
+@using Classes
+@rendermode InteractiveServer
+@inject IJSRuntime JS
+
+
+<h3>Fagfelt</h3>
+
+<table class="table">
+		<thead>
+		<tr>
+			<th>Fagfelt kode</th>
+			<th>Fagfelt</th>
+			<th>Beskrivelse</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="Editrow">
+			<td>
+				<input id="InputTopicID" type="text" @bind="newField.FieldID" />
+			</td>
+			<td>
+				<input id="InputTopicTitle" type="text" @bind="newField.FieldTitle" />
+			</td>
+			<td>
+				<input id="InputTopicDescription" type="text" @bind="newField.FieldDescription" />
+			</td>
+			<td>
+				<button class="btn btn-primary" @onclick="() => AddTopic()"><i class="bi bi-plus-lg"></i></button>
+			</td>
+		</tr>
+		@if (fields == null || fields.CountFields() == 0)//change to find length of list	
+		{
+			<tr>
+				<td colspan="4"> Ingen emner lagt til. </td>
+			</tr>
+		}
+		else
+		{
+			@foreach(var field in fields.GetFields())
+			{
+				<tr>
+					<td> @field.FieldID </td>
+					<td> @field.FieldTitle </td>
+					<td> @field.FieldDescription </td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => DeleteRow(field)"><i class="bi bi-trash"></i></button>
+					</td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => EditRow(field)"><i class="bi bi-pencil"></i></button>
+					</td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => Navigate()"><i class="bi bi-caret-right-fill"></i></button>
+					</td>
+				</tr>
+			}
+		}		
+	</tbody>
+</table>
+
+
+@code {
+
+
+
+	private Field newField = new Field();
+
+
+	private void AddTopic()
+	{
+		if (fields.FindFieldByID(newField.FieldID) != null)
+		{
+			Field existingTopic = newField;
+
+			fields.UpdateField(existingTopic);
+		}
+		else
+		{
+			fields.AddField(newField);
+		}
+		newField = new Field();
+	}
+
+	private void DeleteRow(Field removefield)
+	{
+		if(removefield != null)
+		{
+			fields.RemoveField(removefield); 
+			
+		}
+	}
+		
+	
+
+	private void EditRow(Field field)
+	{
+		newField = field;
+	}
+
+	private void Navigate()
+	{
+		// Navigation logic here
+	}
+}

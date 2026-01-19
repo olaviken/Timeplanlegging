@@ -1,0 +1,106 @@
+﻿@page "/ListingCategories"
+@using System.ComponentModel.DataAnnotations
+@inject Classes.Interfaces.ICategories categories
+
+@using Classes
+@rendermode InteractiveServer
+@inject IJSRuntime JS
+
+<h3>Undervisnings kategorier</h3>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Kategori</th>
+			<th> Beskrivelse</th>
+			<th> timemultiplikator</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="Editrow">
+			<td>
+				<input id="InputCategoryName" type="text" @bind="newCategory.CategoryName" />
+			</td>
+			<td>
+				<input id="InputDescription" type="text" @bind="newCategory.Description" />
+			</td>
+			<td>
+				<input id="InputTimeMultiplier" type="number" step="0.01" @bind="newCategory.HoursMultiplier" />
+			</td>
+			<td>
+				<button class="btn btn-primary" @onclick="() => AddCategory()"><i class="bi bi-plus-lg"></i></button>
+			</td>
+		</tr>
+		@if(categories == null || categories.CountCategories() ==0)
+		{
+			<tr>
+				<td colspan="5"> Ingen kategorier lagt til. </td>
+			</tr>
+		}
+		else
+		{
+			@foreach(var category in categories.GetCategories())
+			{
+				<tr>
+					<td> @category.CategoryName </td>
+					<td> @category.Description </td>
+					<td> @category.HoursMultiplier </td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => DeleteRow(category)"><i class="bi bi-trash"></i></button>
+					</td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => EditRow(category)"><i class="bi bi-pencil"></i></button>
+					</td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => Navigate()"><i class="bi bi-caret-right-fill"></i></button>
+					</td>
+
+				</tr>
+			}
+		}
+	</tbody>
+</table>
+
+
+@code {
+
+
+	private EducationCategory newCategory = new EducationCategory();
+
+	private void AddCategory()
+	{
+
+		if(categories.FindCategory(newCategory.CategoryName)!= null)
+		{
+			EducationCategory existingCategory = newCategory;
+			categories.UpdateCategory(existingCategory);
+		}
+		else
+		{
+			categories.AddCategory(newCategory);
+		}
+		newCategory = new EducationCategory();
+	}
+
+	private void DeleteRow(EducationCategory RemoveCategory)
+	{
+		if(RemoveCategory != null)
+		{
+			categories.RemoveCategory(RemoveCategory);
+		}
+
+	}
+
+	private void EditRow(EducationCategory UpdateCategory)
+	{
+		newCategory = UpdateCategory;
+	}
+
+	private void Navigate()
+	{
+		// Navigation logic here
+	}
+}

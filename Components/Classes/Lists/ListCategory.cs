@@ -1,0 +1,52 @@
+﻿using BlazorTest.Components.Classes.Interfaces;
+
+namespace BlazorTest.Components.Classes.Lists
+{
+    public class ListCategory : ICategories
+    {
+        private List<EducationCategory> listCategoires = new();
+
+        public List<EducationCategory> GetCategories()
+        {
+            return listCategoires;
+        }
+
+        public ListCategory() { }
+
+        public void AddCategory(EducationCategory category)
+        {
+            listCategoires.Add(category);
+        }
+
+        public EducationCategory FindCategory(string categoryname)
+        {
+            var foundCategory = listCategoires.FirstOrDefault(c => c.CategoryName == categoryname);
+
+            return foundCategory;
+        }
+
+        public void RemoveCategory(EducationCategory category)
+        {
+            listCategoires.Remove(category);
+        }
+
+        public void UpdateCategory(EducationCategory updatedCategory)
+        {
+            var existingCategory = listCategoires.FirstOrDefault(c => c.CategoryName == updatedCategory.CategoryName);
+            if (existingCategory != null)
+            {
+                int index = listCategoires.IndexOf(existingCategory);
+                listCategoires[index] = updatedCategory;
+            }
+        }
+
+        
+
+        public int CountCategories()
+        {
+            return listCategoires.Count;
+        }
+
+        
+    }
+}

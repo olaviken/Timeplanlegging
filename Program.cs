@@ -1,4 +1,6 @@
 using BlazorTest.Components;
+using BlazorTest.Components.Classes.Interfaces;
+using BlazorTest.Components.Classes.Lists;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+//Added Singleton Services
+builder.Services.AddSingleton<IActivities, ListActivity>();
+builder.Services.AddSingleton<IEducators, ListEducatorsTest>();
+builder.Services.AddSingleton<ICategories, ListCategoryTest>();
+builder.Services.AddSingleton<IFields, ListFieldsTest>();
+builder.Services.AddSingleton<ISubjects, ListSubjectsTest>();
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

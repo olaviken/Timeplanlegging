@@ -1,4 +1,5 @@
 using BlazorTest.Components;
+using BlazorTest.Components.Classes;
 using BlazorTest.Components.Classes.Interfaces;
 using BlazorTest.Components.Classes.Lists;
 
@@ -14,6 +15,7 @@ builder.Services.AddSingleton<IEducators, ListEducatorsTest>();
 builder.Services.AddSingleton<ICategories, ListCategoryTest>();
 builder.Services.AddSingleton<IFields, ListFieldsTest>();
 builder.Services.AddSingleton<ISubjects, ListSubjectsTest>();
+builder.Services.AddSingleton<Subject>(); //Controll and fix this 
 
 var app = builder.Build();
 

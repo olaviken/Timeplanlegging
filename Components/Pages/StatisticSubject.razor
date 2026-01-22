@@ -2,12 +2,57 @@
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IActivities activities
 @inject Classes.Interfaces.ISubjects subjects
+@inject Classes.Subject selectedSubject
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
 
-<h3>Oversikt emner</h3>
+<h3>Oversikt for @selectedSubject.SubjectCode, @selectedSubject.SubjectName </h3>
+
+<div>  </div>
+
+
 
 @code {
+
+	private float totalHoursFall()
+	{
+		float total = 0;
+
+		//add code here to calculate total hours in fall for the selected subject
+
+		return total;
+	}
+
+	private float totalHoursSpring()
+	{
+		float total = 0;
+
+		//add code here to calculate total hours in spring for the selected subject
+
+		return total;
+	}
+
+	private float totalHours()
+	{
+		return totalHoursFall() + totalHoursSpring();	
+	}
+
+	private int CountActivities()
+	{
+		int count = 0;
+		//add code here to count the number of activities for the selected subject
+		return count;
+	}
+
+	private float AverageHoursPerActivity()
+	{
+		int count = CountActivities();
+		if (count == 0)
+		{
+			return 0;
+		}
+		return totalHours() / CountActivities();
+	}
 
 }

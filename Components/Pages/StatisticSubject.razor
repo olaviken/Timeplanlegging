@@ -15,44 +15,80 @@
 
 @code {
 
-	private float totalHoursFall()
+	private float totalHoursFall(Subject selectedSubject, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
 		float total = 0;
-
-		//add code here to calculate total hours in fall for the selected subject
+		int year = dateFrom.Year;
+		DateTime lastDate = new DateTime(year, 12, 31);
+		
+		foreach(var activity in activities)
+		{
+			if ((activity.SubjectCode == selectedSubject.SubjectCode)&&(dateFrom<activity.ActivityDate)&&(activity.ActivityDate<lastDate))
+			{
+				total += activity.CalculatedHours;
+			}
+		}
+		
 
 		return total;
 	}
 
-	private float totalHoursSpring()
+	private float totalHoursSpring(Subject selectedSubject, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
 		float total = 0;
+		int year = dateTo.Year;
+		DateTime firstDate = new DateTime(year, 1, 1);
 
-		//add code here to calculate total hours in spring for the selected subject
-
+		foreach(var activity in activities)
+		{
+			if ((activity.SubjectCode == selectedSubject.SubjectCode)&&(firstDate<activity.ActivityDate)&&(activity.ActivityDate<dateTo))
+			{
+				total += activity.CalculatedHours;
+			}
+		}
+		
 		return total;
 	}
 
-	private float totalHours()
+	private float totalHours(Subject selectedSubject, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
-		return totalHoursFall() + totalHoursSpring();	
+		float total = 0;
+		
+		foreach(var activity in activities)
+		{
+			if ((activity.SubjectCode == selectedSubject.SubjectCode)&&(dateFrom<activity.ActivityDate)&&(activity.ActivityDate<dateTo))
+			{
+				total += activity.CalculatedHours;
+			}
+		}
+		
+
+		return total;	
 	}
 
-	private int CountActivities()
+	private int CountActivities(Subject selectedSubject, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
 		int count = 0;
-		//add code here to count the number of activities for the selected subject
+
+		foreach(var activity in activities)
+		{
+			if ((activity.SubjectCode == selectedSubject.SubjectCode)&&(dateFrom<activity.ActivityDate)&&(activity.ActivityDate<dateTo))
+			{
+				count += 1;
+			}
+		}
+				
 		return count;
 	}
 
-	private float AverageHoursPerActivity()
+	private float AverageHoursPerActivity(Subject selectedSubject, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
-		int count = CountActivities();
+		int count = CountActivities(selectedSubject, activities, dateFrom, dateTo);
 		if (count == 0)
 		{
 			return 0;
 		}
-		return totalHours() / CountActivities();
+		return totalHours(selectedSubject, activities, dateFrom, dateTo) / count;
 	}
 
 }

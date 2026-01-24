@@ -12,7 +12,6 @@ namespace BlazorTest.Components.Classes
 
         public float CalculatedHours { get; set; } = 0f;
 
-
         public string ActivityCategory { get; set; } = string.Empty;
 
         public string SubjectCode { get; set; } = string.Empty;

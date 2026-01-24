@@ -2,6 +2,7 @@
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IActivities activities
 @inject Classes.Interfaces.IFields fields
+@inject Classes.Field selectedField
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -10,11 +11,22 @@
 
 @code {
 
-	private float totalHoursFall()
+	//This component is under development. The code below is incomplete. Activity needs to have a Field property to make this work.
+
+	private float totalHoursFall(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
 		float total = 0;
+		int year = dateFrom.Year;
+		DateTime lastDate = new DateTime(year, 12, 31);
 
-		//add code here to calculate total hours in fall for the selected subject
+		foreach (var activity in activities)
+		{
+			if ((activity.Fi == selectedSubject.SubjectCode) && (dateFrom < activity.ActivityDate) && (activity.ActivityDate < lastDate))
+			{
+				total += activity.CalculatedHours;
+			}
+		}
+
 
 		return total;
 	}

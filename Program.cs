@@ -15,7 +15,9 @@ builder.Services.AddSingleton<IEducators, ListEducatorsTest>();
 builder.Services.AddSingleton<ICategories, ListCategoryTest>();
 builder.Services.AddSingleton<IFields, ListFieldsTest>();
 builder.Services.AddSingleton<ISubjects, ListSubjectsTest>();
-builder.Services.AddSingleton<Subject>(); //Controll and fix this 
+builder.Services.AddSingleton<Subject>(); 
+builder.Services.AddSingleton<Educator>(); 
+builder.Services.AddSingleton<Field>();
 
 var app = builder.Build();
 

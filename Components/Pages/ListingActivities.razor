@@ -4,6 +4,7 @@
 @inject Classes.Interfaces.ICategories categories
 @inject Classes.Interfaces.ISubjects subjects
 @inject Classes.Interfaces.IEducators educators
+@inject Classes.Interfaces.IFields fields
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -21,7 +22,7 @@
 			<th> Kategori</th>
 			<th> Beregnet tid</th>
 			<th>Studieretning</th>
-
+			<th>Fagenhet</th>
 			<th>Beskrivelse</th>
 			<th>Foreleser</th>
 			<th></th>
@@ -48,7 +49,17 @@
 				{
 					<option value="@subject.SubjectCode">@subject.SubjectCode</option>
 				}
-			</select> </td> <!-- Bytte ut med emner -->
+			</select> </td>
+			<td>
+				<td>
+					<select id="InputField" type="text" @bind="newActivity.FieldTitle">
+						@foreach(var field in fields.GetFields())
+						{
+						<option value="@field.FieldTitle">@field.FieldTitle</option>
+						}
+					</select>
+				</td>
+			</td>
 			<td><input id="InputDescription" type="text" @bind="newActivity.ActivityDescription" /></td>
 			<td><select id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFullName">
 				@foreach (var educator in educators.GetEducators())
@@ -79,6 +90,7 @@
 					<td> @activity.ActivityCategory </td>
 					<td> @activity.CalculatedHours </td>
 					<td> @activity.SubjectCode </td>
+					<td> @activity.FieldTitle </td>
 					<td> @activity.ActivityDescription </td>
 					<td> @activity.EducatorFullName </td>
 					

@@ -12,9 +12,9 @@
         <div class="top-row px-4">
             <div>
                 Filtrer på dato:
-                <input id="startDate" type="date" placeholder="dato fra" value=@startDate()/>
+                <input id="startDate" type="date" placeholder="dato fra" value=@StartDate/>
                 til: 
-				<input id="endDate" type="date" placeholder="dato til" value=@endDate() />
+				<input id="endDate" type="date" placeholder="dato til" value=@EndDate />
             </div>
             
             <a href="profile"><i id="profile" class="bi bi-person" style="font-size: 2rem;">
@@ -37,6 +37,15 @@
 
 @code {
 
+    string StartDate = string.Empty;
+	string EndDate = string.Empty;
+
+
+    protected override void OnInitialized()
+    {
+        StartDate = startDate();
+		EndDate = endDate();
+    }
 
     private string startDate()
     {

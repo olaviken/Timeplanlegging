@@ -76,6 +76,11 @@
             return listFields.FirstOrDefault(t => string.Equals(t.FieldID, fieldID, StringComparison.OrdinalIgnoreCase));
         }
 
+        public Field? FindFieldByTitle(string fieldTitle)
+        {
+            return listFields.FirstOrDefault(t => string.Equals(t.FieldTitle, fieldTitle, StringComparison.OrdinalIgnoreCase));
+        }
+
         public List<Field> GetFields()
         {
             return listFields;

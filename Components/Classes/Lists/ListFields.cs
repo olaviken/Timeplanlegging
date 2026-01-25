@@ -32,6 +32,11 @@ namespace BlazorTest.Components.Classes.Lists
             return listFields.FirstOrDefault(t => string.Equals(t.FieldID, fieldID, StringComparison.OrdinalIgnoreCase));
         }
 
+        public Field? FindFieldByTitle(string fieldTitle)
+        {
+            return listFields.FirstOrDefault(t => string.Equals(t.FieldTitle, fieldTitle, StringComparison.OrdinalIgnoreCase));
+        }
+
 
         public void UpdateField(Field updatedField)
         {

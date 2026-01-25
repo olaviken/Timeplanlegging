@@ -11,8 +11,7 @@
 
 @code {
 
-	//This component is under development. The code below is incomplete. Activity needs to have a Field property to make this work.
-
+	
 	private float totalHoursFall(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
 		float total = 0;
@@ -21,7 +20,7 @@
 
 		foreach (var activity in activities)
 		{
-			if ((activity.Fi == selectedSubject.SubjectCode) && (dateFrom < activity.ActivityDate) && (activity.ActivityDate < lastDate))
+			if ((activity.FieldTitle == activity.FieldTitle) && (dateFrom < activity.ActivityDate) && (activity.ActivityDate < lastDate))
 			{
 				total += activity.CalculatedHours;
 			}
@@ -31,34 +30,61 @@
 		return total;
 	}
 
-	private float totalHoursSpring()
+	private float totalHoursSpring(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
 		float total = 0;
+		int year = dateTo.Year;
+		DateTime firstDate = new DateTime(year, 1, 1);
 
-		//add code here to calculate total hours in spring for the selected subject
+		foreach (var activity in activities)
+		{
+			if ((activity.FieldTitle == selectedField.FieldTitle) && (firstDate < activity.ActivityDate) && (activity.ActivityDate < dateTo))
+			{
+				total += activity.CalculatedHours;
+			}
+		}
 
 		return total;
 	}
 
-	private float totalHours()
+	private float totalHours(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
-		return totalHoursFall() + totalHoursSpring();
+		float total = 0;
+
+		foreach (var activity in activities)
+		{
+			if ((activity.FieldTitle == selectedField.FieldTitle) && (dateFrom < activity.ActivityDate) && (activity.ActivityDate < dateTo))
+			{
+				total += activity.CalculatedHours;
+			}
+		}
+
+
+		return total;
 	}
 
-	private int CountActivities()
+	private int CountActivities(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
 		int count = 0;
-		//add code here to count the number of activities for the selected subject
+
+		foreach (var activity in activities)
+		{
+			if ((activity.FieldTitle == selectedField.FieldTitle) && (dateFrom < activity.ActivityDate) && (activity.ActivityDate < dateTo))
+			{
+				count += 1;
+			}
+		}
+
 		return count;
 	}
 
-	private float AverageHoursPerActivity()
+	private float AverageHoursPerActivity(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
-		int count = CountActivities();
+		int count = CountActivities(selectedField, activities, dateFrom, dateTo);
 		if (count == 0)
 		{
 			return 0;
 		}
-		return totalHours() / CountActivities();
+		return totalHours(selectedField, activities, dateFrom, dateTo) / count;
 	}
 }

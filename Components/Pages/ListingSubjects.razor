@@ -1,6 +1,7 @@
 ﻿@page "/ListingSubjects"
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.ISubjects subjects
+@inject Components.Services.SelectedSubjectService selectedSubjectService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -56,7 +57,7 @@
 						<button class="btn btn-primary" @onclick="() => EditRow(subject)"><i class="bi bi-pencil"></i></button>
 					</td>
 					<td>
-						<button class="btn btn-primary" @onclick="() => Navigate()"><i class="bi bi-caret-right-fill"></i></button>
+						<button class="btn btn-primary" @onclick="() => Navigate(subject)"><i class="bi bi-caret-right-fill"></i></button>
 					</td>
 				</tr>
 			}
@@ -91,15 +92,16 @@
 			subjects.RemoveSubject(removeSubject);
 		}
 	}
-	
+
 	private void EditRow(Subject updateSubject)
 	{
 		newSubject = updateSubject;
 	}
 
-	private void Navigate()
+	private void Navigate(Subject subject)
 	{
-	
+		selectedSubjectService.Set(subject);
+		JS.InvokeVoidAsync("location.replace", "/statistic-subject");
 	}
 
 }

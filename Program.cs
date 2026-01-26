@@ -2,6 +2,7 @@ using BlazorTest.Components;
 using BlazorTest.Components.Classes;
 using BlazorTest.Components.Classes.Interfaces;
 using BlazorTest.Components.Classes.Lists;
+using BlazorTest.Components.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +16,11 @@ builder.Services.AddSingleton<IEducators, ListEducatorsTest>();
 builder.Services.AddSingleton<ICategories, ListCategoryTest>();
 builder.Services.AddSingleton<IFields, ListFieldsTest>();
 builder.Services.AddSingleton<ISubjects, ListSubjectsTest>();
-builder.Services.AddSingleton<Subject>(); 
-builder.Services.AddSingleton<Educator>(); 
-builder.Services.AddSingleton<Field>();
+
+//services for selected items
+builder.Services.AddSingleton<SelectedSubjectService>(); 
+builder.Services.AddSingleton<SelectedEducatorService>(); 
+builder.Services.AddSingleton<SelectedFieldService>();
 
 var app = builder.Build();
 

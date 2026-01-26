@@ -8,8 +8,4 @@
     <UserSecretsId>e06a85f6-e398-42f6-9649-98e07e31258e</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Components\Services\" />
-  </ItemGroup>
-
 </Project>

@@ -1,15 +1,12 @@
 ﻿@page "/statistic-subject"
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IActivities activities
-@inject Classes.Interfaces.ISubjects subjects
-@inject Classes.Subject selectedSubject
+@inject Components.Services.SelectedSubjectService selectedSubjectService	
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
 
-<h3>Oversikt for @selectedSubject.SubjectCode, @selectedSubject.SubjectName </h3>
-
-<div>  </div>
+<h3>Oversikt for @selectedSubjectService.Current.SubjectCode @selectedSubjectService.Current.SubjectName </h3>
 
 
 

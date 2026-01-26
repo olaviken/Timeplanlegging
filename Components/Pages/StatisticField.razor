@@ -1,13 +1,12 @@
 ﻿@page "/StatisticField"
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IActivities activities
-@inject Classes.Interfaces.IFields fields
-@inject Classes.Field selectedField
+@inject Components.Services.SelectedFieldService selectedFieldService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
 
-<h3>Oversikt Fagfelt</h3>
+<h3>Oversikt @selectedFieldService.Current.FieldTitle</h3>
 
 @code {
 

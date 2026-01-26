@@ -2,15 +2,12 @@
 
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IActivities activities
-@inject Classes.Interfaces.IEducators educators
-@inject Classes.Educator selectedEducator
+@inject Components.Services.SelectedEducatorService selectedEducatorService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
 
-
-<h3>Oversikt din aktivitet</h3>
-
+<h3>Oversikt for @selectedEducatorService.Current.FirstName @selectedEducatorService.Current.LastName</h3>
 
 
 @code {

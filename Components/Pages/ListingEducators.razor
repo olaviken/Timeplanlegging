@@ -1,7 +1,7 @@
 ﻿@page "/ListingEducators"
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IEducators educators
-
+@inject Components.Services.SelectedEducatorService selectedEducatorService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -85,7 +85,7 @@
 							<button class="btn btn-primary" @onclick="() => EditRow(educator)"><i class="bi bi-pencil"></i></button>
 						</td>
 						<td> 
-							<button class="btn btn-primary" @onclick="() => Navigate()"><i class="bi bi-caret-right-fill"></i></button>
+							<button class="btn btn-primary" @onclick="() => Navigate(educator)"><i class="bi bi-caret-right-fill"></i></button>
 						</td> 
 					</tr>
 				}
@@ -114,6 +114,12 @@
 		newEducator = EditEducator;
 	}
 
+	private void Navigate(Educator educator)
+	{
+		selectedEducatorService.Set(educator);
+		JS.InvokeVoidAsync("location.replace", "/StatisticEducator");
+	}
+
 	private void AddEducator()
 	{
 		Educator educatorToAdd = newEducator;
@@ -139,9 +145,7 @@
 		return age;	
 	}
 
-
-	//create new methods to have updated values when input fields change for Education hours fall and spring
-
+		
 	private float DisplayEducationHoursFall(DateTime birthdate, int rnd, int positionpercentage)
 	{
 		Educator educator = new Educator();
@@ -156,11 +160,7 @@
 		return hoursSpring;
 	}
 	
-	private void Navigate()
-	{
-		//rewrite this code to proper site
-		
-	}
+	
 
 }
 

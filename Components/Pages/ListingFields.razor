@@ -1,6 +1,7 @@
 ﻿@page "/ListingFields"
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IFields fields
+@inject Components.Services.SelectedFieldService selectedFieldService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -55,7 +56,7 @@
 						<button class="btn btn-primary" @onclick="() => EditRow(field)"><i class="bi bi-pencil"></i></button>
 					</td>
 					<td>
-						<button class="btn btn-primary" @onclick="() => Navigate()"><i class="bi bi-caret-right-fill"></i></button>
+						<button class="btn btn-primary" @onclick="() => Navigate(field)"><i class="bi bi-caret-right-fill"></i></button>
 					</td>
 				</tr>
 			}
@@ -102,8 +103,9 @@
 		newField = field;
 	}
 
-	private void Navigate()
+	private void Navigate(Field field)
 	{
-		// Navigation logic here
+		selectedFieldService.Set(field);
+		JS.InvokeVoidAsync("location.replace", "/StatisticField");
 	}
 }

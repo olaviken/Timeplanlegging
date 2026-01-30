@@ -27,11 +27,100 @@
 		</tr>
 	</thead>
 	<tbody>
+		<!-- go through table body and modify-->
+		<tr id="Editrow">
+			<td>@newActivity.ActivityID</td>
+			<td><input id="InputDate" type="date" @bind="newActivity.ActivityDate" /></td>
+			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
+			<td><input id="InputNumberOfHours" type="number" @bind="newActivity.ActivityHours" @bind:after="UpdateCalculatedHours" @bind:event="oninput" /></td>
+			<td>
+				<select id="InputCategory" type="text" @bind="newActivity.ActivityCategory" @bind:after="UpdateCalculatedHours" @bind:event="oninput">
+					@foreach (var category in categories.GetCategories())
+					{
+						<option value="@category.CategoryName">@category.CategoryName</option>
+					}
+				</select>
+			</td>
+			<td> <input id="InputCalculatedHours" type="number" @bind="newActivity.CalculatedHours" readonly /> </td>
+			<td>
+				<select id="InputStudyProgram" type="text" @bind="newActivity.SubjectCode">
+					@foreach (var subject in subjects.GetSubjects())
+					{
+						<option value="@subject.SubjectCode">@subject.SubjectCode</option>
+					}
+				</select>
+			</td>
+			<td>
+			<td>
+				<select id="InputField" type="text" @bind="newActivity.FieldTitle">
+					@foreach (var field in fields.GetFields())
+					{
+						<option value="@field.FieldTitle">@field.FieldTitle</option>
+					}
+				</select>
+			</td>
+			</td>
+			<td><input id="InputDescription" type="text" @bind="newActivity.ActivityDescription" /></td>
+			<td>
+				<select id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFullName">
+					@foreach (var educator in educators.GetEducators())
+					{
+						<option value="@educator.FullName">@educator.FullName</option>
+					}
+				</select>
+			</td> <!-- Slå sammen fornavn og etter navn til fullt navn-->
+
+			<td>
+				<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
+			</td>
+		</tr>
+		@if (activities == null || activities.CountActivities() == 0)
+		{
+			<tr>
+				<td colspan="5"> Ingen aktiviteter lagt til. </td>
+			</tr>
+		}
+		else
+		{
+			@foreach (var activity in activities.GetActivities())
+			{
+				totalHours += activity.CalculatedHours;
+				//getting some strange count here needs fixing
+				<tr>
+					<td> @activity.ActivityID </td>
+					<td> @activity.ActivityDate </td>
+					<td> @activity.ActivityName </td>
+					<td> @activity.ActivityHours </td>
+					<td> @activity.ActivityCategory </td>
+					<td> @activity.CalculatedHours </td>
+					<td> @activity.SubjectCode </td>
+					<td> @activity.FieldTitle </td>
+					<td> @activity.ActivityDescription </td>
+					<td> @activity.EducatorFullName </td>
+
+					<td>
+						<button class="btn btn-primary" @onclick="() => DeleteRow(activity)"><i class="bi bi-trash"></i></button>
+					</td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => EditRow(activity)"><i class="bi bi-pencil"></i></button>
+					</td>
+				</tr>
+			}
+		}
+
+		<tr>
+
+			<td>@totalHours</td>
+		</tr>
 	</tbody>
 
 </table>
 
 @code {
+	private Activity newActivity = new Activity
+	{
+		ActivityDate = DateTime.Today
+	};
 
 	
 	private float totalHoursFall(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
@@ -108,5 +197,52 @@
 			return 0;
 		}
 		return totalHours(selectedField, activities, dateFrom, dateTo) / count;
+	}
+
+	private void AddRow()
+	{
+		if (activities.FindActivityByID(newActivity.ActivityID) != null)
+		{
+			Activity existingActivity = newActivity;
+			activities.UpdateActivity(existingActivity);
+		}
+		else
+		{
+			activities.AddActivity(newActivity);
+		}
+		newActivity = new Activity
+		{
+			ActivityDate = DateTime.Today
+		};
+
+	}
+
+	private void DeleteRow(Activity activity)
+	{
+		if (activity != null)
+		{
+			activities.RemoveActivity(activity);
+		}
+
+	}
+
+	private void EditRow(Activity activity)
+	{
+		newActivity = activity;
+	}
+
+	private void UpdateCalculatedHours()
+	{
+		var category = categories.FindCategory(newActivity.ActivityCategory);
+
+		if (category != null)
+		{
+
+			newActivity.CalculatedHours = newActivity.ActivityHours * category.HoursMultiplier;
+		}
+		else
+		{
+			newActivity.CalculatedHours = newActivity.ActivityHours * 1;
+		}
 	}
 }

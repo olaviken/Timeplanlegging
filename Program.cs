@@ -21,6 +21,7 @@ builder.Services.AddSingleton<ISubjects, ListSubjectsTest>();
 builder.Services.AddSingleton<SelectedSubjectService>(); 
 builder.Services.AddSingleton<SelectedEducatorService>(); 
 builder.Services.AddSingleton<SelectedFieldService>();
+builder.Services.AddScoped<IActivityEditorService, ActivityEditorServices>();
 
 var app = builder.Build();
 

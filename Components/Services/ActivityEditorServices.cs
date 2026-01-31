@@ -9,6 +9,12 @@ namespace BlazorTest.Components.Services
 
         public Activity Current { get; private set; }
 
+        public ActivityEditorServices(IActivities activities)
+        {
+            _activities = activities;
+            Current = new Activity { ActivityDate = DateTime.Today };
+        }
+
         public void Reset()
         {
             Current = new Activity{ActivityDate = DateTime.Today};

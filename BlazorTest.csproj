@@ -8,4 +8,8 @@
     <UserSecretsId>e06a85f6-e398-42f6-9649-98e07e31258e</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include=".github\copilot-instructions.md" />
+  </ItemGroup>
+
 </Project>

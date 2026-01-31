@@ -1,7 +1,12 @@
 ﻿@page "/StatisticField"
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IActivities activities
+@inject Classes.Interfaces.ICategories categories
+@inject Classes.Interfaces.ISubjects subjects
+@inject Classes.Interfaces.IFields fields
+@inject Classes.Interfaces.IEducators educators
 @inject Components.Services.SelectedFieldService selectedFieldService
+@inject Components.Services.ActivityEditorServices activityEditorService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -29,21 +34,21 @@
 	<tbody>
 		<!-- go through table body and modify-->
 		<tr id="Editrow">
-			<td>@newActivity.ActivityID</td>
-			<td><input id="InputDate" type="date" @bind="newActivity.ActivityDate" /></td>
-			<td><input id="InputActivityName" type="text" @bind="newActivity.ActivityName" /> </td>
-			<td><input id="InputNumberOfHours" type="number" @bind="newActivity.ActivityHours" @bind:after="UpdateCalculatedHours" @bind:event="oninput" /></td>
+			<td>@activityEditorService.Current.ActivityID</td>
+			<td><input id="InputDate" type="date" @bind="activityEditorService.Current.ActivityDate" /></td>
+			<td><input id="InputActivityName" type="text" @bind="activityEditorService.Current.ActivityName" /> </td>
+			<td><input id="InputNumberOfHours" type="number" @bind="activityEditorService.Current.ActivityHours" @bind:after="() => activityEditorService.UpdateCalculatedHours(categories.FindCategory(activityEditorService.Current.ActivityCategory)?.HoursMultiplier ?? 1f)" @bind:event="oninput" /></td>
 			<td>
-				<select id="InputCategory" type="text" @bind="newActivity.ActivityCategory" @bind:after="UpdateCalculatedHours" @bind:event="oninput">
+				<select id="InputCategory" type="text" @bind="activityEditorService.Current.ActivityCategory" @bind:after="() => activityEditorService.UpdateCalculatedHours(categories.FindCategory(activityEditorService.Current.ActivityCategory)?.HoursMultiplier ?? 1f)" @bind:event="oninput">
 					@foreach (var category in categories.GetCategories())
 					{
 						<option value="@category.CategoryName">@category.CategoryName</option>
 					}
 				</select>
 			</td>
-			<td> <input id="InputCalculatedHours" type="number" @bind="newActivity.CalculatedHours" readonly /> </td>
+			<td> <input id="InputCalculatedHours" type="number" @bind="activityEditorService.Current.CalculatedHours" readonly /> </td>
 			<td>
-				<select id="InputStudyProgram" type="text" @bind="newActivity.SubjectCode">
+				<select id="InputStudyProgram" type="text" @bind="activityEditorService.Current.SubjectCode">
 					@foreach (var subject in subjects.GetSubjects())
 					{
 						<option value="@subject.SubjectCode">@subject.SubjectCode</option>
@@ -52,7 +57,7 @@
 			</td>
 			<td>
 			<td>
-				<select id="InputField" type="text" @bind="newActivity.FieldTitle">
+				<select id="InputField" type="text" @bind="activityEditorService.Current.FieldTitle">
 					@foreach (var field in fields.GetFields())
 					{
 						<option value="@field.FieldTitle">@field.FieldTitle</option>
@@ -60,9 +65,9 @@
 				</select>
 			</td>
 			</td>
-			<td><input id="InputDescription" type="text" @bind="newActivity.ActivityDescription" /></td>
+			<td><input id="InputDescription" type="text" @bind="activityEditorService.Current.ActivityDescription" /></td>
 			<td>
-				<select id="InputEducatorFirstName" type="text" @bind="newActivity.EducatorFullName">
+				<select id="InputEducatorFirstName" type="text" @bind="activityEditorService.Current.EducatorFullName">
 					@foreach (var educator in educators.GetEducators())
 					{
 						<option value="@educator.FullName">@educator.FullName</option>
@@ -71,7 +76,7 @@
 			</td> <!-- Slå sammen fornavn og etter navn til fullt navn-->
 
 			<td>
-				<button class="btn btn-primary" @onclick="() => AddRow()"><i class="bi bi-plus-lg"></i></button>
+				<button class="btn btn-primary" @onclick="() => activityEditorService.AddOrUpdate()"><i class="bi bi-plus-lg"></i></button>
 			</td>
 		</tr>
 		@if (activities == null || activities.CountActivities() == 0)
@@ -99,10 +104,10 @@
 					<td> @activity.EducatorFullName </td>
 
 					<td>
-						<button class="btn btn-primary" @onclick="() => DeleteRow(activity)"><i class="bi bi-trash"></i></button>
+						<button class="btn btn-primary" @onclick="() => activityEditorService.Delete(activity)"><i class="bi bi-trash"></i></button>
 					</td>
 					<td>
-						<button class="btn btn-primary" @onclick="() => EditRow(activity)"><i class="bi bi-pencil"></i></button>
+						<button class="btn btn-primary" @onclick="() => activityEditorService.StartEdit(activity)"><i class="bi bi-pencil"></i></button>
 					</td>
 				</tr>
 			}
@@ -117,10 +122,9 @@
 </table>
 
 @code {
-	private Activity newActivity = new Activity
-	{
-		ActivityDate = DateTime.Today
-	};
+	float totalHours = 0;
+
+
 
 	
 	private float totalHoursFall(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
@@ -158,21 +162,7 @@
 		return total;
 	}
 
-	private float totalHours(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
-	{
-		float total = 0;
-
-		foreach (var activity in activities)
-		{
-			if ((activity.FieldTitle == selectedField.FieldTitle) && (dateFrom < activity.ActivityDate) && (activity.ActivityDate < dateTo))
-			{
-				total += activity.CalculatedHours;
-			}
-		}
-
-
-		return total;
-	}
+	
 
 	private int CountActivities(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
@@ -196,53 +186,8 @@
 		{
 			return 0;
 		}
-		return totalHours(selectedField, activities, dateFrom, dateTo) / count;
+		return totalHours / count;
 	}
 
-	private void AddRow()
-	{
-		if (activities.FindActivityByID(newActivity.ActivityID) != null)
-		{
-			Activity existingActivity = newActivity;
-			activities.UpdateActivity(existingActivity);
-		}
-		else
-		{
-			activities.AddActivity(newActivity);
-		}
-		newActivity = new Activity
-		{
-			ActivityDate = DateTime.Today
-		};
-
-	}
-
-	private void DeleteRow(Activity activity)
-	{
-		if (activity != null)
-		{
-			activities.RemoveActivity(activity);
-		}
-
-	}
-
-	private void EditRow(Activity activity)
-	{
-		newActivity = activity;
-	}
-
-	private void UpdateCalculatedHours()
-	{
-		var category = categories.FindCategory(newActivity.ActivityCategory);
-
-		if (category != null)
-		{
-
-			newActivity.CalculatedHours = newActivity.ActivityHours * category.HoursMultiplier;
-		}
-		else
-		{
-			newActivity.CalculatedHours = newActivity.ActivityHours * 1;
-		}
-	}
+	
 }

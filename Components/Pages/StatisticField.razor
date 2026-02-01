@@ -89,32 +89,36 @@
 		{
 			@foreach (var activity in activities.GetActivities())
 			{
-				totalHours += activity.CalculatedHours;
-				//getting some strange count here needs fixing
-				<tr>
-					<td> @activity.ActivityID </td>
-					<td> @activity.ActivityDate </td>
-					<td> @activity.ActivityName </td>
-					<td> @activity.ActivityHours </td>
-					<td> @activity.ActivityCategory </td>
-					<td> @activity.CalculatedHours </td>
-					<td> @activity.SubjectCode </td>
-					<td> @activity.FieldTitle </td>
-					<td> @activity.ActivityDescription </td>
-					<td> @activity.EducatorFullName </td>
+				if (activity.FieldTitle == selectedFieldService.Current.FieldTitle)
+				{
+					totalHours += activity.CalculatedHours;
+					//getting some strange count here needs fixing
+					<tr>
+						<td> @activity.ActivityID </td>
+						<td> @activity.ActivityDate </td>
+						<td> @activity.ActivityName </td>
+						<td> @activity.ActivityHours </td>
+						<td> @activity.ActivityCategory </td>
+						<td> @activity.CalculatedHours </td>
+						<td> @activity.SubjectCode </td>
+						<td> @activity.FieldTitle </td>
+						<td> @activity.ActivityDescription </td>
+						<td> @activity.EducatorFullName </td>
 
-					<td>
-						<button class="btn btn-primary" @onclick="() => activityEditorService.Delete(activity)"><i class="bi bi-trash"></i></button>
-					</td>
-					<td>
-						<button class="btn btn-primary" @onclick="() => activityEditorService.StartEdit(activity)"><i class="bi bi-pencil"></i></button>
-					</td>
-				</tr>
+						<td>
+							<button class="btn btn-primary" @onclick="() => activityEditorService.Delete(activity)"><i class="bi bi-trash"></i></button>
+						</td>
+						<td>
+							<button class="btn btn-primary" @onclick="() => activityEditorService.StartEdit(activity)"><i class="bi bi-pencil"></i></button>
+						</td>
+					</tr>
+				}
+				
 			}
 		}
 
 		<tr>
-
+			<td colspan="5"><strong>Totalt antall timer:</strong></td>
 			<td>@totalHours</td>
 		</tr>
 	</tbody>

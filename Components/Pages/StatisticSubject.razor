@@ -50,7 +50,10 @@
 				<select id="InputStudyProgram" type="text" @bind="activityEditorService.Current.SubjectCode">
 					@foreach (var subject in subjects.GetSubjects())
 					{
-						<option value="@subject.SubjectCode">@subject.SubjectCode</option>
+						if(subject.SubjectCode == selectedSubjectService.Current.SubjectCode)
+						{
+							<option selected value="@subject.SubjectCode">@subject.SubjectCode</option>
+						}
 					}
 				</select>
 			</td>

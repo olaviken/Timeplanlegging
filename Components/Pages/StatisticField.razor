@@ -60,7 +60,11 @@
 				<select id="InputField" type="text" @bind="activityEditorService.Current.FieldTitle">
 					@foreach (var field in fields.GetFields())
 					{
-						<option value="@field.FieldTitle">@field.FieldTitle</option>
+						if(field.FieldTitle == selectedFieldService.Current.FieldTitle)
+						{
+							<option selected value="@field.FieldTitle">@field.FieldTitle</option>
+						}
+						
 					}
 				</select>
 			</td>

@@ -78,7 +78,10 @@
 				<select id="InputEducatorFirstName" type="text" @bind="activityEditorService.Current.EducatorFullName">
 					@foreach (var educator in educators.GetEducators())
 					{
-						<option value="@educator.FullName">@educator.FullName</option>
+						if (educator.FullName == selectedEducatorService.Current.FullName)
+						{
+							<option selected value="@educator.FullName">@educator.FullName</option>
+						}
 					}
 				</select>
 			</td> <!-- Slå sammen fornavn og etter navn til fullt navn-->
@@ -99,7 +102,7 @@
 			{
 				if (activity.EducatorFullName == selectedEducatorService.Current.FullName)
 				{
-					totalHours += activity.CalculatedHours;
+					
 					//getting some strange count here needs fixing
 					<tr>
 						<td> @activity.ActivityID </td>
@@ -124,12 +127,6 @@
 				
 			}
 		}
-
-		<tr>
-			<td colspan="5"><strong>Totalt antall timer:</strong></td>
-			<td>@totalHours</td>
-		</tr>
-
 	</tbody>
 		
 </table>
@@ -138,7 +135,7 @@
 @code {
 
 	float totalHours = 0;
-
+	int totalActivities = 0;
 	
 
 	private float totalHoursFall(Educator selectedEducator, List<Activity> activities, DateTime dateFrom, DateTime dateTo)

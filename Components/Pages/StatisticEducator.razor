@@ -17,7 +17,7 @@
 <div>
 	<p>Kapasitet høstsemesteret: @selectedEducatorService.Current.HoursEducationFall </p>
 	<p>Kapasitet vårsemesteret: @selectedEducatorService.Current.HoursEducationSpring </p>
-	<p>Totalt antall timer aktivitet: @totalHours</p>
+	<p>Totalt antall timer aktivitet: @GetTotalHoursForEducator()</p>
 </div>
 
 
@@ -102,8 +102,6 @@
 			{
 				if (activity.EducatorFullName == selectedEducatorService.Current.FullName)
 				{
-					
-					//getting some strange count here needs fixing
 					<tr>
 						<td> @activity.ActivityID </td>
 						<td> @activity.ActivityDate </td>
@@ -124,9 +122,13 @@
 						</td>
 					</tr>
 				}
-				
+
 			}
 		}
+		<tr>
+			<td colspan="5"><strong>Totalt antall timer:</strong></td>
+			<td>@GetTotalHoursForEducator()</td>
+		</tr>
 	</tbody>
 		
 </table>
@@ -136,7 +138,16 @@
 
 	float totalHours = 0;
 	int totalActivities = 0;
-	
+
+	private float GetTotalHoursForEducator()
+	{
+		float totalHours = 0;
+		if (activities != null || selectedEducatorService.Current != null)
+		{
+			totalHours=activities.GetActivities().Where(a => a.EducatorFullName == selectedEducatorService.Current.FullName).Sum(a => a.CalculatedHours);
+		}
+		return totalHours;
+	}
 
 	private float totalHoursFall(Educator selectedEducator, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{

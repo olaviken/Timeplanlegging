@@ -141,12 +141,12 @@
 
 	private float GetTotalHoursForEducator()
 	{
-		if (activities == null || selectedEducatorService.Current == null)
-			return 0;
-
-		return activities.GetActivities()
-			.Where(a => a.EducatorFullName == selectedEducatorService.Current.FullName)
-			.Sum(a => a.CalculatedHours);
+		float totalHours = 0;
+		if (activities != null || selectedEducatorService.Current != null)
+		{
+			totalHours=activities.GetActivities().Where(a => a.EducatorFullName == selectedEducatorService.Current.FullName).Sum(a => a.CalculatedHours);
+		}
+		return totalHours;
 	}
 
 	private float totalHoursFall(Educator selectedEducator, List<Activity> activities, DateTime dateFrom, DateTime dateTo)

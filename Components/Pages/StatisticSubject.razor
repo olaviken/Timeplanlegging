@@ -121,7 +121,7 @@
 
 		<tr>
 			<td colspan="5"><strong>Totalt antall timer:</strong></td>
-			<td>@totalHours</td>
+			<td>@GetTotalHoursForSubject()</td>
 		</tr>
 	</tbody>
 
@@ -131,6 +131,17 @@
 @code {
 
 	float totalHours = 0;
+
+	private float GetTotalHoursForSubject()
+	{
+		float totalHours = 0;
+		if (activities != null || selectedSubjectService.Current != null)
+		{
+			totalHours = activities.GetActivities().Where(a => a.SubjectCode == selectedSubjectService.Current.SubjectCode).Sum(a => a.CalculatedHours);
+		}
+		return totalHours;
+	}
+
 
 	private float totalHoursFall(Subject selectedSubject, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{

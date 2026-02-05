@@ -142,6 +142,16 @@
 		return totalHours;
 	}
 
+	private float GetCountofActivitiesForSubject()
+	{
+		int totalActivities = 0;
+		if (activities != null || selectedSubjectService.Current != null)
+		{
+			totalActivities = activities.GetActivities().Where(a => a.SubjectCode == selectedSubjectService.Current.SubjectCode).Count();
+		}
+		return totalActivities;
+	}
+
 
 	private float totalHoursFall(Subject selectedSubject, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
@@ -179,21 +189,7 @@
 	}
 
 
-	private int CountActivities(Subject selectedSubject, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
-	{
-		int count = 0;
-
-		foreach(var activity in activities)
-		{
-			if ((activity.SubjectCode == selectedSubject.SubjectCode)&&(dateFrom<activity.ActivityDate)&&(activity.ActivityDate<dateTo))
-			{
-				count += 1;
-			}
-		}
-			
-		return count;
-	}
-
+	
 	private float AverageHoursPerActivity(Subject selectedSubject, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{
 		int count = CountActivities(selectedSubject, activities, dateFrom, dateTo);

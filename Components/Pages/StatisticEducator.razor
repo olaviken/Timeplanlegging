@@ -126,6 +126,7 @@
 			}
 		}
 		<tr>
+			<td>@GetCountofActivitiesForEducator()</td>
 			<td colspan="5"><strong>Totalt antall timer:</strong></td>
 			<td>@GetTotalHoursForEducator()</td>
 		</tr>
@@ -147,6 +148,16 @@
 			totalHours=activities.GetActivities().Where(a => a.EducatorFullName == selectedEducatorService.Current.FullName).Sum(a => a.CalculatedHours);
 		}
 		return totalHours;
+	}
+
+	private float GetCountofActivitiesForEducator()
+	{
+		int totalActivities = 0;
+		if (activities != null || selectedEducatorService.Current != null)
+		{
+			totalActivities = activities.GetActivities().Where(a => a.EducatorFullName == selectedEducatorService.Current.FullName).Count();
+		}
+		return totalActivities;
 	}
 
 	private float totalHoursFall(Educator selectedEducator, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
@@ -186,21 +197,7 @@
 
 	
 
-	private int CountActivities(Educator selectedEducator, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
-	{
-		int count = 0;
-
-		foreach (var activity in activities)
-		{
-			if ((activity.EducatorFullName == selectedEducator.FullName) && (dateFrom < activity.ActivityDate) && (activity.ActivityDate < dateTo))
-			{
-				count += 1;
-			}
-		}
-
-		return count;
-	}
-
+	
 
 	private float AverageHoursPerActivity(Educator selectedEducator, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
 	{

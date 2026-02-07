@@ -93,7 +93,7 @@
 			{
 				if(activity.SubjectCode == selectedSubjectService.Current.SubjectCode)
 				{
-					totalHours += activity.CalculatedHours;
+					
 					//getting some strange count here needs fixing
 					<tr>
 						<td> @activity.ActivityID </td>
@@ -130,7 +130,7 @@
 
 @code {
 
-	float totalHours = 0;
+
 
 	private float GetTotalHoursForSubject()
 	{
@@ -190,15 +190,7 @@
 
 
 	
-	private float AverageHoursPerActivity(Subject selectedSubject, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
-	{
-		int count = CountActivities(selectedSubject, activities, dateFrom, dateTo);
-		if (count == 0)
-		{
-			return 0;
-		}
-		return totalHours/ count;
-	}
+	
 
 
 }

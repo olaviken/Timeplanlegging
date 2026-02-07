@@ -93,7 +93,7 @@
 		@if (activities == null || activities.CountActivities() == 0)
 		{
 			<tr>
-				<td colspan="5"> Ingen aktiviteter lagt til. </td>
+				<td colspan="4"> Ingen aktiviteter lagt til. </td>
 			</tr>
 		}
 		else
@@ -137,9 +137,7 @@
 
 @code {
 
-	float totalHours = 0;
-	int totalActivities = 0;
-
+	
 	private float GetTotalHoursForEducator()
 	{
 		float totalHours = 0;
@@ -194,19 +192,6 @@
 
 		return total;
 	}
-
-	
-
-	
-
-	private float AverageHoursPerActivity(Educator selectedEducator, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
-	{
-		int count = CountActivities(selectedEducator, activities, dateFrom, dateTo);
-		if (count == 0)
-		{
-			return 0;
-		}
-		return totalHours / count;
-	}
+		
 
 }

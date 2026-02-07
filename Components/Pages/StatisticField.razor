@@ -95,8 +95,7 @@
 			{
 				if (activity.FieldTitle == selectedFieldService.Current.FieldTitle)
 				{
-					totalHours += activity.CalculatedHours;
-					//getting some strange count here needs fixing
+					
 					<tr>
 						<td> @activity.ActivityID </td>
 						<td> @activity.ActivityDate </td>
@@ -130,7 +129,7 @@
 </table>
 
 @code {
-	float totalHours = 0;
+	
 
 	private float GetTotalHoursForField()
 	{
@@ -192,15 +191,7 @@
 
 	
 
-	private float AverageHoursPerActivity(Field selectedField, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
-	{
-		int count = CountActivities(selectedField, activities, dateFrom, dateTo);
-		if (count == 0)
-		{
-			return 0;
-		}
-		return totalHours / count;
-	}
+	
 
 	
 }

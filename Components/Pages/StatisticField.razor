@@ -158,17 +158,17 @@
 		return totalActivities;
 	}
 
+	
+
 	private float GetAverageHoursForField()
 	{
-		float averageHours = 0;
-
-		averageHours = GetTotalHoursForField() / GetCountofActivitiesForField();
-
-		return averageHours;
+		int count = GetCountofActivitiesForField();
+		if (count == 0)
+		{
+			return 0;
+		}
+		return GetTotalHoursForField() / count;
 	}
-	
-
-	
 
 	
 

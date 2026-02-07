@@ -162,11 +162,12 @@
 
 	private float GetAverageHoursForSubject()
 	{
-		float averageHours = 0;
-
-		averageHours = GetTotalHoursForSubject() / GetCountofActivitiesForSubject();
-
-		return averageHours;
+		int count = GetCountofActivitiesForSubject();
+		if (count == 0)
+		{
+			return 0;
+		}
+		return GetTotalHoursForSubject() / count;
 	}
 
 

@@ -17,7 +17,9 @@
 <div>
 	<p>Kapasitet høstsemesteret: @selectedEducatorService.Current.HoursEducationFall </p>
 	<p>Kapasitet vårsemesteret: @selectedEducatorService.Current.HoursEducationSpring </p>
+	<p>Totalt antall aktiviteter: @GetCountofActivitiesForEducator()</p>
 	<p>Totalt antall timer aktivitet: @GetTotalHoursForEducator()</p>
+	<p>Gjennomsnittlig antall timer per aktivitet: @GetAverageHoursForEducator() </p>
 </div>
 
 
@@ -93,7 +95,7 @@
 		@if (activities == null || activities.CountActivities() == 0)
 		{
 			<tr>
-				<td colspan="5"> Ingen aktiviteter lagt til. </td>
+				<td colspan="4"> Ingen aktiviteter lagt til. </td>
 			</tr>
 		}
 		else
@@ -137,9 +139,7 @@
 
 @code {
 
-	float totalHours = 0;
-	int totalActivities = 0;
-
+	
 	private float GetTotalHoursForEducator()
 	{
 		float totalHours = 0;
@@ -150,7 +150,7 @@
 		return totalHours;
 	}
 
-	private float GetCountofActivitiesForEducator()
+	private int GetCountofActivitiesForEducator()
 	{
 		int totalActivities = 0;
 		if (activities != null || selectedEducatorService.Current != null)
@@ -159,54 +159,16 @@
 		}
 		return totalActivities;
 	}
-
-	private float totalHoursFall(Educator selectedEducator, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
-	{
-		float total = 0;
-		int year = dateFrom.Year-1;
-		DateTime lastDate = new DateTime(year, 12, 31);
-
-		foreach (var activity in activities)
-		{
-			if ((activity.EducatorFullName == selectedEducator.FullName) && (dateFrom < activity.ActivityDate) && (activity.ActivityDate < lastDate))
-			{
-				total += activity.CalculatedHours;
-			}
-		}
-
-
-		return total;
-	}
-
-	private float totalHoursSpring(Educator selectedEducator, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
-	{
-		float total = 0;
-		int year = dateTo.Year;
-		DateTime firstDate = new DateTime(year, 1, 1);
-
-		foreach (var activity in activities)
-		{
-			if ((activity.EducatorFullName == selectedEducator.FullName) && (firstDate < activity.ActivityDate) && (activity.ActivityDate < dateTo))
-			{
-				total += activity.CalculatedHours;
-			}
-		}
-
-		return total;
-	}
-
 	
-
-	
-
-	private float AverageHoursPerActivity(Educator selectedEducator, List<Activity> activities, DateTime dateFrom, DateTime dateTo)
-	{
-		int count = CountActivities(selectedEducator, activities, dateFrom, dateTo);
+	private float GetAverageHoursForEducator()
+	{	
+		int count = GetCountofActivitiesForEducator();
 		if (count == 0)
 		{
 			return 0;
 		}
-		return totalHours / count;
+		return GetTotalHoursForEducator() / count;
 	}
+		
 
 }

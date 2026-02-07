@@ -65,12 +65,13 @@
 			</td>
 			<td><input id="InputDescription" type="text" @bind="activityEditorService.Current.ActivityDescription" /></td>
 			<td>
-				<select id="InputEducatorFirstName" type="text" @bind="activityEditorService.Current.EducatorFullName">
+				<select id="InputEducatorFullname" type="text" @bind="activityEditorService.Current.EducatorFullName">
 				@foreach (var educator in educators.GetEducators())
 				{
 					<option value="@educator.FullName">@educator.FullName</option>
 				}
-			</select>   </td> <!-- Slå sammen fornavn og etter navn til fullt navn-->
+				</select>   
+			</td> 
 			
 			<td> 
 				<button class="btn btn-primary" @onclick="() => activityEditorService.AddOrUpdate()"><i class="bi bi-plus-lg"></i></button>
@@ -86,7 +87,7 @@
 		{
 			@foreach (var activity in activities.GetActivities())
 			{
-				totalHours += activity.CalculatedHours;
+				
 				//getting some strange count here needs fixing
 				<tr>
 					<td> @activity.ActivityID </td>
@@ -109,12 +110,38 @@
 				</tr>
 			}
 		}
-		
+		<tr>
+			<td> Totalt antall aktiviteter: </td>
+			<td> @GetCountofActivities() </td>
+			<td colspan="3"> Totalt antall timer: </td>
+			<td> @GetTotalHours() </td>
+			
+		</tr>
+
 	</tbody>
 </table>
 
 @code {
 
+	private float GetTotalHours()
+	{
+		float totalHours = 0;
+		if (activities != null)
+		{
+			totalHours = activities.GetActivities().Sum(a => a.CalculatedHours);
+		}
+		return totalHours;
+	}
+
+	private int GetCountofActivities()
+	{
+		int count = 0;
+		if (activities != null)
+		{
+			count = activities.CountActivities();
+		}
+		return count;
+	}
 		
 
 }

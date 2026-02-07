@@ -110,12 +110,38 @@
 				</tr>
 			}
 		}
-		
+		<tr>
+			<td> Totalt antall aktiviteter: </td>
+			<td> @GetCountofActivities() </td>
+			<td colspan="3"> Totalt antall timer: </td>
+			<td> @GetTotalHours() </td>
+			
+		</tr>
+
 	</tbody>
 </table>
 
 @code {
 
+	private float GetTotalHours()
+	{
+		float totalHours = 0;
+		if (activities != null)
+		{
+			totalHours = activities.GetActivities().Sum(a => a.CalculatedHours);
+		}
+		return totalHours;
+	}
+
+	private int GetCountofActivities()
+	{
+		int count = 0;
+		if (activities != null)
+		{
+			count = activities.CountActivities();
+		}
+		return count;
+	}
 		
 
 }

@@ -24,7 +24,11 @@
         </div>
 
         <article class="content px-4">
+            <CascadingValue Value="StartDate" Name="StartDate">
+				<CascadingValue Value="EndDate" Name="EndDate">
             @Body
+				</CascadingValue>
+                </CascadingValue>
         </article>
     </main>
 </div>
@@ -37,54 +41,44 @@
 
 @code {
 
-    DateTime StartDate = new DateTime();
-	DateTime EndDate = new DateTime();
+	public DateTime StartDate { get; set; }
+	public DateTime EndDate { get; set; }
 
+	protected override void OnInitialized()
+	{
+		StartDate = CalculateStartDate();
+		EndDate = CalculateEndDate();
+		System.Diagnostics.Debug.WriteLine($"MainLayout - StartDate: {StartDate}, EndDate: {EndDate}");
+		StateHasChanged();
+	}
 
-    protected override void OnInitialized()
-    {
-        StartDate = startDate();
-		EndDate = endDate();
-    }
+	private DateTime CalculateStartDate()
+	{
+		int currentYear = int.Parse(DateOnly.FromDateTime(DateTime.Now).ToString("yyyy"));
+		int currentMonth = int.Parse(DateOnly.FromDateTime(DateTime.Now).ToString("MM"));
 
-    private DateTime startDate()
-    {
-        // Default to start of current school year
-        int currentYear = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("yyyy"));
-        int currentMonth = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("MM"));
-
-        string startDate = $"{currentYear.ToString()}-01-01";
-
-        if (currentMonth > 6)
-        {
-            startDate = $"{currentYear.ToString()}-08-01";
-        }
-        else
-        {
-            currentYear -= 1;
-            startDate = $"{currentYear.ToString()}-08-01";
-        }
-
-        return DateTime.Parse(startDate);
-    }
-
-    private DateTime endDate()
-    {
-        int currentYear = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("yyyy"));
-        int currentMonth = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("MM"));
-
-        string endDate = $"{currentYear.ToString()}-01-01";
-        if (currentMonth > 6)
-        {
-            currentYear += 1;
-            endDate = $"{currentYear.ToString()}-06-30";
-        }
-        else
-        {
-            endDate = $"{currentYear.ToString()}-06-30";
+		if (currentMonth > 6)
+		{
+			return new DateTime(currentYear, 8, 1);
 		}
-        return DateTime.Parse(endDate);
-        
-    }
+		else
+		{
+			return new DateTime(currentYear - 1, 8, 1);
+		}
+	}
 
+	private DateTime CalculateEndDate()
+	{
+		int currentYear = int.Parse(DateOnly.FromDateTime(DateTime.Now).ToString("yyyy"));
+		int currentMonth = int.Parse(DateOnly.FromDateTime(DateTime.Now).ToString("MM"));
+
+		if (currentMonth > 6)
+		{
+			return new DateTime(currentYear + 1, 6, 30);
+		}
+		else
+		{
+			return new DateTime(currentYear, 6, 30);
+		}
+	}
 }

@@ -91,9 +91,19 @@
 				}
 			}
 		</tbody>
-	</table>	
+	</table>
+	
+	<p>Start dato @StartDate.ToShortDateString()</p>
+	<p>Slutt dato @EndDate.ToShortDateString()</p>
 @code {
 
+	[CascadingParameter(Name = "StartDate")]
+	public DateTime StartDate { get; set; }
+
+	[CascadingParameter(Name = "EndDate")]
+	public DateTime EndDate { get; set; }
+
+	
 
 
 	private Educator newEducator = new Educator
@@ -159,8 +169,5 @@
 		float hoursSpring = educator.CalculateHoursForEducationSpring(birthdate, rnd, positionpercentage);
 		return hoursSpring;
 	}
-	
-	
-
 }
 

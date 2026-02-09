@@ -12,9 +12,9 @@
         <div class="top-row px-4">
             <div>
                 Filtrer på dato:
-                <input id="startDate" type="date" placeholder="dato fra" value=@StartDate/>
+                <input id="startDate" type="date" placeholder="dato fra" @bind="StartDate"/>
                 til: 
-				<input id="endDate" type="date" placeholder="dato til" value=@EndDate />
+				<input id="endDate" type="date" placeholder="dato til" @bind="EndDate"/>
             </div>
             
             <a href="profile"><i id="profile" class="bi bi-person" style="font-size: 2rem;">
@@ -37,8 +37,8 @@
 
 @code {
 
-    string StartDate = string.Empty;
-	string EndDate = string.Empty;
+    DateTime StartDate = new DateTime();
+	DateTime EndDate = new DateTime();
 
 
     protected override void OnInitialized()
@@ -47,7 +47,7 @@
 		EndDate = endDate();
     }
 
-    private string startDate()
+    private DateTime startDate()
     {
         // Default to start of current school year
         int currentYear = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("yyyy"));
@@ -65,10 +65,10 @@
             startDate = $"{currentYear.ToString()}-08-01";
         }
 
-        return startDate;
+        return DateTime.Parse(startDate);
     }
 
-    private string endDate()
+    private DateTime endDate()
     {
         int currentYear = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("yyyy"));
         int currentMonth = System.Convert.ToInt32(DateOnly.FromDateTime(DateTime.Now).ToString("MM"));
@@ -83,7 +83,8 @@
         {
             endDate = $"{currentYear.ToString()}-06-30";
 		}
-		return endDate;
+        return DateTime.Parse(endDate);
+        
     }
 
 }

@@ -2,6 +2,7 @@
 @using System.ComponentModel.DataAnnotations
 @inject Classes.Interfaces.IEducators educators
 @inject Components.Services.SelectedEducatorService selectedEducatorService
+@inject Components.Services.DateService dateService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -93,8 +94,8 @@
 		</tbody>
 	</table>
 	
-	<p>Start dato @StartDate.ToShortDateString()</p>
-	<p>Slutt dato @EndDate.ToShortDateString()</p>
+	<p>Start dato @dateService.SchoolYearStartDate.ToShortDateString()</p>
+	<p>Slutt dato @dateService.SchoolYearEndDate.ToShortDateString()</p>
 @code {
 
 	[CascadingParameter(Name = "StartDate")]

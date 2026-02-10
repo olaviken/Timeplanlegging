@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject Components.Services.DateService dateService
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
@@ -12,9 +13,9 @@
         <div class="top-row px-4">
             <div>
                 Filtrer på dato:
-                <input id="startDate" type="date" placeholder="dato fra" @bind="StartDate"/>
+                <input id="startDate" type="date" placeholder="dato fra" @bind="dateService.SchoolYearStartDate" />
                 til: 
-				<input id="endDate" type="date" placeholder="dato til" @bind="EndDate"/>
+                <input id="endDate" type="date" placeholder="dato til" @bind="dateService.SchoolYearEndDate" />
             </div>
             
             <a href="profile"><i id="profile" class="bi bi-person" style="font-size: 2rem;">
@@ -24,11 +25,9 @@
         </div>
 
         <article class="content px-4">
-            <CascadingValue Value="StartDate" Name="StartDate">
-				<CascadingValue Value="EndDate" Name="EndDate">
+           
             @Body
-				</CascadingValue>
-                </CascadingValue>
+				
         </article>
     </main>
 </div>
@@ -41,44 +40,5 @@
 
 @code {
 
-	public DateTime StartDate { get; set; }
-	public DateTime EndDate { get; set; }
 
-	protected override void OnInitialized()
-	{
-		StartDate = CalculateStartDate();
-		EndDate = CalculateEndDate();
-		System.Diagnostics.Debug.WriteLine($"MainLayout - StartDate: {StartDate}, EndDate: {EndDate}");
-		StateHasChanged();
-	}
-
-	private DateTime CalculateStartDate()
-	{
-		int currentYear = int.Parse(DateOnly.FromDateTime(DateTime.Now).ToString("yyyy"));
-		int currentMonth = int.Parse(DateOnly.FromDateTime(DateTime.Now).ToString("MM"));
-
-		if (currentMonth > 6)
-		{
-			return new DateTime(currentYear, 8, 1);
-		}
-		else
-		{
-			return new DateTime(currentYear - 1, 8, 1);
-		}
-	}
-
-	private DateTime CalculateEndDate()
-	{
-		int currentYear = int.Parse(DateOnly.FromDateTime(DateTime.Now).ToString("yyyy"));
-		int currentMonth = int.Parse(DateOnly.FromDateTime(DateTime.Now).ToString("MM"));
-
-		if (currentMonth > 6)
-		{
-			return new DateTime(currentYear + 1, 6, 30);
-		}
-		else
-		{
-			return new DateTime(currentYear, 6, 30);
-		}
-	}
 }

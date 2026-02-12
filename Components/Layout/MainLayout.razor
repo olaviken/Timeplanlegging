@@ -13,9 +13,9 @@
         <div class="top-row px-4">
             <div>
                 Filtrer på dato:
-                <input id="startDate" type="date" placeholder="dato fra" @bind="dateService.SchoolYearStartDate" />
+                <input id="startDate" type="date" placeholder="dato fra" @bind="dateService.SchoolYearStartDate" @bind:after="" @bind:event="oninput" />
                 til: 
-                <input id="endDate" type="date" placeholder="dato til" @bind="dateService.SchoolYearEndDate" />
+                <input id="endDate" type="date" placeholder="dato til" @bind="dateService.SchoolYearEndDate" @bind:after="" @bind:event="oninput" />
             </div>
             
             <a href="profile"><i id="profile" class="bi bi-person" style="font-size: 2rem;">
@@ -39,6 +39,5 @@
 </div>
 
 @code {
-
-
+    
 }

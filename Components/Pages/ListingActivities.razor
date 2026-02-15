@@ -117,11 +117,17 @@
 			<td> @GetTotalHours() </td>
 			
 		</tr>
-
 	</tbody>
 </table>
 
+<p>@StartDate</p>
+<p>@EndDate</p>
+
 @code {
+	[CascadingParameter]
+	public DateTime StartDate { get; set; }
+	[CascadingParameter]
+	public DateTime EndDate { get; set; }
 
 	private float GetTotalHours()
 	{

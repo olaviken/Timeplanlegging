@@ -91,22 +91,14 @@
 					</tr>
 				}
 			}
+			
+
 		</tbody>
 	</table>
 	
-	<p>Start dato @dateService.SchoolYearStartDate.ToShortDateString()</p>
-	<p>Slutt dato @dateService.SchoolYearEndDate.ToShortDateString()</p>
 @code {
-
-	[CascadingParameter(Name = "StartDate")]
-	public DateTime StartDate { get; set; }
-
-	[CascadingParameter(Name = "EndDate")]
-	public DateTime EndDate { get; set; }
-
 	
-
-
+	
 	private Educator newEducator = new Educator
 	{
 		BirthDate = DateTime.Today,

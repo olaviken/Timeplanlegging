@@ -136,7 +136,10 @@
 </table>
 
 @code {
-	
+	[CascadingParameter]
+	public DateTime StartDate { get; set; }
+	[CascadingParameter]
+	public DateTime EndDate { get; set; }
 
 	private float GetTotalHoursForField()
 	{

@@ -91,14 +91,11 @@
 					</tr>
 				}
 			}
-			
-
 		</tbody>
 	</table>
 	
 @code {
-	
-	
+		
 	private Educator newEducator = new Educator
 	{
 		BirthDate = DateTime.Today,
@@ -109,7 +106,7 @@
 		if (RemoveEducator != null)
 		{
 			educators.RemoveEducator(RemoveEducator);
-		}	
+		} 	
 	}
 
 	private void EditRow(Educator EditEducator)
@@ -134,7 +131,7 @@
 		else
 		{
 			educators.AddEducator(educatorToAdd);
-		}			
+		} 			
 		newEducator = new Educator
 		{
 			BirthDate = DateTime.Today,
@@ -145,7 +142,7 @@
 	{
 		
 		int age = Educator.CalculateAge(birthDate);
-		return age;	
+		return age; 	
 	}
 
 		

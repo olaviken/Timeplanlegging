@@ -23,14 +23,12 @@
             </i></a>
 
         </div>
-		<CascadingValue Value="StartDate">
-			<CascadingValue Value="EndDate">
+					
                 <article class="content px-4">
                  @Body
 				
                 </article>
-            </CascadingValue>
-		</CascadingValue>
+            
     </main>
 </div>
 
@@ -41,9 +39,14 @@
 </div>
 
 @code {
-	[CascadingParameter]
-	public DateTime StartDate { get; set; } = DateTime.Now;
-	[CascadingParameter]
-	public DateTime EndDate { get; set; } = DateTime.Now.AddMonths(12);
-    
+
+
+
+    protected override void OnInitialized()
+    {
+        dateService.CalculateStartDate();
+		dateService.CalculateEndDate();
+    }
+
+
 }

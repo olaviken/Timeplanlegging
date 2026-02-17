@@ -2,48 +2,54 @@
 {
     public class DateService
     {
-        public DateTime SchoolYearStartDate { get; set; }
-        public DateTime SchoolYearEndDate { get; set; }
-
-        public  DateTime MiddleSchoolYearDate { get; private set; }
-        
+        public DateTime? SchoolYearStartDate { get; set; }
+        public DateTime? SchoolYearEndDate { get; set; }
 
 
-        public DateService()
+        public event Action? OnDatesChanged;
+
+        public void SetStartDate(DateTime startDate)
         {
-            CalculateSchoolYearDates();
+            SchoolYearStartDate = startDate;
+            OnDatesChanged?.Invoke();
         }
 
+        public void SetEndDate(DateTime endDate)
+        {
+            SchoolYearEndDate = endDate;
+            OnDatesChanged?.Invoke();
 
-        private void CalculateSchoolYearDates()
+
+        }
+
+        public void CalculateStartDate()
         {
             int currentYear = DateTime.Now.Year;
             int currentMonth = DateTime.Now.Month;
-            if (currentMonth > 6) // Assuming school year starts in August
+
+            if (currentMonth > 6) //using end of June as the cutoff for the school year, so if it's July or later, we are in the new school year
             {
-                SchoolYearStartDate = new DateTime(currentYear, 8, 1);
-                MiddleSchoolYearDate = new DateTime(currentYear, 12, 31);
-                SchoolYearEndDate = new DateTime(currentYear + 1, 6, 30);
+                this.SchoolYearStartDate = new DateTime(currentYear, 8, 1);
             }
             else
             {
-                SchoolYearStartDate = new DateTime(currentYear - 1, 8, 1);
-                MiddleSchoolYearDate = new DateTime(currentYear - 1, 12, 31);
-                SchoolYearEndDate = new DateTime(currentYear, 6, 30);
+                this.SchoolYearStartDate = new DateTime(currentYear - 1, 8, 1);
             }
-            
-            
         }
 
-        public void SetSchoolYearDates(DateTime start, DateTime end)
+        public void CalculateEndDate()
         {
-            SchoolYearStartDate = start;
-            SchoolYearEndDate = end;
-            
-            MiddleSchoolYearDate = new DateTime(start.Year,12,31);
+            int currentYear = DateTime.Now.Year;
+            int currentMonth = DateTime.Now.Month;
+            if (currentMonth > 6) //using end of June as the cutoff for the school year, so if it's July or later, we are in the new school year
+            {
+                this.SchoolYearEndDate = new DateTime(currentYear + 1, 6, 30);
+            }
+            else
+            {
+                this.SchoolYearEndDate = new DateTime(currentYear, 6, 30);
+            }
+
         }
-
-        
-
     }
 }

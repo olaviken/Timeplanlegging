@@ -6,6 +6,7 @@
 @inject Classes.Interfaces.IEducators educators
 @inject Classes.Interfaces.IFields fields
 @inject Classes.Interfaces.IActivityEditorService activityEditorService
+@inject Components.Services.DateService dateService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -52,18 +53,20 @@
 				{
 					<option value="@subject.SubjectCode">@subject.SubjectCode</option>
 				}
-			</select> </td>
+				</select>
+			</td>
 			<td>
-				<td>
 				<select id="InputField" type="text" @bind="activityEditorService.Current.FieldTitle">
 						@foreach(var field in fields.GetFields())
 						{
 						<option value="@field.FieldTitle">@field.FieldTitle</option>
 						}
 					</select>
-				</td>
 			</td>
-			<td><input id="InputDescription" type="text" @bind="activityEditorService.Current.ActivityDescription" /></td>
+			
+			<td>
+				<input id="InputDescription" type="text" @bind="activityEditorService.Current.ActivityDescription" />
+			</td>
 			<td>
 				<select id="InputEducatorFullname" type="text" @bind="activityEditorService.Current.EducatorFullName">
 				@foreach (var educator in educators.GetEducators())
@@ -87,8 +90,6 @@
 		{
 			@foreach (var activity in activities.GetActivities())
 			{
-				
-				//getting some strange count here needs fixing
 				<tr>
 					<td> @activity.ActivityID </td>
 					<td> @activity.ActivityDate </td>
@@ -120,15 +121,12 @@
 	</tbody>
 </table>
 
-<p>@StartDate</p>
-<p>@EndDate</p>
+<p>@dateService.SchoolYearStartDate</p>
+<p>@dateService.SchoolYearEndDate</p>
+
 
 @code {
-	[CascadingParameter]
-	public DateTime StartDate { get; set; }
-	[CascadingParameter]
-	public DateTime EndDate { get; set; }
-
+	
 	private float GetTotalHours()
 	{
 		float totalHours = 0;

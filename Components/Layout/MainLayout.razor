@@ -13,9 +13,9 @@
         <div class="top-row px-4">
             <div>
                 Filtrer på dato:
-                <input id="startDate" type="date" placeholder="dato fra" @bind="dateService.SchoolYearStartDate"  bind:event="oninput" />
+                <input id="startDate" type="date" placeholder="dato fra" @bind="dateService.SchoolYearStartDate" @bind:after="() => dateService.SetStartDate(dateService.SchoolYearStartDate)" bind:event="oninput" />
                 til: 
-                 <input id="endDate" type="date" placeholder="dato til" @bind="dateService.SchoolYearEndDate" bind:event="oninput" />
+                <input id="endDate" type="date" placeholder="dato til" @bind="dateService.SchoolYearEndDate" @bind:after="() => dateService.SetEndDate(dateService.SchoolYearEndDate)" bind:event="oninput" />
             </div>
             
             <a href="profile"><i id="profile" class="bi bi-person" style="font-size: 2rem;">
@@ -40,6 +40,7 @@
 
 @code {
 
+    
 
 
     protected override void OnInitialized()

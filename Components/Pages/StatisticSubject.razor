@@ -7,6 +7,7 @@
 @inject Classes.Interfaces.IEducators educators
 @inject Components.Services.SelectedSubjectService selectedSubjectService	
 @inject Classes.Interfaces.IActivityEditorService activityEditorService
+@inject Components.Services.DateService dateService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -97,7 +98,7 @@
 		{
 			@foreach (var activity in activities.GetActivities())
 			{
-				if(activity.SubjectCode == selectedSubjectService.Current.SubjectCode)
+				if ((activity.SubjectCode == selectedSubjectService.Current.SubjectCode) && (dateService.SchoolYearStartDate < activity.ActivityDate && dateService.SchoolYearEndDate > activity.ActivityDate))
 				{
 					
 					//getting some strange count here needs fixing
@@ -147,7 +148,12 @@
 		float totalHours = 0;
 		if (activities != null || selectedSubjectService.Current != null)
 		{
-			totalHours = activities.GetActivities().Where(a => a.SubjectCode == selectedSubjectService.Current.SubjectCode).Sum(a => a.CalculatedHours);
+			totalHours = activities.GetActivities()
+								.Where(a =>
+									(a.SubjectCode == selectedSubjectService.Current.SubjectCode)
+									&& (a.ActivityDate >= dateService.SchoolYearStartDate)
+									&& (a.ActivityDate <= dateService.SchoolYearEndDate))
+								.Sum(a => a.CalculatedHours);
 		}
 		return totalHours;
 	}
@@ -157,7 +163,12 @@
 		int totalActivities = 0;
 		if (activities != null || selectedSubjectService.Current != null)
 		{
-			totalActivities = activities.GetActivities().Where(a => a.SubjectCode == selectedSubjectService.Current.SubjectCode).Count();
+			totalActivities = activities.GetActivities()
+										.Where(a => 
+											(a.SubjectCode == selectedSubjectService.Current.SubjectCode)
+											&& (a.ActivityDate >= dateService.SchoolYearStartDate)
+											&& (a.ActivityDate <= dateService.SchoolYearEndDate))
+										.Count();
 		}
 		return totalActivities;
 	}

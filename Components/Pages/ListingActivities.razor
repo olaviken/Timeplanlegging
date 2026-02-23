@@ -90,25 +90,29 @@
 		{
 			@foreach (var activity in activities.GetActivities())
 			{
-				<tr>
-					<td> @activity.ActivityID </td>
-					<td> @activity.ActivityDate </td>
-					<td> @activity.ActivityName </td>
-					<td> @activity.ActivityHours </td>
-					<td> @activity.ActivityCategory </td>
-					<td> @activity.CalculatedHours </td>
-					<td> @activity.SubjectCode </td>
-					<td> @activity.FieldTitle </td>
-					<td> @activity.ActivityDescription </td>
-					<td> @activity.EducatorFullName </td>
-					
-					<td>
-						<button class="btn btn-primary" @onclick="() => activityEditorService.Delete(activity)"><i class="bi bi-trash"></i></button>
-					</td>
-					<td>
-						<button class="btn btn-primary" @onclick="() => activityEditorService.StartEdit(activity)"><i class="bi bi-pencil"></i></button>
-					</td>
-				</tr>
+				if (dateService.SchoolYearStartDate <= activity.ActivityDate && dateService.SchoolYearEndDate >= activity.ActivityDate)
+				{
+					<tr>
+						<td> @activity.ActivityID </td>
+						<td> @activity.ActivityDate </td>
+						<td> @activity.ActivityName </td>
+						<td> @activity.ActivityHours </td>
+						<td> @activity.ActivityCategory </td>
+						<td> @activity.CalculatedHours </td>
+						<td> @activity.SubjectCode </td>
+						<td> @activity.FieldTitle </td>
+						<td> @activity.ActivityDescription </td>
+						<td> @activity.EducatorFullName </td>
+
+						<td>
+							<button class="btn btn-primary" @onclick="() => activityEditorService.Delete(activity)"><i class="bi bi-trash"></i></button>
+						</td>
+						<td>
+							<button class="btn btn-primary" @onclick="() => activityEditorService.StartEdit(activity)"><i class="bi bi-pencil"></i></button>
+						</td>
+					</tr>
+				}
+				
 			}
 		}
 		<tr>
@@ -132,7 +136,7 @@
 		float totalHours = 0;
 		if (activities != null)
 		{
-			totalHours = activities.GetActivities().Sum(a => a.CalculatedHours);
+			totalHours = activities.GetActivities().Where(a=> (a.ActivityDate>=dateService.SchoolYearStartDate)&&(a.ActivityDate<=dateService.SchoolYearEndDate)).Sum(a => a.CalculatedHours);
 		}
 		return totalHours;
 	}
@@ -142,7 +146,7 @@
 		int count = 0;
 		if (activities != null)
 		{
-			count = activities.CountActivities();
+			count = activities.GetActivities().Where(a => (a.ActivityDate >= dateService.SchoolYearStartDate) && (a.ActivityDate <= dateService.SchoolYearEndDate)).Count();
 		}
 		return count;
 	}

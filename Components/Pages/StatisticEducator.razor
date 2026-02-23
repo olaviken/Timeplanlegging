@@ -8,6 +8,7 @@
 @inject Classes.Interfaces.IFields fields
 @inject Components.Services.SelectedEducatorService selectedEducatorService
 @inject Classes.Interfaces.IActivityEditorService activityEditorService
+@inject Components.Services.DateService dateService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -65,7 +66,7 @@
 					}
 				</select>
 			</td>
-			<td>
+			
 			<td>
 				<select id="InputField" type="text" @bind="activityEditorService.Current.FieldTitle">
 					@foreach (var field in fields.GetFields())
@@ -74,7 +75,7 @@
 					}
 				</select>
 			</td>
-			</td>
+			
 			<td><input id="InputDescription" type="text" @bind="activityEditorService.Current.ActivityDescription" /></td>
 			<td>
 				<select id="InputEducatorFirstName" type="text" @bind="activityEditorService.Current.EducatorFullName">
@@ -102,7 +103,7 @@
 		{
 			@foreach (var activity in activities.GetActivities())
 			{
-				if (activity.EducatorFullName == selectedEducatorService.Current.FullName)
+				if ((activity.EducatorFullName == selectedEducatorService.Current.FullName) && (dateService.SchoolYearStartDate < activity.ActivityDate && dateService.SchoolYearEndDate > activity.ActivityDate))
 				{
 					<tr>
 						<td> @activity.ActivityID </td>
@@ -148,7 +149,12 @@
 		float totalHours = 0;
 		if (activities != null || selectedEducatorService.Current != null)
 		{
-			totalHours=activities.GetActivities().Where(a => a.EducatorFullName == selectedEducatorService.Current.FullName).Sum(a => a.CalculatedHours);
+			totalHours = activities.GetActivities()
+									.Where(a => 
+										(a.EducatorFullName == selectedEducatorService.Current.FullName)
+										&& (a.ActivityDate >= dateService.SchoolYearStartDate) 
+										&& (a.ActivityDate <= dateService.SchoolYearEndDate))
+									.Sum(a => a.CalculatedHours);
 		}
 		return totalHours;
 	}
@@ -158,7 +164,12 @@
 		int totalActivities = 0;
 		if (activities != null || selectedEducatorService.Current != null)
 		{
-			totalActivities = activities.GetActivities().Where(a => a.EducatorFullName == selectedEducatorService.Current.FullName).Count();
+			totalActivities = activities.GetActivities()
+									.Where(a => 
+										(a.EducatorFullName == selectedEducatorService.Current.FullName)
+										&& (a.ActivityDate >= dateService.SchoolYearStartDate) 
+										&& (a.ActivityDate <= dateService.SchoolYearEndDate))
+									.Count();
 		}
 		return totalActivities;
 	}

@@ -7,6 +7,7 @@
 @inject Classes.Interfaces.IEducators educators
 @inject Components.Services.SelectedFieldService selectedFieldService
 @inject Classes.Interfaces.IActivityEditorService activityEditorService
+@inject Components.Services.DateService dateService
 @using Classes
 @rendermode InteractiveServer
 @inject IJSRuntime JS
@@ -99,7 +100,7 @@
 		{
 			@foreach (var activity in activities.GetActivities())
 			{
-				if (activity.FieldTitle == selectedFieldService.Current.FieldTitle)
+				if ((activity.FieldTitle == selectedFieldService.Current.FieldTitle) && (dateService.SchoolYearStartDate < activity.ActivityDate && dateService.SchoolYearEndDate > activity.ActivityDate))
 				{
 					
 					<tr>
@@ -146,7 +147,12 @@
 		float totalHours = 0;
 		if (activities != null || selectedFieldService.Current != null)
 		{
-			totalHours = activities.GetActivities().Where(a => a.FieldTitle == selectedFieldService.Current.FieldTitle).Sum(a => a.CalculatedHours);
+			totalHours = activities.GetActivities()
+				.Where(a => 
+					(a.FieldTitle == selectedFieldService.Current.FieldTitle)
+					&& (a.ActivityDate >= dateService.SchoolYearStartDate) 
+					&& (a.ActivityDate <= dateService.SchoolYearEndDate))
+				.Sum(a => a.CalculatedHours);
 		}
 		return totalHours;
 	}
@@ -156,7 +162,10 @@
 		int totalActivities = 0;
 		if (activities != null || selectedFieldService.Current != null)
 		{
-			totalActivities = activities.GetActivities().Where(a => a.FieldTitle == selectedFieldService.Current.FieldTitle).Count();
+			totalActivities = activities.GetActivities().Where(a => 
+					(a.FieldTitle == selectedFieldService.Current.FieldTitle)
+					&& (a.ActivityDate >= dateService.SchoolYearStartDate)
+					&& (a.ActivityDate <= dateService.SchoolYearEndDate)).Count();
 		}
 		return totalActivities;
 	}

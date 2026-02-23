@@ -2,8 +2,8 @@
 {
     public class DateService
     {
-        public DateTime? SchoolYearStartDate { get; set; }
-        public DateTime? SchoolYearEndDate { get; set; }
+        public DateTime SchoolYearStartDate { get; set; }
+        public DateTime SchoolYearEndDate { get; set; }
 
 
         public event Action? OnDatesChanged;

@@ -6,7 +6,7 @@
         public DateTime SchoolYearEndDate { get; set; }
 
 
-        public event Action? OnDatesChanged;
+        public event Action OnDatesChanged;
 
         public void SetStartDate(DateTime startDate)
         {

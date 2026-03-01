@@ -1,19 +1,26 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 
 
 namespace BlazorTest.Components.Classes
 {
     public class Educator
     {
+        [Required(ErrorMessage ="First name is required")]
         public string FirstName { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Last name is required")]
         public string LastName { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Birth date is required")]
         public DateTime BirthDate { get; set; }
         public string Email { get; set; } = string.Empty;
         
         public string Education { get; set; } = string.Empty;
         public string Specialization { get; set; } = string.Empty;
-        
+
+        [Required(ErrorMessage = "Percentage position is required")]
         public int PercentagePosition { get; set; } = 100;
+
+        [Required(ErrorMessage = "Percentage RND is required")]
         public int PercentageRND { get; set; } = 20;
 
 

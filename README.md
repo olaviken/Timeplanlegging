@@ -10,4 +10,4 @@ To populate and test the system it has a couple of testclasses with hardcoded da
 
 When handling data this system follows the principles for CRUD. 
 
-All the data classes are located in the component folder. 
+Components folder contains most of the pages, classes, lists, interfaces and services for this project

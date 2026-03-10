@@ -34,51 +34,55 @@
 	</thead>
 	<tbody>
 		<tr id="Editrow">
-			<td>@activityEditorService.Current.ActivityID</td>
-			<td><input id="InputDate" type="date" @bind="activityEditorService.Current.ActivityDate" /></td>
-			<td><input id="InputActivityName" type="text" @bind="activityEditorService.Current.ActivityName" /> </td>
-			<td><input id="InputNumberOfHours" type="number" @bind="activityEditorService.Current.ActivityHours" @bind:after="() => activityEditorService.UpdateCalculatedHours(categories.FindCategory(activityEditorService.Current.ActivityCategory)?.HoursMultiplier ?? 1f)" @bind:event="oninput" /></td>
-			<td>
-				<select id="InputCategory" type="text" @bind="activityEditorService.Current.ActivityCategory" @bind:after="() => activityEditorService.UpdateCalculatedHours(categories.FindCategory(activityEditorService.Current.ActivityCategory)?.HoursMultiplier ?? 1f)" @bind:event="oninput">
-					@foreach (var category in categories.GetCategories())
-					{
-						<option value="@category.CategoryName">@category.CategoryName</option>
-					}
-				</select>
-			</td>
-			<td> <input id="InputCalculatedHours" type="number" @bind="activityEditorService.Current.CalculatedHours" readonly /> </td>
-			<td>
-				<select id="InputStudyProgram" type="text" @bind="activityEditorService.Current.SubjectCode">
-				@foreach (var subject in subjects.GetSubjects())
-				{
-					<option value="@subject.SubjectCode">@subject.SubjectCode</option>
-				}
-				</select>
-			</td>
-			<td>
-				<select id="InputField" type="text" @bind="activityEditorService.Current.FieldTitle">
-						@foreach(var field in fields.GetFields())
+
+				<td>@activityEditorService.Current.ActivityID</td>
+				<td><input id="InputDate" type="date" @bind="activityEditorService.Current.ActivityDate" /></td>
+				<td><input id="InputActivityName" type="text" @bind="activityEditorService.Current.ActivityName" /> </td>
+				<td><input id="InputNumberOfHours" type="number" @bind="activityEditorService.Current.ActivityHours" @bind:after="() => activityEditorService.UpdateCalculatedHours(categories.FindCategory(activityEditorService.Current.ActivityCategory)?.HoursMultiplier ?? 1f)" @bind:event="oninput" /></td>
+				<td>
+					<select id="InputCategory" type="text" @bind="activityEditorService.Current.ActivityCategory" @bind:after="() => activityEditorService.UpdateCalculatedHours(categories.FindCategory(activityEditorService.Current.ActivityCategory)?.HoursMultiplier ?? 1f)" @bind:event="oninput">
+						@foreach (var category in categories.GetCategories())
 						{
-						<option value="@field.FieldTitle">@field.FieldTitle</option>
+							<option value="@category.CategoryName">@category.CategoryName</option>
 						}
 					</select>
-			</td>
+				</td>
+				<td> <input id="InputCalculatedHours" type="number" @bind="activityEditorService.Current.CalculatedHours" readonly /> </td>
+				<td>	
+					<select id="InputStudyProgram" type="text" @bind="activityEditorService.Current.SubjectCode">
+					@foreach (var subject in subjects.GetSubjects())
+					{
+						<option value="@subject.SubjectCode">@subject.SubjectCode</option>
+					}
+					</select>
+				</td>
+				<td>
+					<select id="InputField" type="text" @bind="activityEditorService.Current.FieldTitle">
+							@foreach(var field in fields.GetFields())
+							{
+								<option value="@field.FieldTitle">@field.FieldTitle</option>
+							}
+					</select>
+				</td>
 			
-			<td>
-				<input id="InputDescription" type="text" @bind="activityEditorService.Current.ActivityDescription" />
-			</td>
-			<td>
-				<select id="InputEducatorFullname" type="text" @bind="activityEditorService.Current.EducatorFullName">
-				@foreach (var educator in educators.GetEducators())
-				{
-					<option value="@educator.FullName">@educator.FullName</option>
-				}
-				</select>   
-			</td> 
+				<td>
+					<input id="InputDescription" type="text" @bind="activityEditorService.Current.ActivityDescription" />
+				</td>
+				<td>
+					<select id="InputEducatorFullname" type="text" @bind="activityEditorService.Current.EducatorFullName">
+						@foreach (var educator in educators.GetEducators())
+						{
+							<option value="@educator.FullName">@educator.FullName</option>
+						}
+					</select>   
+				</td> 
+
+				<td>
+					
+					<button class="btn btn-primary" @onclick="() => activityEditorService.AddOrUpdate()"><i class="bi bi-plus-lg"></i></button>
+					
+				</td>
 			
-			<td> 
-				<button class="btn btn-primary" @onclick="() => activityEditorService.AddOrUpdate()"><i class="bi bi-plus-lg"></i></button>
-			</td>
 		</tr>
 		@if (activities == null || activities.CountActivities() == 0)
 		{
